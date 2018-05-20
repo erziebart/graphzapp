@@ -4,7 +4,7 @@
 </head>
 <body>
 	<?php
-		include "translate.php"
+		include "compiler/translate.php"
 	?>
 </body>
 </html>
