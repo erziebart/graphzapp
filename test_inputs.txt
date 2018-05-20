@@ -1,0 +1,19 @@
+// work
+x = n
+y = (n^2 - t)/(n <= -1) ; (n^2 + t)/(n >= 1)
+
+// fail
+x = n
+y = (9 + 0.543 - 7) ) ( 4( n )
+
+// fail
+x = n
+y = 7n + 1 - t^3 &
+
+// fail
+x = n
+y = 3.456E2.2n
+
+// fail right now
+x = 5sin(n)
+y = 5cos(n)

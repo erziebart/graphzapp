@@ -1,8 +1,13 @@
 <?php
-	// example user inputs
-	$input_x = "n";
-	$input_y = "(n^2 - t)/(n <= -1) ; (n^2 + t)/(n >= 1)";
+	include "lexer.php";
+	include "semant.php";
+	include "mapper.php";
 
+	// example user inputs
+	$input_x = "5sin(n)";
+	$input_y = "5cos(n)";
+
+	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
 
 	// initialize outputs
@@ -10,15 +15,41 @@
 	$x = UNDEF;
 	$y = UNDEF;
 
-	// translate the inputs to get something like the below
-	$x = "[function(n,t){return n;}]";
-	$y = "[function(n,t){return (n**2-t)/(n<=-1);},function(n,t){return (n**2+t)/(n>=1);}]";
+	// lex both inputs to generate tokens
+	GraphzappLexer::init();
+	$x_tok = GraphzappLexer::token($input_x);
+	$y_tok = GraphzappLexer::token($input_y);
+
+	// check for lexing error
+	if ($x_tok === false || $y_tok === false) {
+		$err = "Lexing Error";
+		goto end;
+	}
+
+	// map these tokens to javascript expressions
+	$x_res = GraphzappMapper::convert($x_tok);
+	$y_res = GraphzappMapper::convert($y_tok);
+
+	// check for mapping error
+	if ($x_res === false || $y_res === false) {
+		$err = "Mapping Error";
+		goto end;
+	}
+
+	// assign valid results to output variables
+	$x = $x_res;
+	$y = $y_res;
+
+	end:
+		echo($err."<br>");
+		echo($x."<br>");
+		echo($y."<br>");
 ?>
 
 <script type="text/javascript">
 	var _err = "<?php echo($err); ?>";
-	var _y = <?php echo($y); ?>;
 	var _x = <?php echo($x); ?>;
+	var _y = <?php echo($y); ?>;
 
 	// will evaluate the value of x or y given the current n and t
 	// sample usage: cur_y = eval(0,1,_y);
