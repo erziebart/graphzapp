@@ -15,6 +15,10 @@
 					["m_call", 2], 
 					["m_call", 2], 
 					["m_call_implicit", 2]),
+		"T_VAR" => array(
+					["m_match", 2],
+					["m_match", 2],
+					["m_implicit", 2]),
 		"T_ID" => array(
 					["m_match", 2], 
 					["m_match", 2], 
@@ -86,7 +90,7 @@
 				$args[] = self::convert($tok_ls);
 			}
 
-			return $id."(".implode(",", $args).")";
+			return $id."(n,t,".implode(",", $args).")";
 		}
 
 		protected static function m_call_implicit($token) {
@@ -126,24 +130,6 @@
 						if ($parens < 0) {
 							return false;
 						}
-						break;
-
-					case "T_ID":
-						$match = $current["match"];
-						if ($match !== "n" && $match !== "t") {
-							// TODO: will change this later
-							return false;
-						}
-						break;
-
-					case "T_CALL":
-						$id = $current["id"];
-
-						// TODO: change this later
-						if ($id !== "sin" && $id !== "cos") {
-							return false;
-						}
-
 						break;
 
 					default:

@@ -28,6 +28,11 @@
 				"g_call"
 			),
 			array(
+				"T_VAR",
+				"n|t",
+				"g_generic"
+			),
+			array(
 				"T_ID", 
 				"[A-Za-z][\w]*",
 				"g_generic"

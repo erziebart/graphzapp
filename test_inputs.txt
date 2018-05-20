@@ -14,6 +14,10 @@ y = 7n + 1 - t^3 &
 x = n
 y = 3.456E2.2n
 
-// fail right now
+// work
 x = 5sin(n)
 y = 5cos(n)
+
+// work
+x = pi*n
+y = 2pi*n
