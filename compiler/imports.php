@@ -56,12 +56,19 @@
 
 					case "T_CALL":
 						$id = $tokens[$i]["id"];
-						$argc = count($tokens[$i]["params"]);
+						$argv = $tokens[$i]["params"];
+						$argc = count($argv);
 						if(array_key_exists($id, static::$function_list)) {
 							$func = static::$function_list[$id];
 							if($argc === $func[0]) {
 								static::$imports[$id] = $func;
-								break;
+								$sucess = true;
+								foreach ($argv as $tok_ls) {
+									$sucess &= self::import($tok_ls);
+								}
+								if($sucess) {
+									break;
+								}
 							}
 						}
 						return false;

@@ -21,3 +21,7 @@ y = 5cos(n)
 // work
 x = pi*n
 y = 2pi*n
+
+// work
+x = n
+y = 5cos(arctan(n))
