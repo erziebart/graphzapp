@@ -2,15 +2,15 @@
 x = n
 y = (n^2 - t)/(n <= -1) ; (n^2 + t)/(n >= 1)
 
-// fail
+// mapping error
 x = n
 y = (9 + 0.543 - 7) ) ( 4( n )
 
-// fail
+// mapping error
 x = n
 y = 7n + 1 - t^3 &
 
-// fail
+// lexing error
 x = n
 y = 3.456E2.2n
 
@@ -25,3 +25,15 @@ y = 2pi*n
 // work
 x = n
 y = 5cos(arctan(n))
+
+// work
+x = n
+y = log(2, n)
+
+// sematic error
+x = pin
+y = 2pin
+
+// sematic error
+x = cos(2,pi)
+y = sin(2pi)

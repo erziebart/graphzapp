@@ -1,0 +1,22 @@
+-- FUNCTIONS -- 
+sqrt(a) : the square root of a
+exp(a) : e^a
+ln(a) : natural log of a
+log(b,a) : log base b of a
+sin(a) : sine of angle a given in radians
+cos(a) : cosine of angle a given in radians
+tan(a) : tangent of angle a given in radians
+cot(a) : cotangent of angle a given in radians
+sec(a) : secant of angle a given in radians
+csc(a) : cosecant of angle a given in radians
+arcsin(a) : arcsine of a in radians
+arccos(a) : arccosine of a in radians
+arctan(a) : arctangent of a in radians
+arccot(a) : arccotangent of a in radians
+arcsec(a) : arcsecant of a in radians
+arccsc(a) : arccosecant of a in radians
+
+-- CONSTANTS --
+e : euler's constant (2.71...)
+pi : circle circumference over diameter (3.14...)
+tau : circle circumference over radius (6.28...)
