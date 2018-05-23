@@ -1,13 +1,13 @@
 var tt = 0;
-var step = 0.25;
+var step = 0.125;
 var _x = [function(n,t){if(n%2 == 0) {return NaN;} return n;}];
 var _y = [function(n,t){return Math.sqrt(n);},function(n,t){return Math.abs(n);}];
 
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 function draw() {
     var grid_size = 25;
-    var x_axis_distance_grid_lines = 20;
-    var y_axis_distance_grid_lines = 20;
+    var x_axis_distance_grid_lines = 10;
+    var y_axis_distance_grid_lines = 10;
     var x_axis_starting_point = 1;
     var y_axis_starting_point = 1;
 
