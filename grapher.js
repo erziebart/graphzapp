@@ -1,25 +1,48 @@
+// Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
+
+// current t value
 var tt = 0;
-var step = 0.125;
+
+// n value specs
+var nstart = -10;
+var nstop = 10;
+var nstep = 0.0625;
+
+// grid properties
+var grid_size = 25;
+var x_axis_distance_grid_lines = 10;
+var y_axis_distance_grid_lines = 10;
+var x_axis_starting_point = 1;
+var y_axis_starting_point = 1;
+
+// canvas dimensions
+var canvas_width;
+var canvas_height;
+
 //var _x = [function(n,t){if(n%2 == 0) {return NaN;} return n;}];
 //var _y = [function(n,t){return Math.sqrt(n);},function(n,t){return Math.abs(n);}];
 
-// Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
-function draw() {
-    var grid_size = 25;
-    var x_axis_distance_grid_lines = 10;
-    var y_axis_distance_grid_lines = 10;
-    var x_axis_starting_point = 1;
-    var y_axis_starting_point = 1;
+function init() {
+    update_canvas();
+    draw();
+}
 
+function update_canvas() {
+    var canvas = document.getElementById("canvas");
+    canvas_width = canvas.width;
+    canvas_height = canvas.height;
+}
+
+function draw() {
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
 
-    // canvas width
-    var canvas_width = canvas.width;
+    grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
 
-    // canvas height
-    var canvas_height = canvas.height;
+    plot(ctx,"#96ECFF",1);
+}
 
+function grids(ctx,axis_color,grid_color,thick,font) {
     // no of vertical grid lines
     var num_lines_x = Math.floor(canvas_height/grid_size);
 
@@ -29,13 +52,13 @@ function draw() {
     // Draw grid lines along X-axis
     for(var i=0; i<=num_lines_x; i++) {
         ctx.beginPath();
-        ctx.lineWidth = 1;
+        ctx.lineWidth = thick;
 
         // If line represents X-axis draw in different color
         if(i == x_axis_distance_grid_lines)
-            ctx.strokeStyle = "#000000";
+            ctx.strokeStyle = axis_color;
         else
-            ctx.strokeStyle = "#e9e9e9";
+            ctx.strokeStyle = grid_color;
 
         if(i == num_lines_x) {
             ctx.moveTo(0, grid_size*i);
@@ -51,13 +74,13 @@ function draw() {
     // Draw grid lines along Y-axis
     for(i=0; i<=num_lines_y; i++) {
         ctx.beginPath();
-        ctx.lineWidth = 1;
+        ctx.lineWidth = thick;
 
         // If line represents Y-axis draw in different color
         if(i == y_axis_distance_grid_lines)
-            ctx.strokeStyle = "#000000";
+            ctx.strokeStyle = axis_color;
         else
-            ctx.strokeStyle = "#e9e9e9";
+            ctx.strokeStyle = grid_color;
 
         if(i == num_lines_y) {
             ctx.moveTo(grid_size*i, 0);
@@ -75,8 +98,8 @@ function draw() {
     // Ticks marks along the positive X-axis
     for(i=1; i<(num_lines_y - y_axis_distance_grid_lines); i++) {
         ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = thick;
+        ctx.strokeStyle = axis_color;
 
         // Draw a tick mark 6px long (-3 to 3)
         ctx.moveTo(grid_size*i+0.5, -3);
@@ -84,7 +107,7 @@ function draw() {
         ctx.stroke();
 
         // Text value at that point
-        ctx.font = '9px Arial';
+        ctx.font = font;
         ctx.textAlign = 'start';
         ctx.fillText(x_axis_starting_point*i, grid_size*i-2, 15);
     }
@@ -92,8 +115,8 @@ function draw() {
     // Ticks marks along the negative X-axis
     for(i=1; i<y_axis_distance_grid_lines; i++) {
         ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = thick;
+        ctx.strokeStyle = axis_color;
 
         // Draw a tick mark 6px long (-3 to 3)
         ctx.moveTo(-grid_size*i+0.5, -3);
@@ -101,7 +124,7 @@ function draw() {
         ctx.stroke();
 
         // Text value at that point
-        ctx.font = '9px Arial';
+        ctx.font = font;
         ctx.textAlign = 'end';
         ctx.fillText(-x_axis_starting_point*i, -grid_size*i+3, 15);
     }
@@ -110,8 +133,8 @@ function draw() {
     // Positive Y-axis of graph is negative Y-axis of the canvas
     for(i=1; i<(num_lines_x - x_axis_distance_grid_lines); i++) {
         ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = thick;
+        ctx.strokeStyle = axis_color;
 
         // Draw a tick mark 6px long (-3 to 3)
         ctx.moveTo(-3, grid_size*i+0.5);
@@ -119,7 +142,7 @@ function draw() {
         ctx.stroke();
 
         // Text value at that point
-        ctx.font = '9px Arial';
+        ctx.font = font;
         ctx.textAlign = 'start';
         ctx.fillText(-y_axis_starting_point*i, 8, grid_size*i+3);
     }
@@ -128,8 +151,8 @@ function draw() {
     // Negative Y-axis of graph is positive Y-axis of the canvas
     for(i=1; i<x_axis_distance_grid_lines; i++) {
         ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = thick;
+        ctx.strokeStyle = axis_color;
 
         // Draw a tick mark 6px long (-3 to 3)
         ctx.moveTo(-3, -grid_size*i+0.5);
@@ -137,26 +160,24 @@ function draw() {
         ctx.stroke();
 
         // Text value at that point
-        ctx.font = '9px Arial';
+        ctx.font = font;
         ctx.textAlign = 'start';
         ctx.fillText(y_axis_starting_point*i, 8, -grid_size*i+3);
     }
-
-    plot(ctx,"#96ECFF",1,grid_size,canvas_width);
 }
 
-function plot(ctx,color,thick,grid_size,canvas_width) {
+function plot(ctx,color,thick) {
     ctx.beginPath();
     ctx.lineWidth = thick;
     ctx.strokeStyle = color;
 
     // var n = 0;
-    for(var n = -canvas_width; n <= canvas_width; n += step) {
+    for(var n = nstart; n <= nstop; n += nstep) {
         var cur_x = eval(n,tt,_x);
         var cur_y = eval(n,tt,_y);
 
-        var next_x = eval(n+step,tt,_x);
-        var next_y = eval(n+step,tt,_y);
+        var next_x = eval(n+nstep,tt,_x);
+        var next_y = eval(n+nstep,tt,_y);
 
         if(!isNaN(cur_x) && !isNaN(cur_y)) {
             ctx.moveTo(grid_size * cur_x, -cur_y * grid_size);
