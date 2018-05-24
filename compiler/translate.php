@@ -5,7 +5,7 @@
 
 	// example user inputs
 	$input_x = "n";
-	$input_y = "(n^2 - t)/(n <= -1) ; (t - n^2)/(n >= 1)";
+	$input_y = "(n^2 - t)/(n <= -1) ; (-n^2 + t)/(n >= 1)";
 
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
@@ -56,11 +56,11 @@
 	$y = $y_res;
 
 	end:
-		// echo($err."<br>");
-		// echo($x."<br>");
-		// echo($y."<br>");
-		// print_r($imports);
-		// echo("<br>");
+		echo($err."<br>");
+		echo($x."<br>");
+		echo($y."<br>");
+		print_r($imports);
+		echo("<br>");
 ?>
 
 <script type="text/javascript">

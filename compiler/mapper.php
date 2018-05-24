@@ -13,15 +13,15 @@
 		*/
 		"T_CALL" => array(
 					["m_call", 2], 
-					["m_call", 2], 
+					["m_negate", 2], 
 					["m_call_implicit", 2]),
 		"T_VAR" => array(
 					["m_match", 2],
-					["m_match", 2],
+					["m_negate", 2],
 					["m_implicit", 2]),
 		"T_ID" => array(
 					["m_match", 2], 
-					["m_match", 2], 
+					["m_negate", 2], 
 					["m_implicit", 2]),
 		"T_BINOP" => array(
 					["m_binop", -1], 
@@ -37,7 +37,7 @@
 					["m_match", 1]),
 		"T_LITERAL" => array(
 					["m_match", 2], 
-					["m_match", 2], 
+					["m_negate", 2], 
 					["m_match", 2]),
 		"T_LPAREN" => array(
 					["m_lparen", 0], 
@@ -79,6 +79,10 @@
 
 		protected static function m_implicit($token) {
 			return "*".self::m_match($token);
+		}
+
+		protected static function m_negate($token) {
+			return "1*".self::m_match($token);
 		}
 
 		protected static function m_call($token) {
