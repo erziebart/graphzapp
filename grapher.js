@@ -46,7 +46,7 @@ function draw(ctx) {
     
     grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
 
-    plot(ctx,"#96ECFF",1);
+    plot(ctx,"#96ECFF",3);
 
     
 }
@@ -238,10 +238,10 @@ function update() {
     }
 
     // update the value of tt
-    if(tt >= 5) {
-        tt = 0;
+    if(tt < 2*Math.PI) {
+        tt += Math.PI/30;
     } else {
-        tt += 0.125;
+        tt = 0 + Math.PI/30;
     }
 
     // redraw the canvas
@@ -255,10 +255,10 @@ function update() {
 async function play() {
     while(running) {
         // update the value of tt
-        if(tt >= 10) {
-            tt = 0;
+        if(tt < 2*Math.PI) {
+            tt += Math.PI/30;
         } else {
-            tt += 0.125;
+            tt = 0 + Math.PI/30;
         }
 
         redraw();
