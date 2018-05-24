@@ -1,0 +1,39 @@
+// work
+x = n
+y = (n^2 - t)/(n <= -1) ; (n^2 + t)/(n >= 1)
+
+// mapping error
+x = n
+y = (9 + 0.543 - 7) ) ( 4( n )
+
+// mapping error
+x = n
+y = 7n + 1 - t^3 &
+
+// lexing error
+x = n
+y = 3.456E2.2n
+
+// work
+x = 5sin(n)
+y = 5cos(n)
+
+// work
+x = pi*n
+y = 2pi*n
+
+// work
+x = n
+y = 5cos(arctan(n))
+
+// work
+x = n
+y = log(2, n)
+
+// sematic error
+x = pin
+y = 2pin
+
+// sematic error
+x = cos(2,pi)
+y = sin(2pi)
