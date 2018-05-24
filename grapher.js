@@ -1,7 +1,7 @@
 var tt = 0;
 var step = 0.125;
-var _x = [function(n,t){if(n%2 == 0) {return NaN;} return n;}];
-var _y = [function(n,t){return Math.sqrt(n);},function(n,t){return Math.abs(n);}];
+//var _x = [function(n,t){if(n%2 == 0) {return NaN;} return n;}];
+//var _y = [function(n,t){return Math.sqrt(n);},function(n,t){return Math.abs(n);}];
 
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 function draw() {
@@ -152,11 +152,11 @@ function plot(ctx,color,thick,grid_size,canvas_width) {
 
     // var n = 0;
     for(var n = -canvas_width; n <= canvas_width; n += step) {
-        var cur_x = evaluate(n,tt,_x);
-        var cur_y = evaluate(n,tt,_y);
+        var cur_x = eval(n,tt,_x);
+        var cur_y = eval(n,tt,_y);
 
-        var next_x = evaluate(n+step,tt,_x);
-        var next_y = evaluate(n+step,tt,_y);
+        var next_x = eval(n+step,tt,_x);
+        var next_y = eval(n+step,tt,_y);
 
         if(!isNaN(cur_x) && !isNaN(cur_y)) {
             ctx.moveTo(grid_size * cur_x, -cur_y * grid_size);
@@ -169,7 +169,7 @@ function plot(ctx,color,thick,grid_size,canvas_width) {
     ctx.stroke();
 }
 
-function evaluate(n,t,fn) {
+function eval(n,t,fn) {
     for(var i = 0; i < fn.length; i++) {
         var val = fn[i](n,t);
         if (isFinite(val) && !isNaN(val)) {

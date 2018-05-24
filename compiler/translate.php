@@ -5,7 +5,7 @@
 
 	// example user inputs
 	$input_x = "n";
-	$input_y = "(n^2 - t)/(n <= -1) ; (n^2 + t)/(n >= 1)";
+	$input_y = "(n^2 - t)/(n <= -1) ; (t - n^2)/(n >= 1)";
 
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
@@ -56,11 +56,11 @@
 	$y = $y_res;
 
 	end:
-		echo($err."<br>");
-		echo($x."<br>");
-		echo($y."<br>");
-		print_r($imports);
-		echo("<br>");
+		// echo($err."<br>");
+		// echo($x."<br>");
+		// echo($y."<br>");
+		// print_r($imports);
+		// echo("<br>");
 ?>
 
 <script type="text/javascript">
@@ -86,27 +86,5 @@
 	// the functions
 	var _x = <?php echo($x); ?>;
 	var _y = <?php echo($y); ?>;
-
-	// will evaluate the value of x or y given the current n and t
-	// sample usage: cur_y = eval(0,1,_y);
-	function eval(n,t,fn) {
-		for (var i = 0; i < fn.length; i++) {
-			var val = fn[i](n,t);
-			if (isFinite(val) && !isNaN(val)) {
-				if (val === true) {
-					return 1;
-				} else if(val === false) {
-					return 0;
-				} else {
-					return val;
-				}
-			}
-		}
-		return NaN;
-	}
-
-	// convenient functions to find x and y
-	function x(n,t) {return eval(n,t,_x);}
-	function y(n,t) {return eval(n,t,_y);}
 	
 </script>
