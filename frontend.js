@@ -1,4 +1,4 @@
-var t = 0;
+var tt = 0;
 var tmin;
 var tmax;
 adjustRange();
@@ -11,14 +11,16 @@ function adjustRange(){
 	tmin = parseFloat(tmin);
 	tmax = parseFloat(tmax);
 	adjustT();
-
 }
 
 //Called whenever slider is moved
 function adjustT(){
     var num = document.getElementById('t_slider').value;
-    t = (num/1000) * (tmax-tmin) + tmin;
-    document.getElementById("t_value").innerHTML = t.toFixed(2);
+    tt = (num/1000) * (tmax-tmin) + tmin;
+    document.getElementById("t_value").innerHTML = tt.toFixed(2);
 
-    //TODO: add call to funtion that redraws graph based on new t
+    // redraw the canvas
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    redraw(ctx);
 }

@@ -1,8 +1,5 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
-// current t value
-var tt = 0;
-
 // n value specs
 var nstart = -10;
 var nstop = 10;
@@ -46,9 +43,13 @@ function draw(ctx) {
     
     grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
 
-    plot(ctx,"#96ECFF",3);
+    //plot(ctx,"#96ECFF",2);
 
-    
+    //plot(ctx,"#A7BDD6",2);
+
+    //plot(ctx,"#FFE7C2",2);
+
+    plot(ctx, "#4D6F96", 2);
 }
 
 // draws the gridlines and axes ticks and labels

@@ -3,10 +3,6 @@
 	include "imports.php";
 	include "mapper.php";
 
-	// example user inputs
-	$input_x = $_GET["x-value"];
-	$input_y = $_GET["y-value"];
-
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
 
@@ -15,6 +11,16 @@
 	$x = UNDEF;
 	$y = UNDEF;
 	$imports = array();
+
+	// get user inputs
+	if(isset($_GET["x-value"],$_GET["y-value"])) {
+		$input_x = $_GET["x-value"];
+		$input_y = $_GET["y-value"];
+	} else {
+		$input_x = "";
+		$input_y = "";
+		goto end;
+	}
 
 	// lex both inputs to generate tokens
 	GraphzappLexer::init();

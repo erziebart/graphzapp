@@ -4,7 +4,7 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="draw()">
+<body onload="init()">
 	<div id="header">
 		<h1 id="logo">GraphZapp</h1>
 	</div>
@@ -39,7 +39,7 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="grapher.js"></script>
   	<script type="text/javascript" src="frontend.js"></script>
-  	<script type="text/javascript" src="grapher.js"></script>
 </body>
 </html>
