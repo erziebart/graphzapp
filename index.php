@@ -20,7 +20,7 @@
 				y=
 				<input type="text" name="y-value" value="<?php echo($input_y);?>">
 			</div>
-			<input type="submit" value="Go!">
+			<input type="submit" value="Go!" onsubmit="draw()">
 		</form>
 		t = 
 		<div id="t_value"></div>

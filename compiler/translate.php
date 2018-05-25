@@ -4,8 +4,8 @@
 	include "mapper.php";
 
 	// example user inputs
-	$input_x = "n";
-	$input_y = "(n^2 - t)/(n <= -1) ; (-n^2 + t)/(n >= 1)";
+	$input_x = $_GET["x-value"];
+	$input_y = $_GET["y-value"];
 
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
