@@ -4,8 +4,8 @@
 	include "mapper.php";
 
 	// example user inputs
-	$input_x = "cos(n)(5 + 5cos(n + t))";
-	$input_y = "sin(n)(5 + 5cos(n - t))";
+	$input_x = $_GET["x-value"];
+	$input_y = $_GET["y-value"];
 
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
