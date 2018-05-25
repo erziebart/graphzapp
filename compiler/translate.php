@@ -56,11 +56,11 @@
 	$y = $y_res;
 
 	end:
-		echo($err."<br>");
-		echo($x."<br>");
-		echo($y."<br>");
-		print_r($imports);
-		echo("<br>");
+		// echo($err."<br>");
+		// echo($x."<br>");
+		// echo($y."<br>");
+		// print_r($imports);
+		// echo("<br>");
 ?>
 
 <script type="text/javascript">
