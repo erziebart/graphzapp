@@ -1,6 +1,6 @@
 // work
 x = n
-y = (n^2 - t)/(n <= -1) ; (n^2 + t)/(n >= 1)
+y = (n^2 - t)/(n <= -1) ; (-n^2 + t)/(n >= 1)
 
 // mapping error
 x = n
@@ -37,3 +37,7 @@ y = 2pin
 // sematic error
 x = cos(2,pi)
 y = sin(2pi)
+
+// work
+x = cos(n)(5 + 5cos(n + t))
+y = sin(n)(5 + 5cos(n - t))

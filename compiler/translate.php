@@ -4,8 +4,8 @@
 	include "mapper.php";
 
 	// example user inputs
-	$input_x = "n";
-	$input_y = "(n^2 - t)/(n <= -1) ; (-n^2 + t)/(n >= 1)";
+	$input_x = "cos(n)(5 + 5cos(n + t))";
+	$input_y = "sin(n)(5 + 5cos(n - t))";
 
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
@@ -56,11 +56,11 @@
 	$y = $y_res;
 
 	end:
-		echo($err."<br>");
-		echo($x."<br>");
-		echo($y."<br>");
-		print_r($imports);
-		echo("<br>");
+		// echo($err."<br>");
+		// echo($x."<br>");
+		// echo($y."<br>");
+		// print_r($imports);
+		// echo("<br>");
 ?>
 
 <script type="text/javascript">
