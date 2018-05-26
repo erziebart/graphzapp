@@ -23,14 +23,14 @@
 				"g_ignore"
 			),
 			array(
-				"T_CALL", 
-				"(".self::ID.")(\((?:(?>".self::ALLOWED."+)|(?3))*\))",
-				"g_call"
-			),
-			array(
 				"T_VAR",
 				"n|t",
 				"g_generic"
+			),
+			array(
+				"T_CALL", 
+				"(".self::ID.")(\((?:(?>".self::ALLOWED."+)|(?3))*\))",
+				"g_call"
 			),
 			array(
 				"T_ID", 

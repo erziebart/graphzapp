@@ -11,14 +11,14 @@
 			]
 			*** a negative next_state indicates error ***
 		*/
-		"T_CALL" => array(
-					["m_call", 2], 
-					["m_negate", 2], 
-					["m_call_implicit", 2]),
 		"T_VAR" => array(
 					["m_match", 2],
 					["m_negate", 2],
 					["m_implicit", 2]),
+		"T_CALL" => array(
+					["m_call", 2], 
+					["m_negate", 2], 
+					["m_call_implicit", 2]),
 		"T_ID" => array(
 					["m_match", 2], 
 					["m_negate", 2], 
