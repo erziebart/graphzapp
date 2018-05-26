@@ -24,7 +24,7 @@
 			),
 			array(
 				"T_VAR",
-				"n|t",
+				"(n|t)(?!\w)",
 				"g_generic"
 			),
 			array(
@@ -99,6 +99,9 @@
 		}
 		/////////////////////////////////////////////////////////
 
+		// error reporting
+		static $report;
+
 		// prepare regexes
 		public static function init() {
 			for ($i = 0; $i < count(static::$terminals); $i++) {
@@ -143,6 +146,8 @@
 				}
 			}
 
+			// does not match any token types
+			static::$report = new Report("Invalid token", $offset);
 			return false;
 		}
 	}

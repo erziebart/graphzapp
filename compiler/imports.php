@@ -34,6 +34,9 @@
 
 		protected static $imports;
 
+		// error reporting
+		static $report;
+
 		// initializes the array of imported functions
 		public static function init() {
 			static::$imports = array();
@@ -52,6 +55,11 @@
 							$tokens[$i]["match"] = static::$constant_list[$match];
 							break;
 						}
+
+						// unknown constant
+						$reason = "Unknown constant ".$match;
+						$offset = $tokens[$i]["offset"];
+						static::$report = new Report($reason, $offset);
 						return false;
 
 					case "T_CALL":
@@ -69,8 +77,19 @@
 								if($sucess) {
 									break;
 								}
+							} else {
+								// wrong number of arguments
+								$reason = $id." has wrong number of arguments";
+								$offset = $tokens[$i]["offset"];
+								static::$report = new Report($reason, $offset);
 							}
+						} else {
+							// unknown function
+							$reason = "Unknown function ".$id;
+							$offset = $tokens[$i]["offset"];
+							static::$report = new Report($reason, $offset);
 						}
+						
 						return false;
 					
 					default:

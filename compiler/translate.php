@@ -1,13 +1,16 @@
 <?php
+	include "report.php";
 	include "lexer.php";
 	include "imports.php";
 	include "mapper.php";
+
 
 	// undefined for all inputs
 	const UNDEF = "[function(n,t){return NaN;}]";
 
 	// initialize outputs
 	$err = "";
+	$report = NULL;
 	$x = UNDEF;
 	$y = UNDEF;
 	$imports = array();
@@ -29,7 +32,8 @@
 
 	// check for lexing error
 	if ($x_tok === false || $y_tok === false) {
-		$err = "Lexing Error";
+		$err = "Lexing error";
+		$report = GraphzappLexer::$report;
 		goto end;
 	}
 
@@ -40,7 +44,8 @@
 
 	// check for a semantic error
 	if($sucess === false) {
-		$err = "Semantic Error";
+		$err = "Semantic error";
+		$report = GraphzappImports::$report;
 		goto end;
 	}
 
@@ -53,7 +58,8 @@
 
 	// check for mapping error
 	if ($x_res === false || $y_res === false) {
-		$err = "Mapping Error";
+		$err = "Mapping error";
+		$report = GraphzappMapper::$report;
 		goto end;
 	}
 
@@ -67,11 +73,13 @@
 		// echo($y."<br>");
 		// print_r($imports);
 		// echo("<br>");
+		//echo $report->get_reason();
 ?>
 
 <script type="text/javascript">
 	// error handling
 	var _err = "<?php echo($err); ?>";
+	var _reason = "<?php echo (is_null($report)?"":$report->get_reason());?>";
 
 	// imported functions
 	<?php
@@ -92,5 +100,8 @@
 	// the functions
 	var _x = <?php echo($x); ?>;
 	var _y = <?php echo($y); ?>;
+
+	// print an error message
+	console.log(_err + ": " + _reason);
 	
 </script>

@@ -114,6 +114,12 @@
 		}
 		/////////////////////////////////////////////////////////////
 
+		// error reporting
+		static $report;
+		protected static $errors = array(
+			"Operand Expected"
+		);
+
 		// convert the tokens to a string reprentation of a
 		// javascript object implementing the function
 		public static function convert($tokens) {
@@ -132,6 +138,9 @@
 					case "T_RPAREN":
 						$parens--;
 						if ($parens < 0) {
+							$reason = "Unpaired )";
+							$offset = $current["offset"];
+							static::$report = new Report($reason, $offset);
 							return false;
 						}
 						break;
@@ -149,6 +158,9 @@
 					$res .= static::$mapper($current);
 				} else {
 					// parse error
+					$reason = static::$errors[-$next_state-1];
+					$offset = $current["offset"];
+					static::$report = new Report($reason, $offset);
 					return false;
 				}
 			}
@@ -156,6 +168,16 @@
 			if ($state === self::FINISH) {
 				return "[function(n,t){return ".$res.";}]";
 			} else {
+				// wrong ending state
+				static::$report = new Report("Unexpected end of input", -1);
+				return false;
+			}
+
+			if ($parens > 0) {
+				// unmatched parentheses
+				$reason = "Unpaired (";
+				$offset = -1;
+				static::$report = new Report($reason, $offset);
 				return false;
 			}
 			
