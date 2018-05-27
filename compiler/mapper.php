@@ -165,6 +165,15 @@
 				}
 			}
 
+			if ($parens > 0) {
+				// unmatched parentheses
+				echo "found the problem!";
+				$reason = "Unpaired (";
+				$offset = -1;
+				static::$report = new Report($reason, $offset);
+				return false;
+			}
+
 			if ($state === self::FINISH) {
 				return "[function(n,t){return ".$res.";}]";
 			} else {
@@ -172,15 +181,6 @@
 				static::$report = new Report("Unexpected end of input", -1);
 				return false;
 			}
-
-			if ($parens > 0) {
-				// unmatched parentheses
-				$reason = "Unpaired (";
-				$offset = -1;
-				static::$report = new Report($reason, $offset);
-				return false;
-			}
-			
 		}
 	}
 ?>
