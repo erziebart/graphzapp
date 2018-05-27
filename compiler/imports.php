@@ -58,7 +58,7 @@
 
 						// unknown constant
 						$reason = "Unknown constant ".$match;
-						$offset = $tokens[$i]["offset"];
+						$offset = $tokens[$i]["start"];
 						static::$report = new Report($reason, $offset);
 						return false;
 
@@ -80,13 +80,13 @@
 							} else {
 								// wrong number of arguments
 								$reason = $id." has wrong number of arguments";
-								$offset = $tokens[$i]["offset"];
+								$offset = $tokens[$i]["start"];
 								static::$report = new Report($reason, $offset);
 							}
 						} else {
 							// unknown function
 							$reason = "Unknown function ".$id;
-							$offset = $tokens[$i]["offset"];
+							$offset = $tokens[$i]["start"];
 							static::$report = new Report($reason, $offset);
 						}
 						

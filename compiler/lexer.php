@@ -75,10 +75,12 @@
 		}
 
 		protected static function g_generic($name, $matches, $offset) {
+			$match = $matches[1];
 			return array(
 				"name" => $name,
-				"offset" => $offset,
-				"match" => $matches[1]);
+				"match" => $match,
+				"start" => $offset - strlen($match),
+				"end" => $offset);
 		}
 
 		// for T_CALL
@@ -93,9 +95,10 @@
 
 			return array(
 				"name" => $name,
-				"offset" => $offset,
 				"id" => $id,
-				"params" => $params);
+				"params" => $params,
+				"start" => $offset - strlen($matches[1]),
+				"end" => $offset);
 		}
 		/////////////////////////////////////////////////////////
 
