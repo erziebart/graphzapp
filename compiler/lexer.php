@@ -23,14 +23,14 @@
 				"g_ignore"
 			),
 			array(
+				"T_VAR",
+				"(n|t)(?!\w)",
+				"g_generic"
+			),
+			array(
 				"T_CALL", 
 				"(".self::ID.")(\((?:(?>".self::ALLOWED."+)|(?3))*\))",
 				"g_call"
-			),
-			array(
-				"T_VAR",
-				"n|t",
-				"g_generic"
 			),
 			array(
 				"T_ID", 
@@ -75,10 +75,12 @@
 		}
 
 		protected static function g_generic($name, $matches, $offset) {
+			$match = $matches[1];
 			return array(
 				"name" => $name,
-				"offset" => $offset,
-				"match" => $matches[1]);
+				"match" => $match,
+				"start" => $offset - strlen($match),
+				"end" => $offset);
 		}
 
 		// for T_CALL
@@ -93,11 +95,15 @@
 
 			return array(
 				"name" => $name,
-				"offset" => $offset,
 				"id" => $id,
-				"params" => $params);
+				"params" => $params,
+				"start" => $offset - strlen($matches[1]),
+				"end" => $offset);
 		}
 		/////////////////////////////////////////////////////////
+
+		// error reporting
+		static $report;
 
 		// prepare regexes
 		public static function init() {
@@ -143,6 +149,8 @@
 				}
 			}
 
+			// does not match any token types
+			static::$report = new Report("Invalid token", $offset);
 			return false;
 		}
 	}

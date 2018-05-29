@@ -19,9 +19,6 @@ var canvas_height;
 // player
 var running = false;
 
-//var _x = [function(n,t){if(n%2 == 0) {return NaN;} return n;}];
-//var _y = [function(n,t){return Math.sqrt(n);},function(n,t){return Math.abs(n);}];
-
 // this is called when the canvas is first loaded
 function init() {
     var canvas = document.getElementById("canvas");

@@ -9,7 +9,7 @@
 		<h1 id="logo">GraphZapp</h1>
 	</div>
     <canvas id="canvas" width="500" height="500"></canvas>
-	<?php	include "compiler/translate.php";?>
+	<?php include "compiler/translate.php";?>
 	<div id="right_col">
 		<form id="xy_input" action="index.php" method="get">
 			<div class="line">
