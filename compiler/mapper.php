@@ -17,7 +17,7 @@
 					["m_implicit", 2]),
 		"T_CALL" => array(
 					["m_call", 2], 
-					["m_negate", 2], 
+					["m_call_negate", 2], 
 					["m_call_implicit", 2]),
 		"T_ID" => array(
 					["m_match", 2], 
@@ -99,6 +99,10 @@
 
 		protected static function m_call_implicit($token) {
 			return "*".self::m_call($token);
+		}
+
+		protected static function m_call_negate($token) {
+			return "1*".self::m_call($token);
 		}
 
 		protected static function m_lparen($token) {
