@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Graphzapp Guide</title>
+	<link rel="stylesheet" type="text/css" href="guide_style.css">
 </head>
 <body>
 	<div id="header">
@@ -23,7 +24,7 @@
 			Use (+) for addition, (-) for subtraction, (*) for multiplication, (/) for division, and (^) for powers. Use parentheses to group parts of the expressions.
 		</p>
 		<p>
-			Example: Graphing a parabola by typing <nobr>"(1/2)*n^2 + 3*n - 1.5"</nobr>. Can also just write <nobr>"1/2n^2 + 3n - 1.5"</nobr> to graph the same curve.
+			Example: Graph a parabola by typing <nobr>"(1/2)*n^2 + 3*n - 1.5"</nobr>. We can also simply write <nobr>"1/2n^2 + 3n - 1.5"</nobr> to graph the same parabola.
 		</p>
 	</div>
 	<div class="card">
@@ -37,8 +38,13 @@
 	</div>
 	<div class="card">
 		<h3> Boolean Algebra </h3>
+		<ul>
+			<li>Logical AND (&) - returns 1 if both operands are true and 0 otherwise</li>
+			<li>Logical OR (|) - returns 1 if either operand is true and 0 otherwise</li>
+			<li>Logical NOT (!) - returns 1 when the operand is false and 0 when it is true</li>
+		</ul>
 		<p>
-			Use (&) for AND - returning 1 if both operands are true and 0 otherwise, (|) for OR - returning 1 if either operand is true and 0 otherwise, and (!) for NOT - returning 1 when the operand is false and 0 when it is true. When evaluating, anything non-zero stands for true, and only 0 stands for false.
+			When evaluating, anything non-zero stands for true, and only 0 stands for false.
 		</p>
 		<p>
 			Example: <nobr>(6 > 1 & 0 >= 4)</nobr> has value 0. <nobr>(1 == 0 | 5)</nobr> has value 1. <nobr>(1 == 0 | 0)</nobr> has value 0.
