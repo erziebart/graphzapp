@@ -1,13 +1,137 @@
 body{
+	font-family: sans-serif;
+	font-size: 18px;
+	color: #3d3d3d;
+	background-color: #f7f7f7;
 	margin: 0;
 }
 
+form{
+	margin: 18px 0;
+}
+
+
+input {
+	color: #3d3d3d;
+	border: 1px solid rgb(220, 220, 220);
+	border-radius: 3px;
+}
+
+input:focus{
+	outline: none;
+}
+
+input.equation_input{
+	width: 85%;
+}
+
+input.large{
+	height: 30px;
+	font-size: 18px;
+	font-size: 18px;
+	padding: 5px;
+}
+
+input.small_input{
+	height: 15px;
+	font-size: 14px;
+	padding: 2px;
+}
+
+input.range {
+	padding: 5px 10px;
+	font-size: 14px;
+}
+input[type=range]::-moz-focus-outer {
+    border: 0;
+}
+
+.flex ul {
+	display: inline-block;
+	text-align: left;
+	line-height: 24px;
+	width: 150px;
+}
+
+hr{
+	border: .5px solid #b7b7b7;
+	margin: 20px auto;
+}
+
+p {
+	margin: 0;
+}
+
+
+a{
+	color: rgb(167, 189, 214);
+	text-decoration: none;
+}
+
+a:hover{
+	font-weight: bold;
+}
+
+.body_container{
+	width: 95%;
+	max-width: 1300px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	padding: 20px 30px;
+}
+
+.gradient {
+	background-image: linear-gradient(to bottom, rgba(167, 189, 214, .9) 0, rgba(167, 189, 214, 1));
+	text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+}
+
+.gray_gradient {
+		background-image:linear-gradient(to bottom, rgba(220, 220, 220, .2) 0, rgba(220, 220, 220, .4));
+	}
+
+.well {
+	text-align: center;
+	border: 2px solid rgb(220, 220, 220);
+	border-radius: 5px;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1);
+	background-color: white;
+	margin: 20px 0;
+	padding: 10px 30px;
+}
+
+.small {
+	font-size: 14px;
+}
+
+.badge {
+	display: inline-block;
+	width: 15%;
+	background-image:linear-gradient(to bottom, rgba(220, 220, 220, .2) 0, rgba(220, 220, 220, .4));
+	border-radius: 3px;
+	border: 1px solid rgb(220, 220, 220);
+	padding: 5px 10px;
+	vertical-align: top;
+	margin: 10px 10px 0 0;
+}
+
+.line {
+	margin: 20px 0;
+}
+
+.hover:hover{
+	cursor: pointer;
+}
+
+.flex {
+	display: flex;
+	justify-content: center;
+}
+
 #header{
-	/*background-color: rgba(0, 55, 112, .4);*/
-	background-color: rgb(167, 189, 214);
 	color: white;
-	padding: 20px 20px;
-	border: 1px solid rgb(206, 206, 206);
+	padding: 25px 50px;
+	/*border: 1px solid rgb(206, 206, 206);*/
 }
 
 #header h1{
@@ -16,34 +140,32 @@ body{
 
 #canvas{
 	display: inline-block;
-	margin: 20px;
-	border: 2px solid rgb(206, 206, 206);
+	width: 100%;
+	margin: auto;
+	border: 1px solid rgb(220, 220, 220);
 }
 
-#left_col{
-	width: 500px;
-	padding: 50px;
+.left_col{
+	width: 50%;
 	text-align: center;
-	vertical-align: top;
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-form{
-	margin: 20px 0;
+.center_col {
+	width: 150px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
 }
 
-form .line{
-	display: block;
-	margin: 20px;
-}
-
-input:focus{
-	outline: none;
-}
-
-input.equation-input{
-	width: 400px;
-	height: 20px;
+.right_col{
+    width: 50%;
+	text-align: center;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #t_value{
@@ -51,16 +173,24 @@ input.equation-input{
 }
 
 .slider_container{
-	width: 300px;
+	display: inline-block;
+	width: 75%;
 	margin: auto;
 }
 
 .slider{
 	-webkit-appearance: none;
-	height: 2px;
-	background-color: rgb(167, 189, 214);
-	margin: 20px 0;
+	background-color: #b7b7b7;
 	width: 100%;
+	height: 2px;
+	margin: 20px 0;
+	border-radius: 1px;
+	border: none;
+	padding: 0px;
+}
+
+.slider:hover {
+	cursor: pointer;
 }
 
 .slider::-webkit-slider-thumb{
@@ -69,15 +199,19 @@ input.equation-input{
 	height: 30px;
 	border-radius: 50%;
 	background-color: rgb(167, 189, 214);
-	curson: pointer;
+	box-shadow: inset 0 2px 6px rgba(0,0,0,.1), 0 2px 0 rgba(255,255,255,.2);
+	cursor: pointer;
 }
+
 
 .slider::-moz-range-thumb{
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
 	background-color: rgb(167, 189, 214);
-	curson: pointer;
+	box-shadow: inset 0 2px 6px rgba(0,0,0,.1), 0 2px 0 rgba(255,255,255,.2);
+	cursor: pointer;
+	border: none;
 }
 
 #t_range{
@@ -96,10 +230,24 @@ input.equation-input{
 	float: right;
 }
 
-h3 {
-	text-align: left;
-	margin-top: 50px;
-	margin-bottom: 10px;
+.center_button {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: white;
+	font-size: 55px;
+	text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+	width: 75px;
+	height: 150px;
+	margin: auto;
+	padding-left: 15px;
+	border-radius: 10px;
+	border: none;
+	box-shadow: inset 0 2px 6px rgba(0,0,0,.1), 0 2px 0 rgba(255,255,255,.2);
+}
+
+.center_button:hover{
+	transform: scale(1.02);
 }
 
 .indented{
@@ -107,10 +255,4 @@ h3 {
 	text-align: left;
 }
 
-ul {
-	display: inline-block;
-}
 
-p {
-	margin: 0;
-}
