@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 	<title>Graphzapp</title>
@@ -43,7 +43,7 @@
 				<input class="gray_gradient hover range" type="submit" value="Adjust Range" onclick="adjustRange()">
 			</div>
 		</div>
-		</div>
+	  </div>
 		<hr>
 				<p style="text-align: left;">Also try playing with these fun graphs:</p>
 		<div class="flex">
@@ -84,6 +84,6 @@
 
 </div>
 	<script type="text/javascript" src="grapher.js"></script>
-  	<script type="text/javascript" src="frontend.js"></script>
+  <script type="text/javascript" src="frontend.js"></script>
 </body>
 </html>
