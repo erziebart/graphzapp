@@ -6,9 +6,7 @@
 </head>
 <body onload="init()">
 	<?php include "compiler/translate.php";?>
-	<div class="gradient" id="header">
-		<h1 id="logo">GraphZapp</h1>
-	</div>
+	<?php include "header.php"; ?>
 	<div class="body_container">
 	<div class="left_col">
 		<div class="well">
