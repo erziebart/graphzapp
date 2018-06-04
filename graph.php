@@ -12,11 +12,11 @@
 		<div class="well">
 		<form id="xy_input" action="index.php" method="get">
 			<div class="line">
-				<span>x = </span>
+				<span>x(t) = </span>
 				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>">
 			</div>
 			<div class="line">
-				<span>y = </span>
+				<span>y(t) = </span>
 				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>">
 			</div>
 		</form>
@@ -24,19 +24,19 @@
 	<div class="well">
 		<div class="line">
 		<div class="badge small">
-			t = 
-			<div id="t_value"></div>
+			k = 
+			<div id="k_value"></div>
 		</div>
 		<div class="slider_container">
-			<input id="t_slider" class="slider" oninput="adjustT()" type="range" min="0" max="1000" value="0">
-			<div id="t_range">
-				<div id="t_min_container">
+			<input id="k_slider" class="slider" oninput="adjustK()" type="range" min="0" max="1000" value="0">
+			<div id="k_range">
+				<div id="k_min_container">
 					<span class="small">min:</span>
-					<input id="tmin" class="small_input" type="text" name="t-min" value="0.0">
+					<input id="kmin" class="small_input" type="text" name="k-min" value="0.0">
 				</div>
-				<div id="t_max_container">
+				<div id="k_max_container">
 					<span class="small">max:</span>
-					<input id="tmax" class="small_input" type="text" name="t-max" value="10.0">
+					<input id="kmax" class="small_input" type="text" name="k-max" value="10.0">
 				</div>
 				<input class="gray_gradient hover range" type="submit" value="Adjust Range" onclick="adjustRange()">
 			</div>

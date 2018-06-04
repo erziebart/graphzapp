@@ -1,9 +1,9 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
 // n value specs
-var nstart = -10;
-var nstop = 10;
-var nstep = 0.0625;
+var tstart = -10;
+var tstop = 10;
+var tstep = 0.0625;
 
 // grid properties
 var grid_size = 25;
@@ -179,18 +179,18 @@ function plot(ctx,color,thick) {
 
     var cur_x, cur_y, next_x, next_y;
 
-    // var n = 0;
-    for(var n = nstart; n < nstop; n += nstep) {
-        if(n > nstart) {
+    // var t = 0;
+    for(var tt = tstart; tt < tstop; tt += tstep) {
+        if(tt > tstart) {
             cur_x = next_x;
             cur_y = next_y;
         } else {
-            var cur_x = eval(n,tt,_x);
-            var cur_y = eval(n,tt,_y);
+            var cur_x = eval(tt,kk,_x);
+            var cur_y = eval(tt,kk,_y);
         }
 
-        var next_x = eval(n+nstep,tt,_x);
-        var next_y = eval(n+nstep,tt,_y);
+        var next_x = eval(tt+tstep,kk,_x);
+        var next_y = eval(tt+tstep,kk,_y);
 
         if(!isNaN(cur_x) && !isNaN(cur_y)) {
             ctx.moveTo(grid_size * cur_x, -cur_y * grid_size);
@@ -206,9 +206,9 @@ function plot(ctx,color,thick) {
 }
 
 // used to evaluate the functions
-function eval(n,t,fn) {
+function eval(t,k,fn) {
     for(var i = 0; i < fn.length; i++) {
-        var val = fn[i](n,t);
+        var val = fn[i](t,k);
         if (isFinite(val) && !isNaN(val)) {
             if (val === true) { return 1;}
             else if(val === false) {return 0;}
@@ -227,7 +227,7 @@ function redraw(ctx) {
     draw(ctx);
 }
 
-// called to update the tt value
+// called to update the kk value
 // TODO: works with the slider, taking the new value as argument
 function update() {
     // ignore this call if the graph is already playing
@@ -235,11 +235,11 @@ function update() {
         return;
     }
 
-    // update the value of tt
-    if(tt < 2*Math.PI) {
-        tt += Math.PI/30;
+    // update the value of kk
+    if(kk < 2*Math.PI) {
+        kk += Math.PI/30;
     } else {
-        tt = 0 + Math.PI/30;
+        kk = 0 + Math.PI/30;
     }
 
     // redraw the canvas
@@ -248,15 +248,15 @@ function update() {
     redraw(ctx);
 }
 
-// continuously updates the tt value and redraws to animate the graph
+// continuously updates the kk value and redraws to animate the graph
 // TODO: add a more precise timing mechanism
 async function play() {
     while(running) {
-        // update the value of tt
-        if(tt < 2*Math.PI) {
-            tt += Math.PI/30;
+        // update the value of kk
+        if(kk < 2*Math.PI) {
+            kk += Math.PI/30;
         } else {
-            tt = 0 + Math.PI/30;
+            kk = 0 + Math.PI/30;
         }
 
         redraw();

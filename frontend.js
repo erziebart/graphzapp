@@ -1,23 +1,23 @@
-var tt = 0;
-var tmin;
-var tmax;
+var kk = 0;
+var kmin;
+var kmax;
 adjustRange();
-adjustT();
+adjustK();
 
 //Updates tmin and tmax when user hits 'update range'
 function adjustRange(){
-	tmin = document.getElementById('tmin').value;
-	tmax = document.getElementById('tmax').value;
-	tmin = parseFloat(tmin);
-	tmax = parseFloat(tmax);
-	adjustT();
+	kmin = document.getElementById('kmin').value;
+	kmax = document.getElementById('kmax').value;
+	kmin = parseFloat(kmin);
+	kmax = parseFloat(kmax);
+	adjustK();
 }
 
 //Called whenever slider is moved
-function adjustT(){
-    var num = document.getElementById('t_slider').value;
-    tt = (num/1000) * (tmax-tmin) + tmin;
-    document.getElementById("t_value").innerHTML = tt.toFixed(2);
+function adjustK(){
+    var num = document.getElementById('k_slider').value;
+    kk = (num/1000) * (kmax-kmin) + kmin;
+    document.getElementById("k_value").innerHTML = kk.toFixed(2);
 
     // redraw the canvas
     var canvas = document.getElementById("canvas");
