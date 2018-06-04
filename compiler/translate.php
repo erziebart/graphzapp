@@ -5,7 +5,7 @@
 	include "mapper.php";
 
 	// undefined for all inputs
-	const UNDEF = "[function(n,t){return NaN;}]";
+	const UNDEF = "[function(t,k){return NaN;}]";
 
 	function translate($expr,&$report,&$result) {
 		// lexing
@@ -46,8 +46,8 @@
 		// check that input was enterred
 		if ($input_x || $input_y) {
 			// fill in other empty input as appropriate
-			if (!$input_x) {$input_x = "n";}
-			if (!$input_y) {$input_y = "n";}
+			if (!$input_x) {$input_x = "t";}
+			if (!$input_y) {$input_y = "t";}
 
 			// initialize the static classes
 			GraphzappLexer::init();
@@ -88,9 +88,9 @@
 			$evals = "";
 			for ($i=0; $i < $argc; $i++) { 
 				$params[] = "p".$i;
-				$evals .= "a".$i."=eval(n,t,p".$i.");";
+				$evals .= "a".$i."=eval(t,k,p".$i.");";
 			}
-			printf("function %s(n,t,%s){%s%s}\n\t", $fname, implode(",", $params), $evals, $impl);
+			printf("function %s(t,k,%s){%s%s}\n\t", $fname, implode(",", $params), $evals, $impl);
 		}
 	?>
 

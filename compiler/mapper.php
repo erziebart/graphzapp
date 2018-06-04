@@ -67,7 +67,7 @@
 				case '|':
 					return '||';
 				case ';':
-					return ';},function(n,t){return ';
+					return ';},function(t,k){return ';
 				default:
 					return $match;
 			}
@@ -94,7 +94,7 @@
 				$args[] = self::convert($tok_ls);
 			}
 
-			return $id."(n,t,".implode(",", $args).")";
+			return $id."(t,k,".implode(",", $args).")";
 		}
 
 		protected static function m_call_implicit($token) {
@@ -106,7 +106,7 @@
 		}
 
 		protected static function m_lparen($token) {
-			return "eval(n,t,[function(n,t){return ";
+			return "eval(t,k,[function(t,k){return ";
 		}
 
 		protected static function m_rparen($token) {
@@ -178,7 +178,7 @@
 			}
 
 			if ($state === self::FINISH) {
-				return "[function(n,t){return ".$res.";}]";
+				return "[function(t,k){return ".$res.";}]";
 			} else {
 				// wrong ending state
 				static::$report = new Report("Unexpected end of input", -1);

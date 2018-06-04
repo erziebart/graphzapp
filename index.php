@@ -27,37 +27,37 @@
 			<hr>
 			<div class="samples_container">
 			<div class="sample">
-				<a href="http://www.graphzapp.com/?x-value=n&y-value=t*n%5E2">
+				<a href="http://www.graphzapp.com/graph.php?x-value=t&y-value=k*t%5E2">
 					<img src="Images/parabola.png">
 					Parabola
 				</a>
 			</div>
 			<div class="sample">
-				<a href="http://www.graphzapp.com/index.php?x-value=3*%28.5%2Bcos%283n%29%29%28cos%28n%29%29%28cos%28t%29%5E2+%2B+.5%29&y-value=3*%28.5%2Bcos%283n%29%29%28sin%28n%29%29%28sin%28t%29%5E2%29">
+				<a href="http://www.graphzapp.com/graph.php?x-value=3*%28.5%2Bcos%283t%29%29cos%28t%29%28cos%28k%29%5E2+%2B+.5%29&y-value=3*%28.5%2Bcos%283t%29%29sin%28t%29%28sin%28k%29%5E2%29">
 					<img src="Images/butterfly.png">
 					Butterfly
 				</a>
 			</div>
 			<div class="sample">
-				<a href="http://www.graphzapp.com/index.php?x-value=cos%28n%29%285+%2B+5cos%28n%2Bt%29%29&y-value=sin%28n%29%285+%2B+5cos%28n-t%29%29">
+				<a href="http://www.graphzapp.com/graph.php?x-value=cos%28t%29%285+%2B+5cos%28t%2Bk%29%29&y-value=sin%28t%29%285+%2B+5cos%28t-k%29%29">
 					<img src="Images/swirl.png">
 					Swirling Heart
 				</a>
 			</div>
 			<div class="sample">
-				<a href="http://www.graphzapp.com/index.php?x-value=%283-1*sin%28t%29%5E2%29%28sin%28n%29%29%281+-+1*cos%28n%29%29&y-value=%283-1*sin%28t%29%5E2%29%28cos%28n%29%29%281+-+1*cos%28n%29%29+%2B+5">
+				<a href="http://www.graphzapp.com/graph.php?x-value=%283-1*sin%28k%29%5E2%29*sin%28t%29%281+-+1*cos%28t%29%29&y-value=%283-1*sin%28k%29%5E2%29*cos%28t%29%281+-+1*cos%28t%29%29+%2B+5">
 					<img src="Images/heartbeat.png">
 					Heartbeat
 				</a>
 			</div>
 			<div class="sample">
-				<a href="http://www.graphzapp.com/index.php?x-value=n&y-value=sin%28n+%2B+t%29+%2B+sin%28n*t%29">
+				<a href="http://www.graphzapp.com/graph.php?x-value=t&y-value=sin%28t+%2B+k%29+%2B+sin%28t*k%29">
 					<img src="Images/waves.png">
 					Funky Waves
 				</a>
 			</div>
 			<div class="sample">
-				<a href="http://www.graphzapp.com/index.php?x-value=10*%28cos%286n%29%29cos%28n%29cos%28t%29++-+10*%28cos%286n%29%29sin%28n%29sin%28t%29&y-value=5*%28cos%286n%29%29sin%28n%29cos%28t%29++%2B+5*%28cos%286n%29%29sin%28n%29cos%28t%29">
+				<a href="http://www.graphzapp.com/graph.php?x-value=10*%28cos%286t%29%29cos%28t%29cos%28k%29++-+10*%28cos%286t%29%29sin%28t%29sin%28k%29&y-value=5*%28cos%286t%29%29sin%28t%29cos%28k%29++%2B+5*%28cos%286t%29%29sin%28t%29cos%28k%29">
 					<img src="Images/flower.png">
 					Flower Power
 				</a>
