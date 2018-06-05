@@ -28,7 +28,7 @@
 			<div id="k_value"></div>
 		</div>
 		<div class="slider_container">
-			<input id="k_slider" class="slider" oninput="adjustK()" type="range" min="0" max="1000" value="0">
+			<input id="k_slider" class="slider" oninput="adjustValue()" type="range" min="0" max="1000" value="0">
 			<div id="k_range">
 				<div id="k_min_container">
 					<span class="small">min:</span>
@@ -82,7 +82,6 @@
 </div>
 
 </div>
-	<script type="text/javascript" src="grapher.js"></script>
-  <script type="text/javascript" src="frontend.js"></script>
+<?php include "scripts.php" ?>
 </body>
 </html>

@@ -1,26 +1,35 @@
-var kk = 0;
-var kmin;
-var kmax;
-adjustRange();
-adjustK();
+var grapher;
 
-//Updates tmin and tmax when user hits 'update range'
-function adjustRange(){
-	kmin = document.getElementById('kmin').value;
-	kmax = document.getElementById('kmax').value;
-	kmin = parseFloat(kmin);
-	kmax = parseFloat(kmax);
-	adjustK();
+// called when the page is first loaded
+function init() {
+    // create grapher
+    var canvas = document.getElementById('canvas');
+    grapher = new GraphzappGrapher(canvas);
+
+    // add the equations
+    grapher.addEquation(eqn);
+
+    // add the sliders
+    var kmin = document.getElementById('kmin');
+    var kmax = document.getElementById('kmax');
+    var kval = document.getElementById('k_value');
+    var kslider = new GraphzappSlider(document.getElementById("k_slider"), kmin, kmax, kval);
+    grapher.addSlider(kslider);
+
+    // draw the content
+    grapher.paint();
+}
+
+//Updates kmin and kmax when user hits 'update range'
+function adjustRange() {
+    var kslider = grapher.getSlider();
+    kslider.adjustRange();
 }
 
 //Called whenever slider is moved
-function adjustK(){
-    var num = document.getElementById('k_slider').value;
-    kk = (num/1000) * (kmax-kmin) + kmin;
-    document.getElementById("k_value").innerHTML = kk.toFixed(2);
-
-    // redraw the canvas
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    redraw(ctx);
+function adjustValue() {
+    var kslider = grapher.getSlider();
+    kslider.adjustValue();
+    kk = kslider.val;
+    grapher.paint();
 }
