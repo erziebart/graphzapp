@@ -24,12 +24,12 @@ function init() {
 function adjustRange() {
     var kslider = grapher.getSlider();
     kslider.adjustRange();
+    grapher.paint();
 }
 
 //Called whenever slider is moved
 function adjustValue() {
     var kslider = grapher.getSlider();
     kslider.adjustValue();
-    kk = kslider.val;
     grapher.paint();
 }

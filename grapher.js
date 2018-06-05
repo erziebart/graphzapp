@@ -1,6 +1,6 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
-// class acts as a wrapper around html canvas and provides methods to draw and update the grapher
+// class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
     constructor(canvasObj) {
         this.canvas = canvasObj;
@@ -231,6 +231,8 @@ class GraphzappGrapher {
         ctx.translate(-y_axis_distance_grid_lines*grid_size, -x_axis_distance_grid_lines*grid_size);
     }
 }
+
+// these pieces of code are never called, but could be a helpful reference when we implement play button later
 
 // // continuously updates the kk value and redraws to animate the graph
 // // TODO: add a more precise timing mechanism
