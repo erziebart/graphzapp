@@ -1,5 +1,5 @@
 <!-- This file contains imports of js files and php generated js code -->
-<script type="text/javascript" src="equation.js"></script>
+<script type="text/javascript" src="scripts/equation.js"></script>
 <script type="text/javascript">
 	// imported functions
 	<?php
@@ -51,6 +51,6 @@
 	if (eqn.err_x) {console.log("x: " + eqn.reason_x);}
 	if (eqn.err_y) {console.log("y: " + eqn.reason_y);}
 </script>
-<script type="text/javascript" src="slider.js"></script>
-<script type="text/javascript" src="grapher.js"></script>
-<script type="text/javascript" src="frontend.js"></script>
+<script type="text/javascript" src="scripts/slider.js"></script>
+<script type="text/javascript" src="scripts/grapher.js"></script>
+<script type="text/javascript" src="scripts/frontend.js"></script>

@@ -82,6 +82,6 @@
 </div>
 
 </div>
-<?php include "scripts.php" ?>
+<?php include "scripts/scripts.php" ?>
 </body>
 </html>
