@@ -6,6 +6,10 @@ body{
 	margin: 0;
 }
 
+a {
+	text-decoration: none;
+}
+
 form{
 	margin: 18px 0;
 }
@@ -62,20 +66,48 @@ p {
 	margin: 0;
 }
 
-
-a{
-	color: rgb(167, 189, 214);
-	text-decoration: none;
-}
-
-a:hover{
-	font-weight: bold;
-}
-
 img {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#header {
+	color: white;
+	padding: 0px 25px;
+}
+#header h1{
+	display: inline-block;
+	margin: 25px 25px;
+}
+
+#header .navbar {
+	display: flex;
+	float: right;
+	font-size: 20px;
+	margin: 0;
+	height: 91px;
+	padding: 0px 25px;
+}
+
+#header .navbar li {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100px;
+	height: 100%;
+	list-style-type: none;
+}
+
+
+#header a{
+	color: white;
+	text-decoration: none;
+}
+
+#header .navbar a:hover{
+	background-color: #98AABF;
 }
 
 .body_container{
@@ -145,16 +177,6 @@ img {
 .flex {
 	display: flex;
 	justify-content: center;
-}
-
-#header{
-	color: white;
-	padding: 25px 50px;
-	/*border: 1px solid rgb(206, 206, 206);*/
-}
-
-#header h1{
-	margin: 0;
 }
 
 #canvas{
@@ -281,3 +303,74 @@ img {
 	margin-left: 50px;
 	text-align: left;
 }
+
+.blue_links a{
+	color: rgb(167, 189, 214);
+	text-decoration: none;
+}
+
+.blue_links a:hover{
+	font-weight: bold;
+}
+
+.image_banner_wrapper {
+	background-image: url('Images/home-image.jpeg');
+	background-size: cover;
+	border-top: 2px solid rgb(220, 220, 220);
+}
+
+.image_banner {
+	width: 100%;
+	min-height: 400px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	vertical-align: middle;
+}
+
+.image_banner .overlay{
+	width: 500px;
+	background-color: rgba(255, 255, 255, .9);
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
+	margin: auto;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.image_banner .overlay h2{
+	margin: 10px 0;
+}
+
+.overlay_text {
+	text-align: left;
+	padding: 0 10px;
+	margin-bottom: 20px;
+}
+
+.image_banner .center_button {
+	display: inline-block;
+	float: right;
+	width: auto;
+	height: auto;
+	font-size: 24px;
+	padding: 15px;
+}
+
+.samples_container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.sample {
+	width: 20%;
+	min-width: 300px;
+	padding: 30px;
+}
+
+.sample img{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
