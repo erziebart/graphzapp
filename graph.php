@@ -10,7 +10,7 @@
 	<div class="body_container">
 	<div class="left_col">
 		<div class="well">
-		<form id="xy_input" action="index.php" method="get">
+		<form id="xy_input" action="graph.php" method="get">
 			<div class="line">
 				<span>x(t) = </span>
 				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>">
@@ -42,37 +42,10 @@
 			</div>
 		</div>
 	  </div>
-		<!-- <hr>
-				<p style="text-align: left;">Also try playing with these fun graphs:</p>
-		<div class="flex">
-			<ul>
-			<a href="http://www.graphzapp.com/graph.php?x-value=t&y-value=k*t%5E2">
-				<li>Parabola</li>
-			</a></li>
-			<a href="http://www.graphzapp.com/graph.php?x-value=3*%28.5%2Bcos%283t%29%29cos%28t%29%28cos%28k%29%5E2+%2B+.5%29&y-value=3*%28.5%2Bcos%283t%29%29sin%28t%29%28sin%28k%29%5E2%29">
-				<li>Butterfly</li>
-			</a>
-			<a href="http://www.graphzapp.com/graph.php?x-value=cos%28t%29%285+%2B+5cos%28t%2Bk%29%29&y-value=sin%28t%29%285+%2B+5cos%28t-k%29%29">
-				<li>Swirling Heart</li>
-			</a>
-			</ul>
-			<ul>
-
-			<a href="http://www.graphzapp.com/graph.php?x-value=%283-1*sin%28k%29%5E2%29*sin%28t%29%281+-+1*cos%28t%29%29&y-value=%283-1*sin%28k%29%5E2%29*cos%28t%29%281+-+1*cos%28t%29%29+%2B+5">
-				<li>Heartbeat</li>
-			</a>
-			<a href="http://www.graphzapp.com/graph.php?x-value=t&y-value=sin%28t+%2B+k%29+%2B+sin%28t*k%29">
-				<li>Funky Waves</li>
-			</a>
-			<a href="http://www.graphzapp.com/graph.php?x-value=10*%28cos%286t%29%29cos%28t%29cos%28k%29++-+10*%28cos%286t%29%29sin%28t%29sin%28k%29&y-value=5*%28cos%286t%29%29sin%28t%29cos%28k%29++%2B+5*%28cos%286t%29%29sin%28t%29cos%28k%29">
-				<li>Flower Power</li>
-			</a>
-		</ul>
-		</div> -->
 	</div>
 	</div>
 	<div class="center_col">
-			<input class="gradient center_button hover" form="xy_input" type="submit" value="▶" onsubmit="draw()">
+			<input class="gradient center_button hover" form="xy_input" type="submit" value="▶">
 	</div>
 	<div class="right_col">
 		<div class="well">
