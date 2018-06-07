@@ -24,7 +24,7 @@
 			),
 			array(
 				"T_VAR",
-				"(n|t)(?!\w)",
+				"(t|k)(?!\w)",
 				"g_generic"
 			),
 			array(

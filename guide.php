@@ -12,10 +12,10 @@
 			<div class="well card">
 				<h3> Intro </h3>
 				<p> 
-					Define equations for x and y in terms of the variable n in order to draw a curve. Include the variable t to allow animation of the curve by changing the value of t. Graphzapp has several built-in functions including logarithms and trigonometric functions.
+					Define equations for x and y in terms of the variable t in order to draw a curve. Include the variable k to allow animation of the curve by sliding the k slider. Graphzapp has several built-in functions including logarithms and trigonometric functions.
 				</p>
 				<p>
-					Example:  In the x= and y= boxes, write equations such as <nobr>"cos(n + t)"</nobr> or <nobr>"log(2, n)"</nobr>
+					Example:  In the x= and y= boxes, write equations such as <nobr>"cos(t + k)"</nobr> or <nobr>"log(2, t)"</nobr>
 				</p>
 			</div>
 			<div class="well card">
@@ -24,7 +24,7 @@
 					Use (+) for addition, (-) for subtraction, (*) for multiplication, (/) for division, and (^) for powers. Use parentheses to group parts of the expressions.
 				</p>
 				<p>
-					Example: Graph a parabola by typing <nobr>"(1/2)*n^2 + 3*n - 1.5"</nobr>. We can also simply write <nobr>"1/2n^2 + 3n - 1.5"</nobr> to graph the same parabola.
+					Example: Graph a parabola by typing <nobr>"(1/2)*t^2 + 3*t - 1.5"</nobr>. We can also simply write <nobr>"1/2t^2 + 3t - 1.5"</nobr> to graph the same parabola.
 				</p>
 			</div>
 			<div class="well card">
@@ -33,7 +33,7 @@
 					Each comparison evaulates to 1 if true and 0 if false. The comparisons are (==) equal to, (!=) not equal to, (<) less than, (>) greater than, (<=) less than or equal to, and (>=) greater than or equal to.
 				</p>
 				<p>
-					Example: <nobr>(7 != 6)</nobr> has value 1. <nobr>(5 < 4)</nobr> has value 0. <nobr>(n >= 0)</nobr> has value 1 or 0, depending on the value of n.
+					Example: <nobr>(7 != 6)</nobr> has value 1. <nobr>(5 < 4)</nobr> has value 0. <nobr>(t >= 0)</nobr> has value 1 or 0, depending on the value of t.
 				</p>
 			</div>
 			<div class="well card">
@@ -56,7 +56,7 @@
 					Graphzapp will not graph any points where the x or y expression is undefined. The expression is undefined if it contains a division by 0, an indeterminate form, or an imaginary answer. Use divison by a boolean expression to limit the domain to only points where the expression is true. 
 				</p>
 				<p>
-					Example: <nobr>"n^0.5"</nobr> will only graph where n is at least 0. <nobr>"cos(n)/(-1 < n & n < 1)"</nobr> will only graph where n is between -1 and 1.
+					Example: <nobr>"t^0.5"</nobr> will only graph where t is at least 0. <nobr>"cos(t)/(-1 < t & t < 1)"</nobr> will only graph where t is between -1 and 1.
 				</p>
 			</div>
 			<div class="well card">
@@ -66,7 +66,7 @@
 				</p>
 				<img src="piecewise.gif" align="middle" alt="f(x) = {-1, x < -1 : 0, -1 <= x <= 1 : 1, x > 1}">
 				<p>
-					Example: To graph the above piecewise function, we can type <nobr>"-1/(n < -1); 0/(-1 <= n & n <= 1); 1/(n > 1)"</nobr>. An even simpler way would be writing <nobr>"-1/(n < -1); 0/(n <= 1); 1"</nobr>.
+					Example: To graph the above piecewise function, we can type <nobr>"-1/(t < -1); 0/(-1 <= t & t <= 1); 1/(t > 1)"</nobr>. An even simpler way would be writing <nobr>"-1/(t < -1); 0/(t <= 1); 1"</nobr>.
 				</p>
 			</div>
 		</div>

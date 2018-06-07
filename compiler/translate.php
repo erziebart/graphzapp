@@ -5,7 +5,7 @@
 	include "mapper.php";
 
 	// undefined for all inputs
-	const UNDEF = "[function(n,t){return NaN;}]";
+	const UNDEF = "[function(t,k){return NaN;}]";
 
 	function translate($expr,&$report,&$result) {
 		// lexing
@@ -46,8 +46,8 @@
 		// check that input was enterred
 		if ($input_x || $input_y) {
 			// fill in other empty input as appropriate
-			if (!$input_x) {$input_x = "n";}
-			if (!$input_y) {$input_y = "n";}
+			if (!$input_x) {$input_x = "t";}
+			if (!$input_y) {$input_y = "t";}
 
 			// initialize the static classes
 			GraphzappLexer::init();
@@ -70,36 +70,3 @@
 		$input_x = $input_y = "";
 	}
 ?>
-
-<script type="text/javascript">
-	// error handling
-	var _err_x = <?php echo($err_x); ?>;
-	var _reason_x = "<?php echo (is_null($report_x)?"":$report_x->get_reason());?>";
-	var _err_y = <?php echo($err_y); ?>;
-	var _reason_y = "<?php echo (is_null($report_y)?"":$report_y->get_reason());?>";
-
-	// imported functions
-	<?php
-		foreach ($imports as $fname => $val) {
-			$argc = $val[0];
-			$impl = $val[1];
-
-			$params = array();
-			$evals = "";
-			for ($i=0; $i < $argc; $i++) { 
-				$params[] = "p".$i;
-				$evals .= "a".$i."=eval(n,t,p".$i.");";
-			}
-			printf("function %s(n,t,%s){%s%s}\n\t", $fname, implode(",", $params), $evals, $impl);
-		}
-	?>
-
-	// the functions
-	var _x = <?php echo($x); ?>;
-	var _y = <?php echo($y); ?>;
-
-	// log error messages
-	if (_err_x) {console.log("x: " + _reason_x);}
-	if (_err_y) {console.log("y: " + _reason_y);}
-	
-</script>

@@ -263,19 +263,19 @@ img {
 	border: none;
 }
 
-#t_range{
+#k_range{
 	margin-top: 5px;
 }
 
-#tmin, #tmax{
+#kmin, #kmax{
 	width: 30px;
 }
 
-#t_min_container{
+#k_min_container{
 	float: left;
 }
 
-#t_max_container{
+#k_max_container{
 	float: right;
 }
 
