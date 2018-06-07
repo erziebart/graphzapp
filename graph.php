@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	  </div>
-		<hr>
+		<!-- <hr>
 				<p style="text-align: left;">Also try playing with these fun graphs:</p>
 		<div class="flex">
 			<ul>
@@ -68,7 +68,7 @@
 				<li>Flower Power</li>
 			</a>
 		</ul>
-		</div>
+		</div> -->
 	</div>
 	</div>
 	<div class="center_col">
