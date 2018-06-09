@@ -16,7 +16,20 @@ function init() {
     var kslider = new GraphzappSlider(document.getElementById("k_slider"), kmin, kmax, kval);
     grapher.addSlider(kslider);
 
+    // get t values
+    var tmin = document.getElementById('tmin');
+    var tmax = document.getElementById('tmax');
+    var eqnRange = new GraphzappEquationRange(tmin, tmax);
+    grapher.addEqnRange(eqnRange);
+
     // draw the content
+    grapher.paint();
+}
+
+// Updates tmin and tmax when user hits 'Adjust t'
+function changet() {
+    var trange = grapher.getEqnRange();
+    trange.updateVals();
     grapher.paint();
 }
 

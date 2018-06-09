@@ -9,7 +9,7 @@
 
 			$params = array();
 			$evals = "";
-			for ($i=0; $i < $argc; $i++) { 
+			for ($i=0; $i < $argc; $i++) {
 				$params[] = "p".$i;
 				$evals .= "a".$i."=eval(t,k,p".$i.");";
 			}
@@ -54,3 +54,4 @@
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>
 <script type="text/javascript" src="scripts/frontend.js"></script>
+<script type="text/javascript" src="scripts/equationrange.js"></script>
