@@ -9,7 +9,12 @@
 		}
 
 		public function get_reason() {
-			return $this->message." at character ".$this->offset;
+			if ($this->offset < 0) {
+				return $this->message;
+			} else {
+				return $this->message." at character ".$this->offset;
+			}
+			
 		}
 	}
 ?>
