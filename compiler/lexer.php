@@ -33,6 +33,11 @@
 				"g_call"
 			),
 			array(
+				"E_UNCLOSED",
+				"(".self::ID.")\(",
+				"e_unclosed"
+			),
+			array(
 				"T_ID", 
 				"[A-Za-z][\w]*",
 				"g_generic"
@@ -81,15 +86,6 @@
 				"match" => $match);
 		}
 
-		// protected static function g_generic($name, $matches, $offset) {
-		// 	$match = $matches[1];
-		// 	return array(
-		// 		"name" => $name,
-		// 		"match" => $match,
-		// 		"start" => static::$pos,
-		// 		"end" => static::$pos + strlen($match));
-		// }
-
 		// for T_CALL
 		protected static function g_call($name, $matches, $offset) {
 			$id = $matches[2];
@@ -110,6 +106,14 @@
 				"name" => $name,
 				"id" => $id,
 				"params" => $params);
+		}
+		/////////////////////////////////////////////////////////
+
+		///////////////// error catching actions ////////////////
+		protected static function e_unclosed($name, $matches, $offset) {
+			$id = $matches[2];
+			static::$report = new Report("unclosed argument list for ".$id, $offset);
+			return false;
 		}
 		/////////////////////////////////////////////////////////
 
@@ -169,9 +173,7 @@
 			}
 
 			// does not match any token types
-			if (!isset(static::$report)) {
-				static::$report = new Report("invalid token", $pos + $offset);
-			}
+			static::$report = new Report("invalid token", $pos + $offset);
 			return false;
 		}
 	}
