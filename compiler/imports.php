@@ -58,7 +58,7 @@
 						}
 
 						// unknown constant
-						$reason = "Unknown constant ".$match;
+						$reason = "unknown constant ".$match;
 						$offset = $tokens[$i]["start"];
 						static::$report = new Report($reason, $offset);
 						return false;
@@ -83,13 +83,13 @@
 
 							} else {
 								// wrong number of arguments
-								$reason = $id." has wrong number of arguments";
+								$reason = $id."() has wrong number of arguments";
 								$offset = $tokens[$i]["start"];
 								static::$report = new Report($reason, $offset);
 							}
 						} else {
 							// unknown function
-							$reason = "Unknown function ".$id;
+							$reason = "unknown function ".$id;
 							$offset = $tokens[$i]["start"];
 							static::$report = new Report($reason, $offset);
 						}

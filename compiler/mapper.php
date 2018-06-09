@@ -121,7 +121,7 @@
 		// error reporting
 		static $report;
 		protected static $errors = array(
-			"Operand Expected"
+			"operand expected"
 		);
 
 		// convert the tokens to a string reprentation of a
@@ -142,7 +142,7 @@
 					case "T_RPAREN":
 						$parens--;
 						if ($parens < 0) {
-							$reason = "Unpaired )";
+							$reason = "unpaired )";
 							$offset = $current["start"];
 							static::$report = new Report($reason, $offset);
 							return false;
@@ -171,7 +171,7 @@
 
 			if ($parens > 0) {
 				// unmatched parentheses
-				$reason = "Unpaired (";
+				$reason = "unpaired (";
 				$offset = -1;
 				static::$report = new Report($reason, $offset);
 				return false;
@@ -181,7 +181,7 @@
 				return "[function(t,k){return ".$res.";}]";
 			} else {
 				// wrong ending state
-				static::$report = new Report("Unexpected end of input", -1);
+				static::$report = new Report("unexpected end of input", -1);
 				return false;
 			}
 		}

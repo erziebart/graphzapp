@@ -97,6 +97,7 @@
 			
 			$params = array();
 			$offset += strlen($id) + 1;
+			$success = true;
 			foreach ($args as $expr) {
 				$params[] = self::token($expr, $offset);
 				$offset += strlen($expr) + 1;
@@ -165,7 +166,7 @@
 			}
 
 			// does not match any token types
-			static::$report = new Report("Invalid token", $offset);
+			static::$report = new Report("invalid token", $offset);
 			return false;
 		}
 	}
