@@ -14,6 +14,7 @@
 		$expr = "[function(t,k){return NaN;}]";
 		$err_test = 0;
 		$report_test = null;
+		$tok = array();
 		$imports = array();
 
 		if (isset($_GET['test_expr'])) {
@@ -26,7 +27,7 @@
 				GraphzappImports::init();
 
 				// lexing
-				$tok = GraphzappLexer::token($input_expr);
+				$tok = GraphzappLexer::token($input_expr, 1);
 				if ($tok === false) {
 					$tok = array();
 					$report_test = GraphzappLexer::$report;
