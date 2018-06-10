@@ -4,7 +4,7 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="init()">
+<body onload="init()" onresize="adjustForResize()">
 	<?php include "compiler/translate.php";?>
 	<?php include "header.php"; ?>
 	<div class="body_container">
@@ -45,7 +45,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="well">
+	<div class="well" id="sliders">
 		<div class="line">
 		<div class="badge small">
 			k =
@@ -69,7 +69,7 @@
 	</div>
 	</div>
 	<div class="center_col">
-			<input class="gradient center_button hover" form="xy_input" type="submit" value="▶">
+			<input class="gradient center_button hover" id="go_button" form="xy_input" type="submit" value="▶">
 	</div>
 	<div class="right_col">
 		<div class="well">
@@ -79,6 +79,7 @@
 </div>
 
 </div>
+<script src="scripts/styling.js"></script>
 <?php include "scripts/scripts.php" ?>
 </body>
 </html>
