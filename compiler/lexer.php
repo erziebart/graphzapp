@@ -7,7 +7,7 @@
 	class GraphzappLexer {
 		// Handy regular expressions
 		const ID = "[A-Za-z][\w]*";
-		const ALLOWED = "[\w+\-\*\/\^&\|!=<>;,\.\s]";
+		//const ALLOWED = "[\w+\-\*\/\^&\|!=<>;,\.\s]";
 		const JSLIT = "((\d+(\.\d*)?)|(\.\d+))((E|e)(\+|\-)?\d+)?";
 
 		protected static $terminals = array(

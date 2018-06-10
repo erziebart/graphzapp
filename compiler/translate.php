@@ -9,7 +9,7 @@
 
 	function translate($expr,&$report,&$result) {
 		// lexing
-		$tok = GraphzappLexer::token($expr);
+		$tok = GraphzappLexer::token($expr,1);
 		if ($tok === false) {
 			$report = GraphzappLexer::$report;
 			return -1;
