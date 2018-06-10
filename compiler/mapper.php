@@ -91,14 +91,23 @@
 
 			$args = array();
 			foreach ($params as $tok_ls) {
-				$args[] = self::convert($tok_ls);
+				$arg = self::convert($tok_ls);
+				if ($arg === false) {
+					return false;
+				}
+				$args[] = $arg;
 			}
 
 			return $id."(t,k,".implode(",", $args).")";
 		}
 
 		protected static function m_call_implicit($token) {
-			return "*".self::m_call($token);
+			$call = self::m_call($token);
+			if($call === false) {
+				return false;
+			} else {
+				return "*".$call;
+			}
 		}
 
 		protected static function m_call_negate($token) {
@@ -159,7 +168,11 @@
 
 				if ($next_state >= 0) {
 					$state = $next_state;
-					$res .= static::$mapper($current);
+					$next_text = static::$mapper($current);
+					if($next_text === false) {
+						return false;
+					}
+					$res .= $next_text;
 				} else {
 					// parse error
 					$reason = static::$errors[-$next_state-1];
