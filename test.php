@@ -99,5 +99,32 @@
 	<p> <?php
 		echo "function: ".$expr;
 	?> </p>
+	<br>
+	<p> <?php
+		if (is_null(GraphzappLexer::$report)) {
+			$reason = "";
+		} else {
+			$reason = GraphzappLexer::$report->get_reason();
+		}
+		echo "lexer report: ".$reason;
+	?> </p>
+	<br>
+	<p> <?php
+		if (is_null(GraphzappImports::$report)) {
+			$reason = "";
+		} else {
+			$reason = GraphzappImports::$report->get_reason();
+		}
+		echo "importer report: ".$reason;
+	?> </p>
+	<br>
+	<p> <?php
+		if (is_null(GraphzappMapper::$report)) {
+			$reason = "";
+		} else {
+			$reason = GraphzappMapper::$report->get_reason();
+		}
+		echo "mapper report: ".$reason;
+	?> </p>
 </body>
 </html>
