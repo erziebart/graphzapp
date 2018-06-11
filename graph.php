@@ -11,27 +11,19 @@
 	<div class="left_col">
 		<div class="well">
 		<form id="xy_input" action="graph.php" method="get">
-			<div class="line <?php if ($err_x != 0) {echo "error";} ?>">
+			<div class="line <?php if ($err_x != 0) {echo "tooltip";} ?>">
 				<span>x(t) = </span>
 				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>">
-				<?php
-					if ($err_x != 0) { echo "
-						<span class=\"tooltip\">❌
-							<span class=\"tooltip_text\">".(is_null($report_x)?"":$report_x->get_reason())."</span>
-						</span>"
-					;}
-				?>
+				<div class="tooltip_text"> 
+					<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
+				</div>
 			</div>
-			<div class="line <?php if ($err_y != 0) {echo "error";} ?>">
+			<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">
 				<span>y(t) =</span>
 				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>">
-				<?php
-					if ($err_y != 0) { echo "
-						<span class=\"tooltip\">❌
-							<span class=\"tooltip_text\">".(is_null($report_y)?"":$report_y->get_reason())."</span>
-						</span>"
-					;}
-				?>
+				<div class="tooltip_text"> 
+					<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+				</div>
 			</div>
 		</form>
 	</div>
