@@ -26,11 +26,11 @@ input:focus{
 }
 
 input.equation_input{
-	width: 87%;
+	width: 85%;
 }
 
 .error input.equation_input{
-	width: 81%;
+	width: 78%;
 }
 
 input.large{
@@ -110,7 +110,7 @@ img {
 	text-decoration: none;
 }
 
-#header .navbar a:hover{
+#header .navbar li:hover{
 	background-color: #98AABF;
 }
 
@@ -120,7 +120,7 @@ img {
 	margin: auto;
 	display: flex;
 	justify-content: center;
-	padding: 20px 30px;
+	padding: 20px 0px;
 }
 
 .gradient {
@@ -168,6 +168,10 @@ img {
 	padding: 5px 10px;
 	vertical-align: top;
 	margin: 10px 10px 0 0;
+}
+
+#xy_input .line{
+	text-align: left;
 }
 
 .line {
@@ -335,6 +339,8 @@ img {
 
 .image_banner .overlay{
 	width: 500px;
+	max-width: 95%;
+	box-sizing: border-box;
 	background-color: rgba(255, 255, 255, .9);
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
 	margin: auto;
@@ -403,4 +409,77 @@ img {
 .tooltip:hover .tooltip_text{
 	visibility: visible;
 	opacity: 1;
+}
+
+@media (max-width: 1100px){
+	.body_container {
+		display: block;
+	}
+	.well{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.left_col{
+		width: 100%;
+	}
+	.right_col {
+		width: 100%;
+	}
+	input.equation_input{
+		width: 88%;
+	}
+	.error input.equation_input{
+		width: 84%;
+	}
+	.center_col {
+		height: 130px;
+		width: 100%;
+	}
+	.center_button{
+		flex-direction: row;
+		width: 98%;
+		height: 100px;
+		margin: auto;
+		text-align: center;
+		font-size: 65px;
+		padding: 5px 0 0 0;
+	}
+
+}
+
+
+@media (max-width: 650px){
+	#header h1{
+		margin: auto ;
+		width: 100%;
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom: 15px;
+	}
+	#header .navbar {
+		display: block;
+		float: none;
+		height: auto;
+		padding-bottom: 15px;
+	}
+	#header .navbar li {
+		padding: 10px 0px;
+		width: 100%;
+	}
+	.well {
+		padding: 10px;
+	}
+	#xy_input {
+		padding-left: 10px;
+	}
+	input.equation_input{
+		width: 78%;
+	}
+	.error input.equation_input{
+		width: 70%;
+	}
+	.slider_container {
+		width: 90%;
+	}
+
 }
