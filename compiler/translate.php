@@ -25,7 +25,7 @@
 		$result = GraphzappMapper::convert($tok);
 		if ($result === false) {
 			$report = GraphzappMapper::$report;
-			return -3; 
+			return -3;
 		}
 
 		return 0;
@@ -68,5 +68,20 @@
 		}
 	} else {
 		$input_x = $input_y = "";
+	}
+
+	if(isset($_GET["t-min"],$_Get["t-max"])) {
+		// get t values
+		$input_tmin = $_GET["t-min"];
+		$input_tmax = $_GET["t-max"];
+
+		// check for t values
+		if ($input_tmin || $input_tmax) {
+			if (!$input_tmin) { $input_tmin = ((float) $input_tmax) - 20; }
+			if (!$input_tmax) { $input_tmax = ((float) $input_tmin) + 20; }
+		}
+	} else {
+		$input_tmin = "-10.0";
+		$input_tmax = "10.0";
 	}
 ?>

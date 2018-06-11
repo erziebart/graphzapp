@@ -19,12 +19,22 @@
 				<span>y(t) = </span>
 				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>">
 			</div>
+			<div id="t_range">
+				<span id="t_min_container">
+					<span class="small">t from </span>
+					<input id="tmin" class="small_input" type="text" name="t-min" value="<?php echo($input_tmin);?>">
+				</span>
+				<span id="t_max_container">
+					<span class="small"> to </span>
+					<input id="tmax" class="small_input" type="text" name="t-max" value="<?php echo($input_tmax);?>">
+				</span>
+			</div>
 		</form>
 	</div>
 	<div class="well">
 		<div class="line">
 		<div class="badge small">
-			k = 
+			k =
 			<div id="k_value"></div>
 		</div>
 		<div class="slider_container">

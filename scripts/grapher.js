@@ -16,6 +16,17 @@ class GraphzappGrapher {
         // equation and slider
         this.eq = null;
         this.slider = null;
+        this.eqnRange = null;
+    }
+
+    // Add the desired t range
+    addEqnRange(eqnRange) {
+        this.eqnRange = eqnRange;
+    }
+
+    // returns the t range to ultimately be modified
+    getEqnRange() {
+        return this.eqnRange;
     }
 
     // should be called whenever the canvas is resized
@@ -50,7 +61,7 @@ class GraphzappGrapher {
     // this is called to draw all the graph elements
     draw(ctx) {
         ctx.moveTo(0,0);
-        
+
         this.grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
         this.plot(ctx, this.eqn, "#4D6F96", 2);
     }
@@ -197,8 +208,8 @@ class GraphzappGrapher {
 
         var cur_x, cur_y, next_x, next_y;
 
-        var tstart = eqn.tstart;
-        var tstop = eqn.tstop;
+        var tstart = this.eqnRange.min;
+        var tstop = this.eqnRange.max;
 
         // the step is handcoded for now until resolution implemented
         var tstep = 0.0625;
