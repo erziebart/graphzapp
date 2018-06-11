@@ -70,14 +70,16 @@
 		$input_x = $input_y = "";
 	}
 
-	// get t values
-	$input_tmin = $_GET["t-min"];
-	$input_tmax = $_GET["t-max"];
+	if(isset($_GET["t-min"],$_Get["t-max"])) {
+		// get t values
+		$input_tmin = $_GET["t-min"];
+		$input_tmax = $_GET["t-max"];
 
-	// check for t values
-	if ($input_tmin || $input_tmax) {
-		if (!$input_tmin) { $input_tmin = ((float) $input_tmax) - 20; }
-		if (!$input_tmax) { $input_tmax = ((float) $input_tmin) + 20; }
+		// check for t values
+		if ($input_tmin || $input_tmax) {
+			if (!$input_tmin) { $input_tmin = ((float) $input_tmax) - 20; }
+			if (!$input_tmax) { $input_tmax = ((float) $input_tmin) + 20; }
+		}
 	} else {
 		$input_tmin = "-10.0";
 		$input_tmax = "10.0";
