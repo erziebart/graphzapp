@@ -26,13 +26,6 @@ function init() {
     grapher.paint();
 }
 
-// Updates tmin and tmax when user hits 'Adjust t'
-function changet() {
-    var trange = grapher.getEqnRange();
-    trange.updateVals();
-    grapher.paint();
-}
-
 //Updates kmin and kmax when user hits 'update range'
 function adjustRange() {
     var kslider = grapher.getSlider();

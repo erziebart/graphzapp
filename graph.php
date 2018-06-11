@@ -19,24 +19,17 @@
 				<span>y(t) = </span>
 				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>">
 			</div>
-		</form>
-	</div>
-	<div class="left_col">
-		<div class="well">
-			<div class="line">
-				<div id="t_range">
-					<span id="t_min_container">
-						<span class="small">t from </span>
-						<input id="tmin" class="small_input" type="text" name="t-min" value="-10.0">
-					</span>
-					<span id="t_max_container">
-						<span class="small"> to </span>
-						<input id="tmax" class="small_input" type="text" name="t-max" value="10.0">
-					</span>
-				</div>
-					<input class="gray_gradient hover range" type="submit" value="Adjust t" onclick="changet()">
+			<div id="t_range">
+				<span id="t_min_container">
+					<span class="small">t from </span>
+					<input id="tmin" class="small_input" type="text" name="t-min" value="<?php echo($input_tmin);?>">
+				</span>
+				<span id="t_max_container">
+					<span class="small"> to </span>
+					<input id="tmax" class="small_input" type="text" name="t-max" value="<?php echo($input_tmax);?>">
+				</span>
 			</div>
-		</div>
+		</form>
 	</div>
 	<div class="well">
 		<div class="line">
