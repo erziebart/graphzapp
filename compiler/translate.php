@@ -76,9 +76,10 @@
 
 	// check for t values
 	if ($input_tmin || $input_tmax) {
-		if (!$input_tmin) { $input_tmin = ((float) $input_tmax) - 10; }
-		if (!$input_tmax) { $input_tmax = ((float) $input_tmin) + 10; }
+		if (!$input_tmin) { $input_tmin = ((float) $input_tmax) - 20; }
+		if (!$input_tmax) { $input_tmax = ((float) $input_tmin) + 20; }
 	} else {
-		$input_tmin = $input_tmax = "";
+		$input_tmin = "-10.0";
+		$input_tmax = "10.0";
 	}
 ?>
