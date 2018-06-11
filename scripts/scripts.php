@@ -46,10 +46,6 @@
 	// range
 	eqn.tstart = -10;
 	eqn.tstop = 10;
-
-	// log error messages
-	if (eqn.err_x) {console.log("x: " + eqn.reason_x);}
-	if (eqn.err_y) {console.log("y: " + eqn.reason_y);}
 </script>
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>
