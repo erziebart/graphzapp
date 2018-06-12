@@ -4,34 +4,30 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="init()">
+<body onload="init()" onresize="adjustForResize()">
 	<?php include "compiler/translate.php";?>
 	<?php include "header.php"; ?>
 	<div class="body_container">
 	<div class="left_col">
 		<div class="well">
 		<form id="xy_input" action="graph.php" method="get">
-			<div class="line <?php if ($err_x != 0) {echo "error";} ?>">
+			<div class="line <?php if ($err_x != 0) {echo "tooltip";} ?>">
 				<span>x(t) = </span>
-				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>">
-				<?php
-					if ($err_x != 0) { echo "
-						<span class=\"tooltip\">❌
-							<span class=\"tooltip_text\">".(is_null($report_x)?"":$report_x->get_reason())."</span>
-						</span>"
-					;}
-				?>
+				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>" onfocus="showTooltip('tooltip1')" onfocusout="hideTooltip('tooltip1')">
+				<div class="tooltip_wrapper">
+					<div class="tooltip_text" id="tooltip1"> 
+						<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
+					</div> 
+				</div>
 			</div>
-			<div class="line <?php if ($err_y != 0) {echo "error";} ?>">
+			<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">
 				<span>y(t) =</span>
-				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>">
-				<?php
-					if ($err_y != 0) { echo "
-						<span class=\"tooltip\">❌
-							<span class=\"tooltip_text\">".(is_null($report_y)?"":$report_y->get_reason())."</span>
-						</span>"
-					;}
-				?>
+				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>" onfocus="showTooltip('tooltip2')" onfocusout="hideTooltip('tooltip2')">
+				<div class="tooltip_wrapper">
+					<div class="tooltip_text" id="tooltip2"> 
+						<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+					</div>
+				</div>
 			</div>
 			<div id="t_range">
 				<span id="t_min_container">
@@ -45,7 +41,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="well">
+	<div class="well" id="sliders">
 		<div class="line">
 		<div class="badge small">
 			k =
@@ -69,7 +65,7 @@
 	</div>
 	</div>
 	<div class="center_col">
-			<input class="gradient center_button hover" form="xy_input" type="submit" value="▶">
+			<input class="gradient center_button hover" id="go_button" form="xy_input" type="submit" value="▶">
 	</div>
 	<div class="right_col">
 		<div class="well">
@@ -79,6 +75,7 @@
 </div>
 
 </div>
+<script src="scripts/styling.js"></script>
 <?php include "scripts/scripts.php" ?>
 </body>
 </html>
