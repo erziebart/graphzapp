@@ -48,17 +48,17 @@
 
 		//////////////// REDUCERS FOR PROD RULES /////////////
 
-		protected static function Ea() {
+		protected static function r_Ea() {
 			$toks = static::pop_n(3);
 			return array("name"=>"E", "match"=>$toks[0]['match']."+".$toks[2]['match']);
 		}
 
-		protected static function Eb() {
+		protected static function r_Eb() {
 			$toks = static::pop_n(1);
 			return array("name"=>"E", "match"=>$toks[0]['match']);
 		}
 
-		protected static function Ta() {
+		protected static function r_Ta() {
 			$toks = static::pop_n(1);
 			return array("name"=>"T", "match"=>$toks[0]['match']);
 		}
@@ -66,7 +66,20 @@
 		/////////////////////////////////////////////////////////////
 
 
-		// 
+
+		///////////////////// ERROR HANDLING ////////////////////////
+		// generate reports of errors when called and passed a next token
+
+		protected static function e_operand($next_tok) {
+			return new Report("operand expected", $next_tok['start']);
+		}
+
+		protected static function e_operator($next_tok) {
+			return new Report("operator expected", $next_tok['start']);
+		}
+
+		/////////////////////////////////////////////////////////////
+		
 
 		/* parse table */
 		protected static $parse_table = array(
@@ -100,18 +113,22 @@
 				error: "e_<handler>"
 			*/
 
-			"START" => ["LIT"=>"s_Ta1", "E"=>"END_Ea1", "T"=>"Eb1"],
+			"START" => ["LIT"=>"s_Ta1", "PLUS"=>"e_operator", "E"=>"END_Ea1", "T"=>"Eb1"],
 
 			"END_Ea1" => ['$end'=>"a_", "PLUS"=>"s_Ea2"],
 
 			"Eb1" => ['$end'=>"r_Eb", "PLUS"=>"r_Eb"],
 
-			"Ta1" => ['$end'=>"r_Ta", "PLUS"=>"r_Ta"],
+			"Ta1" => ['$end'=>"r_Ta", "LIT"=>"e_operator", "PLUS"=>"r_Ta"],
 
-			"Ea2" => ["LIT"=>"s_Ta1", "T"=>"Ea3"],
+			"Ea2" => ['$end'=>"e_operand", "LIT"=>"s_Ta1", "PLUS"=>"e_operand", "T"=>"Ea3"],
 
 			"Ea3" => ['$end'=>"r_Ea", "PLUS"=>"r_Ea"]
 		);
+
+
+		// error reporting
+		static $report;
 
 
 		// parses the token list to generate the final expression
@@ -139,7 +156,7 @@
 							break;
 
 						case 'r': // reduce
-							$nonterm = self::$target();
+							$nonterm = self::$action();
 							$name = $nonterm['name'];
 							$state = end(static::$stack)['state'];
 
@@ -149,10 +166,15 @@
 							} else {
 								//print_r(static::$parse_table);
 								//print_r(static::$stack);
-								return "no action for ".$name." in state ".$state;
+								static::$report = new Report("no action for ".$name." in state ".$state, -1);
+								return false;
 							}
 
 							break;
+
+						case 'e': // error
+							static::$report = self::$action($next_tok);
+							return false;
 
 						case 'a': // accept
 							return end(static::$stack)['match'];
@@ -160,7 +182,8 @@
 
 				} else {
 					//print_r(static::$stack);
-					return "no action for ".$name." in state ".$state;
+					static::$report = new Report("no action for ".$name." in state ".$state, -1);
+					return false;
 				}
 			}
 		}
