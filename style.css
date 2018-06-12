@@ -26,7 +26,11 @@ input:focus{
 }
 
 input.equation_input{
-	width: 85%;
+	width: 87%;
+}
+
+.error input.equation_input{
+	width: 81%;
 }
 
 input.large{
@@ -376,4 +380,31 @@ img {
 
 #tmin, #tmax{
 	width: 35px;
+}
+
+.tooltip{
+	position: relative;
+}
+
+.tooltip .tooltip_text{
+	visibility: hidden;
+	width: 200px;
+	background-color: rgba(0,0,0,0.6);
+    color: #ffffff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 0;
+
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	left: 105%;
+
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.tooltip:hover .tooltip_text{
+	visibility: visible;
+	opacity: 1;
 }

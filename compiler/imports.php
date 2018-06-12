@@ -53,11 +53,12 @@
 						$match = $tokens[$i]["match"];
 						if(array_key_exists($match, static::$constant_list)) {
 							$tokens[$i]["match"] = static::$constant_list[$match];
+							//echo "<p>".static::$constant_list[$match]."</p>";
 							break;
 						}
 
 						// unknown constant
-						$reason = "Unknown constant ".$match;
+						$reason = "unknown constant ".$match;
 						$offset = $tokens[$i]["start"];
 						static::$report = new Report($reason, $offset);
 						return false;
@@ -66,30 +67,34 @@
 						$id = $tokens[$i]["id"];
 						$argv = $tokens[$i]["params"];
 						$argc = count($argv);
+
 						if(array_key_exists($id, static::$function_list)) {
 							$func = static::$function_list[$id];
 							if($argc === $func[0]) {
 								static::$imports[$id] = $func;
-								$sucess = true;
-								foreach ($argv as $tok_ls) {
-									$sucess &= self::import($tok_ls);
+
+								// recurse on parameters
+								$success = true;
+								for ($j = 0; $j < count($argv); $j++) {
+									$success &= self::import($argv[$j]);
+									$tokens[$i]["params"][$j] = $argv[$j];
 								}
-								if($sucess) {
-									break;
-								}
+								if($success){break;}
+
 							} else {
 								// wrong number of arguments
-								$reason = $id." has wrong number of arguments";
+								$reason = $id."() has wrong number of arguments";
 								$offset = $tokens[$i]["start"];
 								static::$report = new Report($reason, $offset);
 							}
 						} else {
 							// unknown function
-							$reason = "Unknown function ".$id;
+							$reason = "unknown function ".$id;
 							$offset = $tokens[$i]["start"];
 							static::$report = new Report($reason, $offset);
 						}
 						
+						// something went wrong
 						return false;
 					
 					default:

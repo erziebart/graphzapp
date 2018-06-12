@@ -91,14 +91,23 @@
 
 			$args = array();
 			foreach ($params as $tok_ls) {
-				$args[] = self::convert($tok_ls);
+				$arg = self::convert($tok_ls);
+				if ($arg === false) {
+					return false;
+				}
+				$args[] = $arg;
 			}
 
 			return $id."(t,k,".implode(",", $args).")";
 		}
 
 		protected static function m_call_implicit($token) {
-			return "*".self::m_call($token);
+			$call = self::m_call($token);
+			if($call === false) {
+				return false;
+			} else {
+				return "*".$call;
+			}
 		}
 
 		protected static function m_call_negate($token) {
@@ -121,7 +130,7 @@
 		// error reporting
 		static $report;
 		protected static $errors = array(
-			"Operand Expected"
+			"operand expected"
 		);
 
 		// convert the tokens to a string reprentation of a
@@ -142,7 +151,7 @@
 					case "T_RPAREN":
 						$parens--;
 						if ($parens < 0) {
-							$reason = "Unpaired )";
+							$reason = "unpaired )";
 							$offset = $current["start"];
 							static::$report = new Report($reason, $offset);
 							return false;
@@ -159,7 +168,11 @@
 
 				if ($next_state >= 0) {
 					$state = $next_state;
-					$res .= static::$mapper($current);
+					$next_text = static::$mapper($current);
+					if($next_text === false) {
+						return false;
+					}
+					$res .= $next_text;
 				} else {
 					// parse error
 					$reason = static::$errors[-$next_state-1];
@@ -171,7 +184,7 @@
 
 			if ($parens > 0) {
 				// unmatched parentheses
-				$reason = "Unpaired (";
+				$reason = "unpaired (";
 				$offset = -1;
 				static::$report = new Report($reason, $offset);
 				return false;
@@ -181,7 +194,7 @@
 				return "[function(t,k){return ".$res.";}]";
 			} else {
 				// wrong ending state
-				static::$report = new Report("Unexpected end of input", -1);
+				static::$report = new Report("unexpected end of input", -1);
 				return false;
 			}
 		}
