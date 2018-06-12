@@ -171,7 +171,7 @@ img {
 }
 
 #xy_input .line{
-	text-align: left;
+	text-align: center;
 }
 
 .line {
@@ -390,38 +390,53 @@ img {
 
 .tooltip{
 	position: relative;
-	/*width: 75px;
-	min-width: 75px;
-	max-width: 250px;*/
+}
+
+.tooltip_wrapper{
+	position: absolute;
+	left: 100.5%;
+	top: -5px;
+	width: 250px;
 }
 
 .tooltip_text{
 	visibility: hidden;
-	width: 100%;
-	/*width: auto;*/
-	/*white-space: nowrap;*/
-	max-width: 250px;
-	margin: auto;
-	float: left;
 
-	background-color: rgba(0,0,0,0.6);
+	background-color: rgba(0,0,0,0.65);
     color: #ffffff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
 
 	position: absolute;
 	z-index: 1;
-	top: -5px;
-	left: 100%;
-
 	opacity: 0;
 	transition: opacity 0.5s;
 }
 
+.tooltip_text span {
+	position: relative;
+	width: auto;
+}
+
+.tooltip_text:before{
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+    position:absolute;
+
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right:8px solid rgba(0, 0, 0, .65);
+    left:-8px;
+
+    top:7px;
+}
+
 .tooltip:hover .tooltip_text{
 	visibility: visible;
-	/*width: 100%;*/
 	opacity: 1;
 }
 
@@ -457,6 +472,19 @@ img {
 		text-align: center;
 		font-size: 65px;
 		padding: 5px 0 0 0;
+	}
+	.tooltip_wrapper {
+		top: 115%;
+		left: 60px;
+		width: 100%;
+		max-width: 100%;
+	}
+	.tooltip_text:before{
+    	border-left: 8px solid transparent;
+    	border-right: 8px solid transparent;
+    	border-bottom:8px solid rgba(0, 0, 0, .65);
+    	top:-16px;
+    	left:7px;
 	}
 
 }

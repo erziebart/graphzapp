@@ -13,16 +13,20 @@
 		<form id="xy_input" action="graph.php" method="get">
 			<div class="line <?php if ($err_x != 0) {echo "tooltip";} ?>">
 				<span>x(t) = </span>
-				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>">
-				<div class="tooltip_text"> 
-					<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
+				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>" onfocus="showTooltip('tooltip1')" onfocusout="hideTooltip('tooltip1')">
+				<div class="tooltip_wrapper">
+					<div class="tooltip_text" id="tooltip1"> 
+						<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
+					</div> 
 				</div>
 			</div>
 			<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">
 				<span>y(t) =</span>
-				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>">
-				<div class="tooltip_text"> 
-					<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>" onfocus="showTooltip('tooltip2')" onfocusout="hideTooltip('tooltip2')">
+				<div class="tooltip_wrapper">
+					<div class="tooltip_text" id="tooltip2"> 
+						<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+					</div>
 				</div>
 			</div>
 			<div id="t_range">
