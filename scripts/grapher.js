@@ -1,10 +1,17 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
+// tunable basis parameters for the grapher behavior
+const res = 1.5; // how close adjacent points should be
+const tickLenRate = 0.006 // fraction of screen for tick mark length
+const scaleRate = 0.03125 // rate at which the scale will change to zoom in and out
+
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
-    constructor(canvasObj) {
+    constructor(canvasObj, origin, scale) {
         this.canvas = canvasObj;
         this.resize(this.canvas);
+        this.origin = origin;
+        this.scale = scale;
 
         // grid properties
         this.grid_size = 25;
@@ -17,6 +24,14 @@ class GraphzappGrapher {
         this.eq = null;
         this.slider = null;
         this.eqnRange = null;
+
+        // colors and options
+        this.showAxes = true
+        this.showGrids = true
+        this.showLables = true
+        this.backgroundColor = "#FFFFFF"
+        this.axesColor = "#E9E9E9"
+        this.gridColor = "#000000"
     }
 
     // Add the desired t range
@@ -35,7 +50,7 @@ class GraphzappGrapher {
         this.canvas_height = canvas.height;
     }
 
-    // should add the equation to a list -- for now jst sets a variable
+    // should add the equation to a list -- for now just sets a variable
     addEquation(eqn) {
         this.eqn = eqn;
     }
@@ -52,198 +67,55 @@ class GraphzappGrapher {
 
     // paint everything on the canvas
     paint(grid, axes, numbers, gridColor, axesColor, backgroundColor) {
+        this.showAxes = axes
+        this.showGrids = grid
+        this.showLables = numbers
+        this.backgroundColor = backgroundColor
+        this.axesColor = axesColor
+        this.gridColor = gridColor
+
         var ctx = this.canvas.getContext("2d");
-        ctx.fillStyle = backgroundColor;
-        ctx.fillRect(0,0,this.canvas_width,this.canvas_height);
-        this.draw(ctx, grid, axes, numbers, gridColor, axesColor, backgroundColor);
+        ctx.clearRect(0,0,this.canvas_width,this.canvas_height);
+        this.draw(ctx);
     }
 
     // this is called to draw all the graph elements
-    draw(ctx, grid, axes, numbers, gridColor, axesColor, backgroundColor) {
-        ctx.moveTo(0,0);
-        this.grids(ctx, axesColor, gridColor, 1, "9px Arial", grid, axes, numbers);
-        this.plot(ctx, this.eqn, "#4D6F96", 2);
+    draw(ctx) {
+        if (this.showAxes) {this.drawAxes(ctx);}
+        
+        //ctx.moveTo(0,0);
+
+        //this.grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
+        //this.plot(ctx, this.eqn, "#4D6F96", 2);
     }
 
-    // draws the gridlines and axes ticks and labels
-    grids(ctx,axis_color,grid_color,thick,font, grid, axes, numbers) {
-        var canvas_width = this.canvas_width;
-        var canvas_height = this.canvas_height;
-        var grid_size = this.grid_size;
-        var x_axis_distance_grid_lines = this.x_axis_distance_grid_lines;
-        var y_axis_distance_grid_lines = this.y_axis_distance_grid_lines;
-        var x_axis_starting_point = this.x_axis_starting_point;
-        var y_axis_starting_point = this.y_axis_starting_point;
+    drawAxes(ctx) {
+        var originX = this.origin.x;
+        var originY = this.origin.y;
+        var width = this.canvas.width;
+        var height = this.canvas.height;
 
-        // no of vertical grid lines
-        var num_lines_x = Math.floor(canvas_height/grid_size);
+        ctx.save();
 
-        // no of horizontal grid lines
-        var num_lines_y = Math.floor(canvas_width/grid_size);
+        ctx.strokeStyle = this.axesColor;
+        ctx.lineWidth = 1;
+        //ctx.translate(originX, originY); // move to origin
 
-        // gridline and tick marks formatting
-        ctx.lineWidth = thick;
-
-        // Draw grid lines along X-axis
-        for(var i=0; i<=num_lines_x; i++) {
-            ctx.beginPath();
-
-            // If line represents X-axis draw in different color
-            if(axes && i == x_axis_distance_grid_lines)
-                ctx.strokeStyle = axis_color;
-            else if (grid)
-                ctx.strokeStyle = grid_color;
-            else 
-                ctx.strokeStyle = backgroundColor;
-
-            if(i == num_lines_x) {
-                ctx.moveTo(0, grid_size*i);
-                ctx.lineTo(canvas_width, grid_size*i);
-            }
-            else {
-                ctx.moveTo(0, grid_size*i+0.5);
-                ctx.lineTo(canvas_width, grid_size*i+0.5);
-            }
-            ctx.stroke();
-         }
-
-        // Draw grid lines along Y-axis
-        for(i=0; i<=num_lines_y; i++) {
-            ctx.beginPath();
-
-            // If line represents Y-axis draw in different color
-            if(axes && i == y_axis_distance_grid_lines)
-                ctx.strokeStyle = axis_color;
-            else if (grid)
-                ctx.strokeStyle = grid_color;
-            else
-                ctx.strokeStyle = backgroundColor;
-
-            if(i == num_lines_y) {
-                ctx.moveTo(grid_size*i, 0);
-                ctx.lineTo(grid_size*i, canvas_height);
-            }
-            else {
-                ctx.moveTo(grid_size*i+0.5, 0);
-                ctx.lineTo(grid_size*i+0.5, canvas_height);
-            }
+        // x-axis
+        if (0 <= originY && originY <= height) {
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
             ctx.stroke();
         }
-    
-        ctx.translate(y_axis_distance_grid_lines*grid_size, x_axis_distance_grid_lines*grid_size);
 
-        if (numbers) {
-        // tick mark formatting
-        ctx.lineWidth = thick;
-        ctx.strokeStyle = axis_color;
-        ctx.fillStyle = axis_color;       
-        ctx.font = font;
-        ctx.textAlign = 'start';
-
-            // Ticks marks along the positive X-axis
-            for(i=1; i<(num_lines_y - y_axis_distance_grid_lines); i++) {
-                ctx.beginPath();
-
-                // Draw a tick mark 6px long (-3 to 3)
-                ctx.moveTo(grid_size*i+0.5, -3);
-                ctx.lineTo(grid_size*i+0.5, 3);
-                ctx.stroke();
-
-                // Text value at that point
-                ctx.fillText(x_axis_starting_point*i, grid_size*i-2, 15);
-            }
-
-            // Ticks marks along the negative X-axis
-            for(i=1; i<y_axis_distance_grid_lines; i++) {
-                ctx.beginPath();
-
-                // Draw a tick mark 6px long (-3 to 3)
-                ctx.moveTo(-grid_size*i+0.5, -3);
-                ctx.lineTo(-grid_size*i+0.5, 3);
-                ctx.stroke();
-
-                // Text value at that point
-                ctx.fillText(-x_axis_starting_point*i, -grid_size*i+3, 15);
-            }
-
-            // Ticks marks along the positive Y-axis
-            // Positive Y-axis of graph is negative Y-axis of the canvas
-            for(i=1; i<(num_lines_x - x_axis_distance_grid_lines); i++) {
-                ctx.beginPath();
-
-                // Draw a tick mark 6px long (-3 to 3)
-                ctx.moveTo(-3, grid_size*i+0.5);
-                ctx.lineTo(3, grid_size*i+0.5);
-                ctx.stroke();
-
-                // Text value at that point
-                ctx.font = font;
-                ctx.fillText(-y_axis_starting_point*i, 8, grid_size*i+3);
-            }
-
-            // Ticks marks along the negative Y-axis
-            // Negative Y-axis of graph is positive Y-axis of the canvas
-            for(i=1; i<x_axis_distance_grid_lines; i++) {
-                ctx.beginPath();
-
-                // Draw a tick mark 6px long (-3 to 3)
-                ctx.moveTo(-3, -grid_size*i+0.5);
-                ctx.lineTo(3, -grid_size*i+0.5);
-                ctx.stroke();
-
-                // Text value at that point
-                ctx.fillText(y_axis_starting_point*i, 8, -grid_size*i+3);
-            }
+        // y-axis
+        if (0 <= originX && originX <= width) {
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
         }
-        ctx.translate(-y_axis_distance_grid_lines*grid_size, -x_axis_distance_grid_lines*grid_size);   
-    }
 
-    // draws the function plot
-    plot(ctx,eqn,color,thick) {
-        var y_axis_distance_grid_lines = this.y_axis_distance_grid_lines;
-        var x_axis_distance_grid_lines = this.x_axis_distance_grid_lines;
-        var grid_size = this.grid_size;
-
-        ctx.translate(y_axis_distance_grid_lines*grid_size, x_axis_distance_grid_lines*grid_size);
-
-        ctx.beginPath();
-        ctx.lineWidth = thick;
-        ctx.strokeStyle = color;
-
-        var cur_x, cur_y, next_x, next_y;
-
-        var tstart = this.eqnRange.min;
-        var tstop = this.eqnRange.max;
-
-        // the step is handcoded for now until resolution implemented
-        var tstep = 0.0625;
-
-        // get the current slider value
-        var kk = this.slider.val;
-
-        for(var tt = tstart; tt < tstop; tt += tstep) {
-            if(tt > tstart) {
-                cur_x = next_x;
-                cur_y = next_y;
-            } else {
-                var cur_x = eqn.x(tt,kk);
-                var cur_y = eqn.y(tt,kk);
-            }
-
-            var next_x = eqn.x(tt+tstep,kk);
-            var next_y = eqn.y(tt+tstep,kk);
-
-            if(!isNaN(cur_x) && !isNaN(cur_y)) {
-                ctx.moveTo(grid_size * cur_x, -cur_y * grid_size);
-
-                if(!isNaN(next_x) && !isNaN(next_y)) {
-                    ctx.lineTo(grid_size * next_x, -next_y * grid_size);
-                }
-            }
-        }
-        ctx.stroke();
-
-        ctx.translate(-y_axis_distance_grid_lines*grid_size, -x_axis_distance_grid_lines*grid_size);
+        ctx.restore();
     }
 }
 
