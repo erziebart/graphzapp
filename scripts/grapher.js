@@ -8,10 +8,10 @@ const scaleRate = 0.03125 // rate at which the scale will change to zoom in and 
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
     constructor(canvasObj, origin, scale) {
-        this.canvas = canvasObj;
-        this.resize(this.canvas);
-        this.origin = origin;
-        this.scale = scale;
+        //this.canvas = canvasObj;
+        this.resize(canvasObj);
+        this.reposition(origin);
+        this.rescale(scale);
 
         // grid properties
         this.grid_size = 25;
@@ -34,6 +34,58 @@ class GraphzappGrapher {
         this.gridColor = "#000000"
     }
 
+    // should be called whenever the canvas is resized
+    resize(canvas) {
+        this.canvas = canvas;
+        this.canvas_width = canvas.width;
+        this.canvas_height = canvas.height;
+        var width = canvas.width;
+        var height = canvas.height;
+
+        // set tick mark length
+        var tickLenX = tickLenRate * width;
+        var tickLenY = tickLenRate * height;
+        this.tickLen = {x: tickLenX, y: tickLenY};
+    }
+
+    // this should be called to update the position of the origin
+    reposition(origin) {
+        this.origin = origin;
+    }
+
+    // this should be called to update the scale
+    rescale(scale) {
+        var scaleX = scale.x;
+        var scaleY = scale.y;
+        this.scale = scale;
+
+        // set the scale factors
+        var sfX = 0.05*Math.pow(10, scaleX);
+        var sfY = 0.05*Math.pow(10, scaleY);
+        this.sf = {x: sfX, y: sfY};
+
+        // set the units
+        var unitX = this.getUnit(scaleX);
+        var unitY = this.getUnit(scaleY);
+        this.unit = {x: unitX, y: unitY};
+
+        // set the grid separation
+        var gridX = unitX/sfX;
+        var gridY = unitY/sfY;
+        this.grid = {x: gridX, y: gridY};
+    }
+
+    // helper function to find the correct unit for an axis
+    getUnit(scale) {
+        var order = Math.floor(scale);
+        var mag = scale - order;
+        if (mag == 0) {return Math.pow(10,order);}
+        if (mag < Math.log10(2)) {return 2*Math.pow(10,order);}
+        if (mag < Math.log10(5)) {return 5*Math.pow(10,order);}
+        else {return 10*Math.pow(10,order);}
+    }
+
+
     // Add the desired t range
     addEqnRange(eqnRange) {
         this.eqnRange = eqnRange;
@@ -44,12 +96,7 @@ class GraphzappGrapher {
         return this.eqnRange;
     }
 
-    // should be called whenever the canvas is resized
-    resize(canvas) {
-        this.canvas_width = canvas.width;
-        this.canvas_height = canvas.height;
-    }
-
+    
     // should add the equation to a list -- for now just sets a variable
     addEquation(eqn) {
         this.eqn = eqn;
@@ -75,18 +122,33 @@ class GraphzappGrapher {
         this.gridColor = gridColor
 
         var ctx = this.canvas.getContext("2d");
-        ctx.clearRect(0,0,this.canvas_width,this.canvas_height);
+        ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         this.draw(ctx);
     }
 
     // this is called to draw all the graph elements
     draw(ctx) {
-        if (this.showAxes) {this.drawAxes(ctx);}
-        
-        //ctx.moveTo(0,0);
+        if (this.showGrids) {
+            this.getGridLocations();
+            this.drawGrids(ctx);
+            
+        }
 
-        //this.grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
-        //this.plot(ctx, this.eqn, "#4D6F96", 2);
+        if (this.showAxes) {
+            this.drawAxes(ctx);
+        }
+    }
+
+    getGridLocations() {
+        var ret = {horizontal: [], vertical: []};
+
+        // positive x-axis
+
+
+    }
+
+    drawGrids(ctx) {
+
     }
 
     drawAxes(ctx) {
@@ -99,7 +161,6 @@ class GraphzappGrapher {
 
         ctx.strokeStyle = this.axesColor;
         ctx.lineWidth = 1;
-        //ctx.translate(originX, originY); // move to origin
 
         // x-axis
         if (0 <= originY && originY <= height) {
