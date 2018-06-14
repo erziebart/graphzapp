@@ -96,13 +96,13 @@ class GraphzappGrapher {
         var height = canvas.height;
 
         // set the grid locations
-        var horizontal = this.getGridLocations(originX, gridX, width);
-        var vertical = this.getGridLocations(originY, gridY, height);
+        var horizontal = this.getGridLocation(originX, gridX, width);
+        var vertical = this.getGridLocation(originY, gridY, height);
         this.gridLocations = {hor: horizontal, ver: vertical};
     }
 
     // helper function to return the locations of gridlines
-    getGridLocations(origin, grid, range) {
+    getGridLocation(origin, grid, range) {
         var ret = {
             begin: Math.ceil(-origin/grid),
             end: Math.floor((range-origin)/grid)
@@ -156,13 +156,21 @@ class GraphzappGrapher {
     // this is called to draw all the graph elements
     draw(ctx) {
         if (this.showGrids) {
-            this.getGridLocations();
             this.drawGrids(ctx);
-            
+            if (this.showAxes) {
+                this.drawAxes(ctx);
+                this.drawTickMarks(ctx);
+                if (this.showLables) {
+                    this.drawLabels(ctx);
+                }
+            }
         }
-
-        if (this.showAxes) {
+        else if (this.showAxes) {
             this.drawAxes(ctx);
+            if (this.showLables) {
+                this.drawTickMarks(ctx);
+                this.drawLabels(ctx);
+            }
         }
     }
 
@@ -234,6 +242,101 @@ class GraphzappGrapher {
             ctx.moveTo(originX, 0);
             ctx.lineTo(originX, height);
             ctx.stroke();
+        }
+
+        ctx.restore();        
+    }
+
+    drawTickMarks(ctx) {
+        var grids = this.gridLocations;
+        var tickLenX = this.tickLen.x;
+        var tickLenY = this.tickLen.y;
+        var originX = this.origin.x;
+        var originY = this.origin.y;
+        var gridX = this.grid.x;
+        var gridY = this.grid.y;
+        var unitX = this.unit.x;
+        var unitY = this.unit.y;
+
+        ctx.save();
+
+        ctx.translate(originX, originY);
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = this.axesColor;
+
+        // horizontal ticks
+        var begin = grids.hor.begin * gridX;
+        var end = grids.hor.end * gridX;
+        for (var cur = begin; cur <= end; cur += gridX) {
+            if (cur) {
+                ctx.beginPath();
+                ctx.moveTo(cur, -tickLenX);
+                ctx.lineTo(cur, tickLenX);
+                ctx.stroke();
+            }
+            
+        }
+
+        // vertical ticks
+        var begin = grids.ver.begin * gridY;
+        var end = grids.ver.end * gridY;
+        for (var cur = begin; cur <= end; cur += gridY) {
+            if (cur) {
+                ctx.beginPath();
+                ctx.moveTo(-tickLenY, cur);
+                ctx.lineTo(tickLenY, cur);
+                ctx.stroke();
+            }
+            
+        }
+
+        ctx.restore();
+    }
+
+    drawLabels(ctx) {
+        var textTickDistance = 5;
+        var textVerOffset = 3;
+
+        var grids = this.gridLocations;
+        var tickLenX = this.tickLen.x;
+        var tickLenY = this.tickLen.y;
+        var originX = this.origin.x;
+        var originY = this.origin.y;
+        var gridX = this.grid.x;
+        var gridY = this.grid.y;
+        var unitX = this.unit.x;
+        var unitY = this.unit.y;
+
+        ctx.save();
+
+        ctx.translate(originX, originY);
+
+        ctx.fillStyle = this.axesColor;
+        ctx.font = '9px Arial';
+        ctx.textAlign = 'start';
+
+        var textHorOffsetX = textTickDistance + tickLenX;
+        var textHorOffsetY = textTickDistance + tickLenY;
+
+        // vertical labels
+        var begin = grids.ver.begin;
+        var end = grids.ver.end;
+        for (var cur = begin; cur <= end; cur++) {
+            if (cur) {
+                ctx.fillText(-cur*unitY, textHorOffsetY, gridY*cur + textVerOffset);
+            }
+        }
+
+        ctx.rotate(0.5*Math.PI);
+
+        // horizontal labels
+        var begin = grids.hor.begin;
+        var end = grids.hor.end;
+        for (var cur = begin; cur <= end; cur++) {
+            if (cur) {
+                ctx.fillText(-cur*unitX, textHorOffsetX, gridX*cur + textVerOffset);
+            }
         }
 
         ctx.restore();
