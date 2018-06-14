@@ -1,7 +1,7 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
 // tunable basis parameters for the grapher behavior
-const res = 1.5; // how close adjacent points should be
+const res = 1.5; // how close adjacent points on curve should be
 const tickLenRate = 0.006 // fraction of screen for tick mark length
 const scaleRate = 0.03125 // rate at which the scale will change to zoom in and out
 
@@ -12,6 +12,7 @@ class GraphzappGrapher {
         this.resize(canvasObj);
         this.reposition(origin);
         this.rescale(scale);
+        this.relocateGrids(origin, this.grid, canvasObj);
 
         // grid properties
         this.grid_size = 25;
@@ -72,7 +73,7 @@ class GraphzappGrapher {
         // set the grid separation
         var gridX = unitX/sfX;
         var gridY = unitY/sfY;
-        this.grid = {x: gridX, y: gridY};
+        this.grid = {x: gridX, y: gridY};        
     }
 
     // helper function to find the correct unit for an axis
@@ -83,6 +84,31 @@ class GraphzappGrapher {
         if (mag < Math.log10(2)) {return 2*Math.pow(10,order);}
         if (mag < Math.log10(5)) {return 5*Math.pow(10,order);}
         else {return 10*Math.pow(10,order);}
+    }
+
+    // this should be called to update the grid locations -- happens on rescale or resize
+    relocateGrids(origin, grid, canvas) {
+        var originX = origin.x;
+        var originY = origin.y;
+        var gridX = grid.x;
+        var gridY = grid.y;
+        var width = canvas.width;
+        var height = canvas.height;
+
+        // set the grid locations
+        var horizontal = this.getGridLocations(originX, gridX, width);
+        var vertical = this.getGridLocations(originY, gridY, height);
+        this.gridLocations = {hor: horizontal, ver: vertical};
+    }
+
+    // helper function to return the locations of gridlines
+    getGridLocations(origin, grid, range) {
+        var ret = {
+            begin: Math.ceil(-origin/grid),
+            end: Math.floor((range-origin)/grid)
+        }; 
+
+        return ret;
     }
 
 
@@ -122,7 +148,8 @@ class GraphzappGrapher {
         this.gridColor = gridColor
 
         var ctx = this.canvas.getContext("2d");
-        ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        ctx.fillStyle = this.backgroundColor;
+        ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
         this.draw(ctx);
     }
 
@@ -139,16 +166,47 @@ class GraphzappGrapher {
         }
     }
 
-    getGridLocations() {
-        var ret = {horizontal: [], vertical: []};
-
-        // positive x-axis
-
-
-    }
-
     drawGrids(ctx) {
+        var grids = this.gridLocations;
+        var originX = this.origin.x;
+        var originY = this.origin.y;
+        var gridX = this.grid.x;
+        var gridY = this.grid.y;
+        var width = this.canvas.width;
+        var height = this.canvas.height;
 
+        ctx.save();
+
+        ctx.translate(originX, originY);
+
+        ctx.strokeStyle = this.gridColor;
+        ctx.lineWidth = 1;
+
+        // horizontal grids
+        var begin = grids.hor.begin * gridX;
+        var end = grids.hor.end * gridX;
+        var upper = -originY;
+        var lower = height-originY;
+        for (var cur = begin; cur <= end; cur += gridX) {
+            ctx.beginPath();
+            ctx.moveTo(cur, upper);
+            ctx.lineTo(cur, lower);
+            ctx.stroke();
+        }
+
+        // vertical grids
+        var begin = grids.ver.begin * gridY;
+        var end = grids.ver.end * gridY;
+        var left = -originX;
+        var right = width-originX;
+        for (var cur = begin; cur <= end; cur += gridY) {
+            ctx.beginPath();
+            ctx.moveTo(left, cur);
+            ctx.lineTo(right, cur);
+            ctx.stroke();
+        }
+
+        ctx.restore();
     }
 
     drawAxes(ctx) {
@@ -164,6 +222,7 @@ class GraphzappGrapher {
 
         // x-axis
         if (0 <= originY && originY <= height) {
+            ctx.beginPath();
             ctx.moveTo(0, originY);
             ctx.lineTo(width, originY);
             ctx.stroke();
@@ -171,6 +230,7 @@ class GraphzappGrapher {
 
         // y-axis
         if (0 <= originX && originX <= width) {
+            ctx.beginPath();
             ctx.moveTo(originX, 0);
             ctx.lineTo(originX, height);
             ctx.stroke();
