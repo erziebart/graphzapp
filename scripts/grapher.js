@@ -1,7 +1,7 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
 // tunable basis parameters for the grapher behavior
-const res = 1.5; // how close adjacent points on curve should be (pixels)
+const res = 0.5; // how close adjacent points on curve should be (pixels)
 const tickRatio = 0.006 // fraction of screen for tick mark length
 const gridRatio = 0.04 // fraction of screen of smallest possible grid length
 const scaleRate = 0.03125 // rate at which the scale will change to zoom in and out
@@ -19,18 +19,6 @@ class GraphzappGrapher {
         this.computeGrid(this.sf, this.unit);
         this.computeGridLocations(this.canvas, this.grid, this.origin);
         this.computeDeltas(this.sf);
-
-        // this.resize(canvasObj);
-        // this.reposition(origin);
-        // this.rescale(scale);
-        // this.relocateGrids(origin, this.grid, canvasObj);
-
-        // // grid properties
-        // this.grid_size = 25;
-        // this.x_axis_distance_grid_lines = 10;
-        // this.y_axis_distance_grid_lines = 10;
-        // this.x_axis_starting_point = 1;
-        // this.y_axis_starting_point = 1;
 
         // equation and slider
         this.eq = null;
@@ -137,83 +125,6 @@ class GraphzappGrapher {
         };
     }
 
-    // // should be called whenever the canvas is resized
-    // resize(canvas) {
-    //     this.canvas = canvas;
-    //     this.canvas_width = canvas.width;
-    //     this.canvas_height = canvas.height;
-    //     var width = canvas.width;
-    //     var height = canvas.height;
-
-    //     // set tick mark length
-    //     var tickLenX = tickLenRate * width;
-    //     var tickLenY = tickLenRate * height;
-    //     this.tickLen = {x: tickLenX, y: tickLenY};
-    // }
-
-    // // this should be called to update the position of the origin
-    // reposition(origin) {
-    //     this.origin = origin;
-    // }
-
-    // // this should be called to update the scale
-    // rescale(scale) {
-    //     var scaleX = scale.x;
-    //     var scaleY = scale.y;
-    //     this.scale = scale;
-
-    //     // set the scale factors
-    //     var sfX = 0.05*Math.pow(10, scaleX);
-    //     var sfY = 0.05*Math.pow(10, scaleY);
-    //     this.sf = {x: sfX, y: sfY};
-
-    //     // set the units
-    //     var unitX = this.getUnit(scaleX);
-    //     var unitY = this.getUnit(scaleY);
-    //     this.unit = {x: unitX, y: unitY};
-
-    //     // set the grid separation
-    //     var gridX = unitX/sfX;
-    //     var gridY = unitY/sfY;
-    //     this.grid = {x: gridX, y: gridY};        
-    // }
-
-    // // helper function to find the correct unit for an axis
-    // getUnit(scale) {
-    //     var order = Math.floor(scale);
-    //     var mag = scale - order;
-    //     if (mag == 0) {return Math.pow(10,order);}
-    //     if (mag < Math.log10(2)) {return 2*Math.pow(10,order);}
-    //     if (mag < Math.log10(5)) {return 5*Math.pow(10,order);}
-    //     else {return 10*Math.pow(10,order);}
-    // }
-
-    // // this should be called to update the grid locations -- happens on rescale or resize
-    // relocateGrids(origin, grid, canvas) {
-    //     var originX = origin.x;
-    //     var originY = origin.y;
-    //     var gridX = grid.x;
-    //     var gridY = grid.y;
-    //     var width = canvas.width;
-    //     var height = canvas.height;
-
-    //     // set the grid locations
-    //     var horizontal = this.getGridLocation(originX, gridX, width);
-    //     var vertical = this.getGridLocation(originY, gridY, height);
-    //     this.gridLocations = {hor: horizontal, ver: vertical};
-    // }
-
-    // // helper function to return the locations of gridlines
-    // getGridLocation(origin, grid, range) {
-    //     var ret = {
-    //         begin: Math.ceil(-origin/grid),
-    //         end: Math.floor((range-origin)/grid)
-    //     }; 
-
-    //     return ret;
-    // }
-
-
     // Add the desired t range
     addEqnRange(eqnRange) {
         this.eqnRange = eqnRange;
@@ -274,6 +185,8 @@ class GraphzappGrapher {
                 this.drawLabels(ctx);
             }
         }
+
+        this.drawPlot(ctx, this.eqn);
     }
 
     drawGrids(ctx) {
@@ -447,7 +360,75 @@ class GraphzappGrapher {
     }
 
     drawPlot(ctx, eqn) {
+        var originX = this.origin.x;
+        var originY = this.origin.y;
+        var sfX = this.sf.x;
+        var sfY = this.sf.y;
+        var width = this.canvas.width;
+        var height = this.canvas.height;
 
+        ctx.save();
+
+        ctx.translate(originX, originY);
+
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#4D6F96";
+
+        var cur_x, cur_y, next_x, next_y;
+        var isCurDef, isNextDef, isCurVisible, isNextVisible;
+
+        var lower = (-originY)*sfY;
+        var upper = (height-originY)*sfY;
+        var left = (-originX)*sfX;
+        var right = (width-originX)*sfX;
+        var isInWindow = function(x, y) {
+            var ret = 
+                left <= x &&
+                x <= right &&
+                lower <= y &&
+                y <= upper;
+
+            return ret;
+        }
+
+        var tstart = this.eqn.tstart;
+        var tstop = this.eqn.tstop;
+        var tstep = this.delta.t;
+
+        // get the current slider value
+        var kk = this.slider.val;
+
+        for(var tt = tstart; tt < tstop; tt += tstep) {
+            if(tt > tstart) {
+                cur_x = next_x;
+                cur_y = next_y;
+                isCurDef = isNextDef;
+                isCurVisible = isNextVisible;
+            } else {
+                cur_x = eval(tt,kk,eqn.x);
+                cur_y = eval(tt,kk,eqn.y);
+                isCurDef = !isNaN(cur_x) && !isNaN(cur_y);
+                isCurVisible = isInWindow(cur_x, cur_y);
+            }
+
+            next_x = eval(tt+tstep,kk,eqn.x);
+            next_y = eval(tt+tstep,kk,eqn.y);
+            isNextDef = !isNaN(next_x) && !isNaN(next_y);
+            isNextVisible = isInWindow(next_x, next_y);
+
+            // if so, follow the curve
+            if(isNextDef) {
+                if(isCurDef && (isCurVisible || isNextVisible)) {
+                    ctx.lineTo(next_x/sfX, -next_y/sfY);
+                } else {
+                    ctx.moveTo(next_x/sfX, -next_y/sfY);
+                }
+            }
+        }
+        ctx.stroke();
+
+        ctx.restore();
     }
 }
 

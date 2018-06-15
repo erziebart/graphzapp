@@ -20,8 +20,8 @@ function init() {
 
     // create grapher
     var canvas = document.getElementById('canvas');
-    var origin = {x: 0.5*canvas.width + 50, y: 0.5*canvas.height - 40};
-    var scale = {x: 0.5, y: 0.5};
+    var origin = {x: 0.5*canvas.width, y: 0.5*canvas.height};
+    var scale = {x: 0, y: 0};
     grapher = new GraphzappGrapher(canvas, origin, scale);
 
     // add the equations
