@@ -1,7 +1,7 @@
 // Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
 
 // tunable basis parameters for the grapher behavior
-const res = 0.5; // how close adjacent points on curve should be (pixels)
+const res = 1.5; // how close adjacent points on curve should be (pixels)
 const tickRatio = 0.006 // fraction of screen for tick mark length
 const gridRatio = 0.04 // fraction of screen of smallest possible grid length
 const scaleRate = 0.03125 // rate at which the scale will change to zoom in and out
@@ -429,6 +429,43 @@ class GraphzappGrapher {
         ctx.stroke();
 
         ctx.restore();
+    }
+
+    // called to update the position of the view window
+    scroll(x_change, y_change) {
+        this.origin = {
+            x: this.origin.x + x_change,
+            y: this.origin.y + y_change
+        };
+
+        this.computeGridLocations(this.canvas, this.grid, this.origin);
+    }
+
+    // called to zoom in or out
+    zoom(zoomX, zoomY, 
+        centerX = 0.5*this.canvas.width, 
+        centerY = 0.5*this.canvas.height) {
+
+        this.scale = {
+            x: this.scale.x + zoomX,
+            y: this.scale.y + zoomY
+        };
+
+        var originX = this.origin.x;
+        var originY = this.origin.y;
+        var dstX = originX - centerX;
+        var dstY = originY - centerY;
+
+        this.origin.x = {
+            x: originX + dstX*(Math.pow(10,zoomX)-1),
+            y: originY + dstY*(Math.pow(10,zoomY)-1)
+        };
+
+        this.computeSF(this.calibration, this.scale);
+        this.computeUnit(this.scale);
+        this.computeGrid(this.sf, this.unit);
+        this.computeGridLocations(this.canvas, this.grid, this.origin);
+        this.computeDeltas(this.sf);
     }
 }
 

@@ -15,14 +15,24 @@ var colors = {
     'gray' : ['#999999', '#F7F7F7']
 };
 
+function addListener(elt, type, handler) {
+    if (elt.addEventListener) { // For all major browsers, except IE 8 and earlier
+        elt.addEventListener(type, handler);
+    } else if (elt.attachEvent) { // For IE 8 and earlier versions
+        elt.attachEvent(type, handler);
+    }
+}
+
 // called when the page is first loaded
 function init() {
-
     // create grapher
     var canvas = document.getElementById('canvas');
     var origin = {x: 0.5*canvas.width, y: 0.5*canvas.height};
     var scale = {x: 0, y: 0};
     grapher = new GraphzappGrapher(canvas, origin, scale);
+
+    // add event listeners
+    //addListener(canvas, );
 
     // add the equations
     grapher.addEquation(eqn);
