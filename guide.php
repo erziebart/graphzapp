@@ -3,6 +3,7 @@
 <head>
 	<title>Graphzapp Guide</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="http://graphzapp.com/favicon.png">
 </head>
 <body>
 	<?php include "header.php"; ?>
@@ -11,7 +12,7 @@
 			<p> How to write equations in the Graphzapp grapher</p>
 			<div class="well card">
 				<h3> Intro </h3>
-				<p> 
+				<p>
 					Define equations for x and y in terms of the variable t in order to draw a curve. Include the variable k to allow animation of the curve by sliding the k slider. Graphzapp has several built-in functions including logarithms and trigonometric functions.
 				</p>
 				<p>
@@ -20,7 +21,7 @@
 			</div>
 			<div class="well card">
 				<h3> Arithmetic </h3>
-				<p> 
+				<p>
 					Use (+) for addition, (-) for subtraction, (*) for multiplication, (/) for division, and (^) for powers. Use parentheses to group parts of the expressions.
 				</p>
 				<p>
@@ -52,8 +53,8 @@
 			</div>
 			<div class="well card">
 				<h3> Function Domains </h3>
-				<p> 
-					Graphzapp will not graph any points where the x or y expression is undefined. The expression is undefined if it contains a division by 0, an indeterminate form, or an imaginary answer. Use divison by a boolean expression to limit the domain to only points where the expression is true. 
+				<p>
+					Graphzapp will not graph any points where the x or y expression is undefined. The expression is undefined if it contains a division by 0, an indeterminate form, or an imaginary answer. Use divison by a boolean expression to limit the domain to only points where the expression is true.
 				</p>
 				<p>
 					Example: <nobr>"t^0.5"</nobr> will only graph where t is at least 0. <nobr>"cos(t)/(-1 < t & t < 1)"</nobr> will only graph where t is between -1 and 1.
