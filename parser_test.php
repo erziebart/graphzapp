@@ -7,12 +7,18 @@
 		include "compiler/parser.php";
 
 		$input_toks = array(
-			array('name'=>'LIT', 'match'=>'1', 'start'=>0),
-			array('name'=>'PLUS', 'match'=>'+', 'start'=>1),
-			array('name'=>'LIT', 'match'=>'2', 'start'=>2),
-			array('name'=>'PLUS', 'match'=>'+', 'start'=>3),
-			array('name'=>'LIT', 'match'=>'3', 'start'=>4),
-			array('name'=>'$end', 'start'=>5)
+			array('name'=>'$lit', 'match'=>'4', 'start'=>0),
+			array('name'=>'$plus', 'match'=>'+', 'start'=>1),
+			array('name'=>'$lit', 'match'=>'2', 'start'=>2),
+			array('name'=>'$minus', 'match'=>'-', 'start'=>3),
+			array('name'=>'$lit', 'match'=>'3', 'start'=>4),
+			array('name'=>'$binop0', 'match'=>';', 'start'=>5),
+			array('name'=>'$lit', 'match'=>'8', 'start'=>6),
+			array('name'=>'$binop2', 'match'=>'*', 'start'=>7),
+			array('name'=>'$lit', 'match'=>'2', 'start'=>8),
+			array('name'=>'$lit', 'match'=>'3', 'start'=>9),
+			array('name'=>'$lit', 'match'=>'3', 'start'=>10),
+			array('name'=>'$end', 'start'=>11)
 		);
 
 		$result = GraphzappParser::parse($input_toks);
