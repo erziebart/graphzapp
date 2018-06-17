@@ -116,7 +116,9 @@
 
 		protected static function r_Fa() { //9
 			$toks = static::pop_n(3);
-			return array("name"=>"F", "match"=>Math.pow($toks[0]['match'],$toks[2]['match']));
+			$base = $toks[0]['match'];
+			$exp = $toks[2]['match'];
+			return array("name"=>"F", "match"=>"Math.pow(".$base.",".$exp.")");
 		}
 
 		protected static function r_Fb() { //10
@@ -136,7 +138,9 @@
 
 		protected static function r_Na() { //13
 			$toks = static::pop_n(3);
-			return array("name"=>"N", "match"=>Math.pow($toks[0]['match'],$toks[2]['match']));
+			$base = $toks[0]['match'];
+			$exp = $toks[2]['match'];
+			return array("name"=>"N", "match"=>"Math.pow(".$base.",".$exp.")");
 		}
 
 		protected static function r_Nb() { //14
@@ -177,13 +181,13 @@
 
 		protected static function r_Cb() { //21
 			$toks = static::pop_n(2);
-			$id = $toks[0]['id'];
+			$id = $toks[0]['match'];
 			return array("name"=>"C", "match"=>$id."(t,k)");
 		}
 
 		protected static function r_Cc() { //22
 			$toks = static::pop_n(3);
-			$id = $toks[0]['id'];
+			$id = $toks[0]['match'];
 			$params = $toks[1]['match'];
 			return array("name"=>"C", "match"=>$id."(t,k,$params)");
 		}
@@ -220,8 +224,8 @@
 		}
 
 		protected static function e_lparen($next_tok) {
-			$len = count(static::$tokens);
-			$loc = static::$tokens[$len - 2]['start'];
+			$len = count(static::$stack);
+			$loc = static::$stack[$len - 2]['start'];
 			return new Report("unbalanced (", $loc);
 		}
 
@@ -234,17 +238,17 @@
 		}
 
 		protected static function e_unclosed_0($next_tok) {
-			$len = count(static::$tokens);
-			$func = static::$tokens[$len - 1];
-			$id = $func['id'];
+			$len = count(static::$stack);
+			$func = static::$stack[$len - 1];
+			$id = $func['match'];
 			$loc = $func['start'];
 			return new Report("unclosed argument list for $id", $loc);
 		} 
 
 		protected static function e_unclosed_1($next_tok) {
-			$len = count(static::$tokens);
-			$func = static::$tokens[$len - 2];
-			$id = $func['id'];
+			$len = count(static::$stack);
+			$func = static::$stack[$len - 2];
+			$id = $func['match'];
 			$loc = $func['start'];
 			return new Report("unclosed argument list for $id", $loc);
 		} 
@@ -324,7 +328,7 @@
 
 			"Nb2" => ['$end'=>'r_Nb', '$binop0'=>'r_Nb', '$plus'=>'r_Nb', '$minus'=>'r_Nb', '$binop2'=>'r_Nb', '$not'=>'r_Nb', '$lit'=>'r_Nb', '$var'=>'r_Nb', '$const'=>'r_Nb', '$lparen'=>'r_Nb', '$rparen'=>'r_Nb', '$fid'=>'r_Nb', '$comma'=>'r_Nb'], //33
 
-			"Fa1_Fd1" => ['$end'=>'r_Fd', '$binop0'=>'r_Fd', '$plus'=>'r_Fd', '$minus'=>'r_Fd', '$binop2'=>'r_Fd', '$not'=>'r_Fd', '$power'=>'s_Fa2', '$lit'=>'r_Fd', '$var'=>'r_Fd', '$const'=>'r_Fb', '$lparen'=>'r_Fb', '$rparen'=>'r_Fb', '$fid'=>'r_Fb', '$comma'=>'r_Fb'], //5
+			"Fa1_Fd1" => ['$end'=>'r_Fd', '$binop0'=>'r_Fd', '$plus'=>'r_Fd', '$minus'=>'r_Fd', '$binop2'=>'r_Fd', '$not'=>'r_Fd', '$power'=>'s_Fa2', '$lit'=>'r_Fd', '$var'=>'r_Fd', '$const'=>'r_Fd', '$lparen'=>'r_Fd', '$rparen'=>'r_Fd', '$fid'=>'r_Fd', '$comma'=>'r_Fd'], //5
 
 			"Na1_Nc1" => ['$end'=>'r_Nc', '$binop0'=>'r_Nc', '$plus'=>'r_Nc', '$minus'=>'r_Nc', '$binop2'=>'r_Nc', '$not'=>'r_Nc', '$power'=>'s_Na2', '$lit'=>'r_Nc', '$var'=>'r_Nc', '$const'=>'r_Nc', '$lparen'=>'r_Nc', '$rparen'=>'r_Nc', '$fid'=>'r_Nc', '$comma'=>'r_Nc'], //19
 
@@ -354,7 +358,7 @@
 
 			"Cb2" => ['$end'=>'r_Cb', '$binop0'=>'r_Cb', '$plus'=>'r_Cb', '$minus'=>'r_Cb', '$binop2'=>'r_Cb', '$not'=>'r_Cb', '$power'=>'r_Cb', '$lit'=>'r_Cb', '$var'=>'r_Cb', '$const'=>'r_Cb', '$lparen'=>'r_Cb', '$fid'=>'r_Cb', '$comma'=>'r_Cb'], //25
 
-			"Aa1_Sa1" => ['$binop0'=>'s_Sa2', '$rparen'=>'r_Aa', '$comma'=>'r_Aa'], //27
+			"Aa1_Sa1" => ['$end'=>'r_Aa', '$binop0'=>'s_Sa2', '$rparen'=>'r_Aa', '$comma'=>'r_Aa'], //27
 
 			"Cc2_Ab1" => ['$end'=>'e_unclosed_1', '$rparen'=>'s_Cc3', '$comma'=>'s_Ab2'], //26
 
@@ -362,7 +366,7 @@
 
 			"Ab2" => ['$end'=>'e_ended', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_operand', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Ab3_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //37
 
-			"Ab3_Sa1" => ['$binop0'=>'s_Sa2', '$rparen'=>'r_Ab', '$comma'=>'r_Ab'] //39
+			"Ab3_Sa1" => ['$end'=>'r_Ab', '$binop0'=>'s_Sa2', '$rparen'=>'r_Ab', '$comma'=>'r_Ab'] //39
 		);
 
 
@@ -379,6 +383,8 @@
 				//print_r(end(static::$stack));
 				$next_tok = end($tokens);
 				$name = $next_tok['name'];
+				$start = $next_tok['start'];
+				$end = $next_tok['end'];
 
 				if(isset(static::$parse_table[$state][$name])) {
 					$action = static::$parse_table[$state][$name];
@@ -388,13 +394,13 @@
 					switch($type) {
 						default: // goto
 							array_pop($tokens);
-							static::$stack[] = array("match" => $next_tok['match'], "state" => $action);
+							static::$stack[] = array("match" => $next_tok['match'], "state" => $action, "start"=>$start, "end"=>$end);
 							break;
 
 						case 's': // shift
 							$target = $parts[1];
 							array_pop($tokens);
-							static::$stack[] = array("match" => $next_tok['match'], "state" => $target);
+							static::$stack[] = array("match" => $next_tok['match'], "state" => $target, "start"=>$start, "end"=>$end);
 							break;
 
 						case 'r': // reduce
@@ -409,7 +415,7 @@
 							} else {
 								//print_r(static::$parse_table);
 								//print_r(static::$stack);
-								static::$report = new Report("no action for ".$name." in state ".$state, -1);
+								static::$report = new Report("no action for ".$name." in state ".$state, $start);
 								return false;
 							}
 
@@ -425,7 +431,7 @@
 
 				} else {
 					//print_r(static::$stack);
-					static::$report = new Report("no action for ".$name." in state ".$state, -1);
+					static::$report = new Report("no action for ".$name." in state ".$state, $start);
 					return false;
 				}
 			}

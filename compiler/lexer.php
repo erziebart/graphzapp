@@ -7,7 +7,6 @@
 	class GraphzappLexer {
 		// Handy regular expressions
 		const ID = "[A-Za-z][\w]*";
-		//const ALLOWED = "[\w+\-\*\/\^&\|!=<>;,\.\s]";
 		const JSLIT = "((\d+(\.\d*)?)|(\.\d+))((E|e)(\+|\-)?\d+)?";
 
 		protected static $terminals = array(
@@ -18,61 +17,75 @@
 			*/
 
 			array(
-				"T_WHITESPACE", 
+				'$white', 
 				"\s+",
 				"g_ignore"
 			),
 			array(
-				"T_VAR",
+				'$var',
 				"(t|k)(?!\w)",
 				"g_generic"
 			),
 			array(
-				"T_CALL", 
-				"(".self::ID.")(\((?:(?>[^()]+)|(?3))*\))",
-				/*"(".self::ID.")(\((?:(?>".self::ALLOWED."+)|(?3))*\))",*/
+				'$fid',
+				"(".self::ID.")\(",
 				"g_call"
 			),
 			array(
-				"E_UNCLOSED",
-				"(".self::ID.")\(",
-				"e_unclosed"
-			),
-			array(
-				"T_ID", 
-				"[A-Za-z][\w]*",
+				'$const', 
+				self::ID,
 				"g_generic"
 			),
 			array(
-				"T_BINOP", 
-				";|&|\||==|!=|<=|>=|<|>|\+|\*|\/|\^",
+				'$binop0', 
+				";|&|\||==|!=|<=|>=|<|>",
 				"g_generic"
 			),
 			array(
-				"T_NOT", 
-				"!",
+				'$plus', 
+				"\+",
 				"g_generic"
 			),
 			array(
-				"T_MINUS", 
+				'$minus', 
 				"\-",
 				"g_generic"
 			),
 			array(
-				"T_LITERAL", 
+				'$binop2', 
+				"\*|\/",
+				"g_generic"
+			),
+			array(
+				'$not', 
+				"!",
+				"g_generic"
+			),
+			array(
+				'$power', 
+				"\^",
+				"g_generic"
+			),
+			array(
+				'$lit', 
 				"(?>".self::JSLIT.")(?![\.])",
 				"g_generic"
 			),
 			array(
-				"T_LPAREN", 
+				'$lparen', 
 				"\(",
 				"g_generic"
 			),
 			array(
-				"T_RPAREN", 
+				'$rparen', 
 				"\)",
 				"g_generic"
-			)
+			),
+			array(
+				'$comma',
+				",",
+				"g_generic"
+			),
 		);
 
 		////////////////token generation actions/////////////////
@@ -82,7 +95,7 @@
 
 		protected static function g_generic($name, $matches, $offset) {
 			$match = $matches[1];
-			return array (
+			return array(
 				"name" => $name,
 				"match" => $match);
 		}
@@ -90,31 +103,10 @@
 		// for T_CALL
 		protected static function g_call($name, $matches, $offset) {
 			$id = $matches[2];
-			$args = explode(",", substr($matches[3],1,strlen($matches[3]) - 2));
-			
-			$params = array();
-			$offset += strlen($id) + 1;
-			foreach ($args as $expr) {
-				$tok_ls = self::token($expr, $offset);
-				if ($tok_ls === false) {
-					return false;
-				}
-				$params[] = $tok_ls;
-				$offset += strlen($expr) + 1;
-			}
 
 			return array(
 				"name" => $name,
-				"id" => $id,
-				"params" => $params);
-		}
-		/////////////////////////////////////////////////////////
-
-		///////////////// error catching actions ////////////////
-		protected static function e_unclosed($name, $matches, $offset) {
-			$id = $matches[2];
-			static::$report = new Report("unclosed argument list for ".$id, $offset);
-			return false;
+				"match" => $id);
 		}
 		/////////////////////////////////////////////////////////
 
