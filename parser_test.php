@@ -6,17 +6,20 @@
 		include "compiler/report.php";
 		include "compiler/lexer.php";
 		include "compiler/parser.php";
+		include "compiler/codegen.php";
 
-		$expr = '2cos(t,0)';
+		$expr = '2cos(t;1,0)';
 		GraphzappLexer::init();
 		$input_toks = GraphzappLexer::token($expr,0);
 		$input_toks[] = array('name'=>'$end', 'start'=>strlen($expr), 'end'=>strlen($expr));
-		$result = GraphzappParser::parse($input_toks);
+		$ast = GraphzappParser::parse($input_toks);
 
-		if($result === false) {
+		if($ast === false) {
 			$report = GraphzappParser::$report;
 			$result = "Not Accepted";
 		}
+
+		$result = GraphzappCodegen::codegen($ast);
 	?>
 </head>
 <body>
@@ -37,6 +40,10 @@
 	?> </p>
 	<p> <?php 
 		echo "ast: <br>";
+		print_r($ast); 
+	?> </p>
+	<p> <?php 
+		echo "result: <br>";
 		print_r($result); 
 	?> </p>
 </body>

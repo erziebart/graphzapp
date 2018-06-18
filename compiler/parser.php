@@ -53,7 +53,7 @@
 			$op = $toks[1]['match'];
 			$right = $toks[2]['match'];
 
-			return array("type"=>"binop", "left"=>$left, "op"=>$op, "right"=>$right);
+			return array("type"=>"Binop", "left"=>$left, "op"=>$op, "right"=>$right);
 		}
 
 		protected static function Unop() {
