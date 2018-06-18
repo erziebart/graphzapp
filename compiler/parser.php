@@ -45,38 +45,81 @@
 			return array_reverse($ret);
 		}
 
+		///////////// AST ELEMENT CONSTRUCTORS ///////////////
 
-		//////////////// REDUCERS FOR PROD RULES /////////////
-
-		protected static function a() { //0
-			$toks = static::pop_n(1);
-			$match = "[function(t,k){return ".$toks[0]['match'].";}]";
-			return array("name"=>'$accept', "match"=>$match);
-		}
-
-		protected static function r_Sa() { //1
+		protected static function Binop() {
 			$toks = static::pop_n(3);
 			$left = $toks[0]['match'];
 			$op = $toks[1]['match'];
 			$right = $toks[2]['match'];
 
-			// mapping BINOP0 operators
-			switch ($op) {
-				case ';':
-					$match = $left.';},function(t,k){return '.$right;
-					break;
-				case '|':
-					$match = $left.'||'.$right;
-					break;
-				case '&':
-					$match = $left.'&&'.$right;
-					break;
-				default:
-					$match = $left.$op.$right;
-					break;
-			}
+			return array("type"=>"binop", "left"=>$left, "op"=>$op, "right"=>$right);
+		}
 
+		protected static function Unop() {
+			$toks = static::pop_n(2);
+			$op = $toks[0]['match'];
+			$operand = $toks[1]['match'];
+
+			return array("type"=>"Unop", "op"=>$op, "operand"=>$operand);
+		}
+
+		protected static function Var() {
+			$toks = static::pop_n(1);
+			$value = $toks[0]['match'];
+			return array("type"=>"Var", "value"=>$value);
+		}
+
+		protected static function Lit() {
+			$toks = static::pop_n(1);
+			$value = $toks[0]['match'];
+			return array("type"=>"Lit", "value"=>$value);
+		}
+
+		protected static function Const() {
+			$toks = static::pop_n(1);
+			$id = $toks[0]['match'];
+			return array("type"=>"Const", "id"=>$id);
+		}
+
+		protected static function Func() {
+			$toks = static::pop_n(3);
+			$id = $toks[0]['match'];
+			$params = $toks[1]['match'];
+			return array("type"=>"Func", "id"=>$id, "params"=>$params);
+		}
+
+
+		//////////////// REDUCERS FOR PROD RULES /////////////
+
+		protected static function a() { //0
+			$toks = static::pop_n(1);
+			$tree = $toks[0]['match'];
+			$match = array("type"=>"Expr", "tree"=>$tree);
+			return array("name"=>'$accept', "match"=>$match);
+		}
+
+		protected static function r_Sa() { //1
+			$match = static::Binop();
 			return array("name"=>"S", "match"=>$match);
+
+			// // mapping BINOP0 operators
+			// switch ($op) {
+			// 	case ';':
+			// 		$match = $left.';},function(t,k){return '.$right;
+			// 		break;
+			// 	case '|':
+			// 		$match = $left.'||'.$right;
+			// 		break;
+			// 	case '&':
+			// 		$match = $left.'&&'.$right;
+			// 		break;
+			// 	default:
+			// 		$match = $left.$op.$right;
+			// 		break;
+			// }
+
+			//return array("name"=>"S", "match"=>$match);
 		}
 
 		protected static function r_Sb() { //2
@@ -85,13 +128,13 @@
 		}
 
 		protected static function r_Ea() { //3
-			$toks = static::pop_n(3);
-			return array("name"=>"E", "match"=>$toks[0]['match']."+".$toks[2]['match']);
+			$match = static::Binop();
+			return array("name"=>"E", "match"=>$match);
 		}
 
 		protected static function r_Eb() { //4
-			$toks = static::pop_n(3);
-			return array("name"=>"E", "match"=>$toks[0]['match']."-".$toks[2]['match']);
+			$match = static::Binop();
+			return array("name"=>"E", "match"=>$match);
 		}
 
 		protected static function r_Ec() { //5
@@ -100,13 +143,18 @@
 		}
 
 		protected static function r_Ta() { //6
-			$toks = static::pop_n(3);
-			return array("name"=>"T", "match"=>$toks[0]['match'].$toks[1]['match'].$toks[2]['match']);
+			$match = static::Binop();
+			return array("name"=>"T", "match"=>$match);
 		}
 
 		protected static function r_Tb() { //7
 			$toks = static::pop_n(2);
-			return array("name"=>"T", "match"=>$toks[0]['match']."*".$toks[1]['match']);
+			$left = $toks[0]['match'];
+			$op = "*";
+			$right = $toks[1]['match'];
+
+			$match = array("type"=>"Binop", "left"=>$left, "op"=>$op, "right"=>$right);
+			return array("name"=>"T", "match"=>$match);
 		}
 
 		protected static function r_Tc() { //8
@@ -115,20 +163,18 @@
 		}
 
 		protected static function r_Fa() { //9
-			$toks = static::pop_n(3);
-			$base = $toks[0]['match'];
-			$exp = $toks[2]['match'];
-			return array("name"=>"F", "match"=>"Math.pow(".$base.",".$exp.")");
+			$match = static::Binop();
+			return array("name"=>"F", "match"=>$match);
 		}
 
 		protected static function r_Fb() { //10
-			$toks = static::pop_n(2);
-			return array("name"=>"F", "match"=>"-".$toks[1]['match']);
+			$match = static::Unop();
+			return array("name"=>"F", "match"=>$match);
 		}
 
 		protected static function r_Fc() { //11
-			$toks = static::pop_n(2);
-			return array("name"=>"F", "match"=>"!".$toks[1]['match']);
+			$match = static::Unop();
+			return array("name"=>"F", "match"=>$match);
 		}
 
 		protected static function r_Fd() { //12
@@ -137,15 +183,13 @@
 		}
 
 		protected static function r_Na() { //13
-			$toks = static::pop_n(3);
-			$base = $toks[0]['match'];
-			$exp = $toks[2]['match'];
-			return array("name"=>"N", "match"=>"Math.pow(".$base.",".$exp.")");
+			$match = static::Binop();
+			return array("name"=>"N", "match"=>$match);
 		}
 
 		protected static function r_Nb() { //14
-			$toks = static::pop_n(2);
-			return array("name"=>"N", "match"=>"!".$toks[1]['match']);
+			$match = static::Unop();
+			return array("name"=>"N", "match"=>$match);
 		}
 
 		protected static function r_Nc() { //15
@@ -154,13 +198,13 @@
 		}
 
 		protected static function r_Va() { //16
-			$toks = static::pop_n(1);
-			return array("name"=>"V", "match"=>$toks[0]['match']);
+			$match = static::Lit();
+			return array("name"=>"V", "match"=>$match);
 		}
 
 		protected static function r_Vb() { //17
-			$toks = static::pop_n(1);
-			return array("name"=>"V", "match"=>$toks[0]['match']);
+			$match = static::Var();
+			return array("name"=>"V", "match"=>$match);
 		}
 
 		protected static function r_Vc() { //18
@@ -170,37 +214,37 @@
 
 		protected static function r_Vd() { //19
 			$toks = static::pop_n(3);
-			$match = "eval(t,k,[function(t,k){return ".$toks[1]['match'].";}])";
+			$match = $toks[1]['match'];
 			return array("name"=>"V", "match"=>$match);
 		}
 
 		protected static function r_Ca() { //20
-			$toks = static::pop_n(1);
-			return array("name"=>"C", "match"=>$toks[0]['match']);
+			$match = static::Const();
+			return array("name"=>"C", "match"=>$match);
 		}
 
 		protected static function r_Cb() { //21
 			$toks = static::pop_n(2);
 			$id = $toks[0]['match'];
-			return array("name"=>"C", "match"=>$id."(t,k)");
+			$match = array("type"=>"Func", "id"=>$id, "params"=>[]);
+			return array("name"=>"C", "match"=>$match);
 		}
 
 		protected static function r_Cc() { //22
-			$toks = static::pop_n(3);
-			$id = $toks[0]['match'];
-			$params = $toks[1]['match'];
-			return array("name"=>"C", "match"=>$id."(t,k,$params)");
+			$match = static::Func();
+			return array("name"=>"C", "match"=>$match);
 		}
 
 		protected static function r_Aa() { //23
 			$toks = static::pop_n(1);
-			$match = "[function(t,k){return ".$toks[0]['match'].";}]";
+			$match = [$toks[0]['match']];
 			return array("name"=>"A", "match"=>$match);
 		}
 
 		protected static function r_Ab() { //24
 			$toks = static::pop_n(3);
-			$match = $toks[0]['match'].",[function(t,k){return ".$toks[2]['match'].";}]";
+			$match = $toks[0]['match'];
+			$match[] = $toks[2]['match'];
 			return array("name"=>"A", "match"=>$match);
 		}
 
@@ -217,10 +261,6 @@
 
 		protected static function e_operand($next_tok) {
 			return new Report("operand expected", $next_tok['start']);
-		}
-
-		protected static function e_operator($next_tok) {
-			return new Report("operator expected", $next_tok['start']);
 		}
 
 		protected static function e_lparen($next_tok) {

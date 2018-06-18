@@ -7,7 +7,7 @@
 		include "compiler/lexer.php";
 		include "compiler/parser.php";
 
-		$expr = 'cos(t^2)/(pi cos(t)>0.5) ; sin(t^2)';
+		$expr = '2cos(t,0)';
 		GraphzappLexer::init();
 		$input_toks = GraphzappLexer::token($expr,0);
 		$input_toks[] = array('name'=>'$end', 'start'=>strlen($expr), 'end'=>strlen($expr));
@@ -20,7 +20,7 @@
 	?>
 </head>
 <body>
-	<p> <?php print($result) ?> </p>
+	<p> <?php print("f(t,k)=".$expr); ?> </p>
 	<?php  
 
 		if(isset($report)) {
@@ -34,6 +34,10 @@
 			print_r($t); 
 			echo "<br>";
 		} 
+	?> </p>
+	<p> <?php 
+		echo "ast: <br>";
+		print_r($result); 
 	?> </p>
 </body>
 </html>
