@@ -54,6 +54,10 @@ input[type=range]::-moz-focus-outer {
     border: 0;
 }
 
+input:checked {
+	background-color: rgba(220, 220, 220);
+}
+
 .flex ul {
 	display: inline-block;
 	text-align: left;
@@ -63,7 +67,12 @@ input[type=range]::-moz-focus-outer {
 
 hr{
 	border: .5px solid #b7b7b7;
-	margin: 20px auto;
+	margin: auto;
+}
+
+h3 {
+	margin: 10px auto;
+	font-size: 18px;
 }
 
 p {
@@ -121,6 +130,7 @@ img {
 	display: flex;
 	justify-content: center;
 	padding: 20px 0px;
+	margin-bottom: 100px;
 }
 
 .gradient {
@@ -175,6 +185,7 @@ img {
 }
 
 .line {
+	position: relative;
 	margin: 20px 0;
 }
 
@@ -458,8 +469,99 @@ img {
 	font-weight: bold;
 }
 
-.tooltip{
+.graph_options {
+	margin: 10px auto;
+	padding: 10px 10px;
+	background-color: #f7f7f7;
+	border: 1px solid rgb(220, 220, 220);
+	max-width: 600px;
+}
+
+.checkbox_wrapper {
+	display: flex;
+	justify-content: space-around;
+	margin: auto;
+}
+
+.graph_options input:disabled + label{
+	color: rgb(220, 220, 220);
+}
+
+.dropdown_wrapper {
+	width: 49%;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.colors_dropdown {
+	display : inline-block;
 	position: relative;
+	width: 140px;
+	font-size: 12px;
+	text-align: left;
+}
+
+.graph_options .colors_dropdown span {
+	position: absolute;
+	top: 4px;
+	right: 5px;
+}
+
+.colors_dropdown .selected {
+	border: 2px solid rgb(220, 220, 220);
+	border-radius: 5px;
+	height: 25px;
+}
+
+.colors_dropdown .selected .option {
+	display: inline-block;
+}
+
+.colors_dropdown .selected:hover {
+	background-color: #e6e6e6;
+	cursor: pointer;
+}
+
+.colors_dropdown .selected:hover .option {
+	border-color: #e6e6e6;
+}
+
+.colors_dropdown .options {
+	position: absolute;
+	top: 100%;
+	z-index: 1;
+	border: 1px solid rgb(220, 220, 220);
+	border-top: none;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	box-shadow: 3px 3px 2px rgba(0, 0, 0, .1);
+	margin-bottom: 10px;
+}
+
+.colors_dropdown .option {
+	border-left: 10px solid #f7f7f7;
+	border-right: 10px solid #f7f7f7;
+	border-top: 5px solid #f7f7f7;
+	border-bottom: 5px solid #f7f7f7;
+	height: 15px;
+	width: 100px;
+}
+
+.colors_dropdown .hidden {
+	display: none;
+}
+
+.colors_dropdown .option:hover {
+	border-left: 10px solid #e6e6e6;
+	border-right: 10px solid #e6e6e6;
+	border-top: 5px solid #e6e6e6;
+	border-bottom: 5px solid #e6e6e6;
+	cursor: pointer;
+}
+
+.graph_options span {
+	margin-top: 5px;
+	margin-bottom : 5px;
 }
 
 .tooltip_wrapper{
@@ -546,7 +648,7 @@ img {
 	.tooltip_wrapper {
 		top: 115%;
 		left: 70px;
-		width: 100%;
+		width: 80%;
 		max-width: 100%;
 	}
 	.tooltip_text:before{

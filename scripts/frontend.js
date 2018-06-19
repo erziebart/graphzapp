@@ -1,4 +1,19 @@
 var grapher;
+var grid = true;
+var axes = true;
+var numbers = true;
+var gridColor = '#E9E9E9';
+var axesColor = '#000000';
+var backgroundColor = '#FFFFFF';
+var colors = {
+    'black': ['#000000', '#E9E9E9'], 
+    'white' : ['#FFFFFF', '#8C8C8C'],
+    'blue' : ['#4D6F96', '#DDE5EE'],
+    'red' : ['#CC0000', '#FFCCCC'],
+    'green' : ['#1AFF1A', '#CCFFCC'],
+    'purple' : ['#660066', '#FF80FF'],
+    'gray' : ['#999999', '#F7F7F7']
+};
 
 // called when the page is first loaded
 function init() {
@@ -23,19 +38,53 @@ function init() {
     grapher.addEqnRange(eqnRange);
 
     // draw the content
-    grapher.paint();
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
 
 //Updates kmin and kmax when user hits 'update range'
 function adjustRange() {
     var kslider = grapher.getSlider();
     kslider.adjustRange();
-    grapher.paint();
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
 
 //Called whenever slider is moved
 function adjustValue() {
     var kslider = grapher.getSlider();
     kslider.adjustValue();
-    grapher.paint();
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+}
+
+function handleCheckboxes(){
+    grid = document.getElementById('grid_checkbox').checked;
+    axes= document.getElementById('axes_checkbox').checked;
+    var numbers_checkbox = document.getElementById('numbers_checkbox');
+
+    if (!axes) {
+        numbers_checkbox.checked = false;
+        numbers_checkbox.disabled = true;
+    }
+    else {
+        numbers_checkbox.disabled = false;
+    }
+    numbers = numbers_checkbox.checked;
+
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+
+}
+
+function changeBackground(color) {
+    var colorCode = colors[color][0];
+    select(1, color);
+    backgroundColor = colorCode;
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+}
+
+function changeAxesColor(color) {
+    var mainColorCode = colors[color][0];
+    var lightColorCode = colors[color][1];
+    select(2, color);
+    gridColor = lightColorCode;
+    axesColor = mainColorCode;
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
