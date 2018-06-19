@@ -102,24 +102,6 @@
 		protected static function r_Sa() { //1
 			$match = static::Binop();
 			return array("name"=>"S", "match"=>$match);
-
-			// // mapping BINOP0 operators
-			// switch ($op) {
-			// 	case ';':
-			// 		$match = $left.';},function(t,k){return '.$right;
-			// 		break;
-			// 	case '|':
-			// 		$match = $left.'||'.$right;
-			// 		break;
-			// 	case '&':
-			// 		$match = $left.'&&'.$right;
-			// 		break;
-			// 	default:
-			// 		$match = $left.$op.$right;
-			// 		break;
-			// }
-
-			//return array("name"=>"S", "match"=>$match);
 		}
 
 		protected static function r_Sb() { //2
@@ -214,7 +196,8 @@
 
 		protected static function r_Vd() { //19
 			$toks = static::pop_n(3);
-			$match = $toks[1]['match'];
+			$tree = $toks[1]['match'];
+			$match = array("type"=>"Expr", "tree"=>$tree);
 			return array("name"=>"V", "match"=>$match);
 		}
 

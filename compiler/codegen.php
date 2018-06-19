@@ -6,7 +6,7 @@
 			switch ($type) {
 				case 'Expr':
 					$expr = self::codegen($ast['tree']);
-					return "[function(t,k){return ".$expr.";}]";
+					return "eval(t,k,[function(t,k){return ".$expr.";}])";
 
 				case 'Binop':
 					$left = self::codegen($ast['left']);
@@ -21,7 +21,7 @@
 						case '&':
 							return $match = $left.'&&'.$right;
 						case '^':
-							return "Math.pow(".$left.",".$right.")";
+							return "power(".$left.",".$right.")";
 						default:
 							return $left.$op.$right;
 					}

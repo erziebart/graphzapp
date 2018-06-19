@@ -222,12 +222,12 @@ class GraphzappGrapher {
                 cur_x = next_x;
                 cur_y = next_y;
             } else {
-                var cur_x = eval(tt,kk,eqn.x);
-                var cur_y = eval(tt,kk,eqn.y);
+                var cur_x = eqn.x(tt,kk);
+                var cur_y = eqn.y(tt,kk);
             }
 
-            var next_x = eval(tt+tstep,kk,eqn.x);
-            var next_y = eval(tt+tstep,kk,eqn.y);
+            var next_x = eqn.x(tt+tstep,kk);
+            var next_y = eqn.y(tt+tstep,kk);
 
             if(!isNaN(cur_x) && !isNaN(cur_y)) {
                 ctx.moveTo(grid_size * cur_x, -cur_y * grid_size);
