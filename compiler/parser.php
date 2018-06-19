@@ -34,7 +34,7 @@
 		*/
 
 		// token stack
-		protected static $stack = array(["state"=>"START"]);
+		protected static $stack;
 
 		// pops n elements from the stack
 		protected static function pop_n($n) {
@@ -396,13 +396,13 @@
 
 			"Cb1_Cc1" => ['$end'=>'e_unclosed_0', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'s_Cb2', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Aa1_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1', 'A'=>'Cc2_Ab1'], //13
 
-			"Cb2" => ['$end'=>'r_Cb', '$binop0'=>'r_Cb', '$plus'=>'r_Cb', '$minus'=>'r_Cb', '$binop2'=>'r_Cb', '$not'=>'r_Cb', '$power'=>'r_Cb', '$lit'=>'r_Cb', '$var'=>'r_Cb', '$const'=>'r_Cb', '$lparen'=>'r_Cb', '$fid'=>'r_Cb', '$comma'=>'r_Cb'], //25
+			"Cb2" => ['$end'=>'r_Cb', '$binop0'=>'r_Cb', '$plus'=>'r_Cb', '$minus'=>'r_Cb', '$binop2'=>'r_Cb', '$not'=>'r_Cb', '$power'=>'r_Cb', '$lit'=>'r_Cb', '$var'=>'r_Cb', '$const'=>'r_Cb', '$lparen'=>'r_Cb', '$rparen'=>'r_Cb', '$fid'=>'r_Cb', '$comma'=>'r_Cb'], //25
 
 			"Aa1_Sa1" => ['$end'=>'r_Aa', '$binop0'=>'s_Sa2', '$rparen'=>'r_Aa', '$comma'=>'r_Aa'], //27
 
 			"Cc2_Ab1" => ['$end'=>'e_unclosed_1', '$rparen'=>'s_Cc3', '$comma'=>'s_Ab2'], //26
 
-			"Cc3" => ['$end'=>'r_Cc', '$binop0'=>'r_Cc', '$plus'=>'r_Cc', '$minus'=>'r_Cc', '$binop2'=>'r_Cc', '$not'=>'r_Cc', '$power'=>'r_Cc', '$lit'=>'r_Cc', '$var'=>'r_Cc', '$const'=>'r_Cc', '$lparen'=>'r_Cc', '$fid'=>'r_Cc', '$comma'=>'r_Cc'], //36
+			"Cc3" => ['$end'=>'r_Cc', '$binop0'=>'r_Cc', '$plus'=>'r_Cc', '$minus'=>'r_Cc', '$binop2'=>'r_Cc', '$not'=>'r_Cc', '$power'=>'r_Cc', '$lit'=>'r_Cc', '$var'=>'r_Cc', '$const'=>'r_Cc', '$lparen'=>'r_Cc', '$rparen'=>'r_Cc', '$fid'=>'r_Cc', '$comma'=>'r_Cc'], //36
 
 			"Ab2" => ['$end'=>'e_ended', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_operand', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Ab3_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //37
 
@@ -412,6 +412,11 @@
 
 		// error reporting
 		static $report;
+
+		// initializes the stack
+		public static function init() {
+			static::$stack = array(["state"=>"START"]);
+		}
 
 		// parses the token list to generate the final expression
 		public static function parse($tokens) {

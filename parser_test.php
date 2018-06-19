@@ -6,6 +6,7 @@
 		include "compiler/report.php";
 		include "compiler/lexer.php";
 		include "compiler/parser.php";
+		include "compiler/imports.php";
 		include "compiler/codegen.php";
 
 		$expr = '2cos(t;1,0)';
@@ -15,6 +16,13 @@
 		$ast = GraphzappParser::parse($input_toks);
 
 		if($ast === false) {
+			$report = GraphzappParser::$report;
+			$result = "Not Accepted";
+		}
+
+		GraphzappImports::init();
+		$success = GraphzappImports::import($ast);
+		if($success == false) {
 			$report = GraphzappParser::$report;
 			$result = "Not Accepted";
 		}

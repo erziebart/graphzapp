@@ -1,8 +1,10 @@
 <?php
 	include "report.php";
 	include "lexer.php";
+	include "parser.php";
 	include "imports.php";
 	include "mapper.php";
+	include "codegen.php";
 
 	// undefined for all inputs
 	const UNDEF = "[function(t,k){return NaN;}]";
@@ -15,18 +17,24 @@
 			return -1;
 		}
 
-		// imports
-		if (!GraphzappImports::import($tok)) {
-			$report = GraphzappImports::$report;
+		$tok[] = array('name'=>'$end', 'start'=>strlen($expr)+1, 'end'=>strlen($expr)+1);
+
+		// parsing
+		GraphzappParser::init();
+		$ast = GraphzappParser::parse($tok);
+		if($ast === false) {
+			$report = GraphzappParser::$report;
 			return -2;
 		}
 
-		// mapping
-		$result = GraphzappMapper::convert($tok);
-		if ($result === false) {
-			$report = GraphzappMapper::$report;
+		// imports
+		if (!GraphzappImports::import($ast)) {
+			$report = GraphzappImports::$report;
 			return -3;
 		}
+
+		// mapping
+		$result = GraphzappCodegen::codegen($ast);
 
 		return 0;
 	}
