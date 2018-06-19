@@ -11,6 +11,7 @@ Opera: function() { return navigator.userAgent.match(/Opera Mini/i); },
 Windows: function() { return navigator.userAgent.match(/IEMobile/i); }, 
 any: function() {  (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
 
+
 //Sets the arrow of the go button to point down if window is narrow enough that the mobile layout is used.
 function adjustForResize(){
 	if (window.innerWidth <= 1100){
