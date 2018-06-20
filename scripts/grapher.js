@@ -1,10 +1,8 @@
-// Adapted from "http://usefulangle.com/post/19/html5-canvas-tutorial-how-to-draw-graphical-coordinate-system-with-grids-and-axis"
-
 // tunable basis parameters for the grapher behavior
 const res = 1.5; // how close adjacent points on curve should be (pixels)
-const tickRatio = 0.006 // fraction of screen for tick mark length
-const gridRatio = 0.04 // fraction of screen of smallest possible grid length
-const scaleRate = 0.03125 // rate at which the scale will change to zoom in and out
+const tickRatio = 0.006; // fraction of screen for tick mark length
+const gridRatio = 0.04; // fraction of screen of smallest possible grid length
+const scaleRate = 0.03125; // rate at which the scale will change to zoom in and out
 
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
@@ -419,7 +417,7 @@ class GraphzappGrapher {
 
             // if so, follow the curve
             if(isNextDef) {
-                if(isCurDef && (isCurVisible || isNextVisible)) {
+                if(isCurDef /*&& (isCurVisible || isNextVisible)*/) {
                     ctx.lineTo(next_x/sfX, -next_y/sfY);
                 } else {
                     ctx.moveTo(next_x/sfX, -next_y/sfY);
@@ -441,6 +439,15 @@ class GraphzappGrapher {
         this.computeGridLocations(this.canvas, this.grid, this.origin);
     }
 
+    toOrigin() {
+    	this.origin = {
+    		x: 0.5*this.canvas.width,
+    		y: 0.5*this.canvas.height
+    	};
+
+    	this.computeGridLocations(this.canvas, this.grid, this.origin);
+    }
+
     // called to zoom in or out
     zoom(zoomX, zoomY, 
         centerX = 0.5*this.canvas.width, 
@@ -456,9 +463,9 @@ class GraphzappGrapher {
         var dstX = originX - centerX;
         var dstY = originY - centerY;
 
-        this.origin.x = {
-            x: originX + dstX*(Math.pow(10,zoomX)-1),
-            y: originY + dstY*(Math.pow(10,zoomY)-1)
+        this.origin = {
+            x: originX - dstX*(Math.pow(10,zoomX)-1),
+            y: originY - dstY*(Math.pow(10,zoomY)-1)
         };
 
         this.computeSF(this.calibration, this.scale);

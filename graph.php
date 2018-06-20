@@ -4,7 +4,7 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="init()" onresize="adjustForResize()">
+<body onload="init()" onresize="adjustForResize()" onmouseup="stopDrag(event)">
 	<?php include "compiler/translate.php";?>
 	<?php include "header.php"; ?>
 	<div class="body_container">
@@ -70,13 +70,13 @@
 	<div class="right_col">
 		<div class="well">
 			<div class="graph_wrapper">
-    			<canvas id="canvas" width="500" height="500"></canvas>
+    			<canvas id="canvas" width="500" height="500" onmousedown="startDrag(event)" onmousemove="doDrag(event)" onmouseenter="enterCanvas(event)" onmouseleave="leaveCanvas(event)"></canvas>
 				<div class="toolbar_overlay">
     				<ul>
-    					<li><img src="Images/zoom-in.png"></li>
-    					<li><img src="Images/delete-searching.png"></li>
-    					<li><img src="Images/gun-pointer.png"></li>
-    					<li><img src="Images/icon.png"></li>
+    					<li><img src="Images/zoom-in.png" onmousedown="zoomIn()"></li>
+    					<li><img src="Images/delete-searching.png" onmousedown="zoomOut()"></li>
+    					<li><img src="Images/gun-pointer.png" onmousedown="toOrigin()"></li>
+    					<!-- <li><img src="Images/icon.png"></li> -->
     				</ul>
     			</div>
     		</div>

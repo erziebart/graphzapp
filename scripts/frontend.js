@@ -101,3 +101,58 @@ function changeAxesColor(color) {
     axesColor = mainColorCode;
     grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
+
+// for dragging the canvas screen
+var dragStart;
+var dragging = false;
+var inCanvas = false;
+
+function enterCanvas(event) {
+    inCanvas = true;
+    dragStart = {x:event.offsetX , y:event.offsetY };
+}
+
+function leaveCanvas(event) {
+    inCanvas = false;
+}
+
+function startDrag(event) {
+    if(inCanvas && event.which === 1) { // left mouse button
+        dragging = true;
+        dragStart = {x:event.offsetX , y:event.offsetY };
+    }
+}
+
+function doDrag(event) {
+    if(inCanvas && dragging) {
+        var changeX = event.offsetX - dragStart.x;
+        var changeY = event.offsetY - dragStart.y;
+        grapher.scroll(changeX, changeY);
+        grapher.paint();
+        dragStart = {x:event.offsetX , y:event.offsetY };
+    }
+    
+}
+
+function stopDrag(event) {
+    dragging = false;
+}
+
+// zooming
+function zoomIn() {
+    var rate = -scaleRate;
+    grapher.zoom(rate, rate);
+    grapher.paint();
+}
+
+function zoomOut() {
+    var rate = scaleRate;
+    grapher.zoom(rate, rate);
+    grapher.paint();
+}
+
+// center at origin
+function toOrigin() {
+    grapher.toOrigin();
+    grapher.paint();
+}
