@@ -65,15 +65,25 @@
 	</div>
 	</div>
 	<div class="center_col">
-			<input class="gradient center_button hover" id="go_button" form="xy_input" type="submit" value="▶">
+		<input class="gradient center_button hover" id="go_button" form="xy_input" type="submit" value="▶">
 	</div>
 	<div class="right_col">
 		<div class="well">
-    		<canvas id="canvas" width="500" height="500"></canvas>
+			<div class="graph_wrapper">
+    			<canvas id="canvas" width="500" height="500"></canvas>
+				<div class="toolbar_overlay">
+    				<ul>
+    					<li><img src="Images/zoom-in.png"></li>
+    					<li><img src="Images/delete-searching.png"></li>
+    					<li><img src="Images/gun-pointer.png"></li>
+    					<li><img src="Images/icon.png"></li>
+    				</ul>
+    			</div>
+    		</div>
 		</div>
+		<div class="credit"><span>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></span></div>
 	</div>
-</div>
-
+	</div>
 </div>
 <script src="scripts/styling.js"></script>
 <?php include "scripts/scripts.php" ?>
