@@ -3,7 +3,6 @@
 	include "lexer.php";
 	include "parser.php";
 	include "imports.php";
-	include "mapper.php";
 	include "codegen.php";
 
 	// undefined for all inputs
