@@ -31,9 +31,6 @@ function init() {
     var scale = {x: 0, y: 0};
     grapher = new GraphzappGrapher(canvas, origin, scale);
 
-    // add event listeners
-    //addListener(canvas, );
-
     // add the equations
     grapher.addEquation(eqn);
 
@@ -68,22 +65,28 @@ function adjustValue() {
     grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
 
-function handleCheckboxes(){
+function toggleShowGrids() {
     grid = document.getElementById('grid_checkbox').checked;
-    axes= document.getElementById('axes_checkbox').checked;
-    var numbers_checkbox = document.getElementById('numbers_checkbox');
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+}
 
-    if (!axes) {
-        numbers_checkbox.checked = false;
-        numbers_checkbox.disabled = true;
-    }
-    else {
+function toggleShowAxes() {
+    axes = document.getElementById('axes_checkbox').checked;
+    if (axes) {
         numbers_checkbox.disabled = false;
+        numbers_checkbox.checked = numbers;
+    } else {
+        numbers_checkbox.disabled = true;
+        numbers_checkbox.checked = false;
     }
-    numbers = numbers_checkbox.checked;
 
     grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+}
 
+function toggleShowLabels() {
+    numbers = document.getElementById('numbers_checkbox').checked;
+
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
 
 function changeBackground(color) {

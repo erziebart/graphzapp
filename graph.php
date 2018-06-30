@@ -82,11 +82,11 @@
     		</div>
     		<div class="graph_options">
     			<div class="checkbox_wrapper">
-    				<span class="small"><input id="grid_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<span class="small"><input id="grid_checkbox" type="checkbox" onclick="toggleShowGrids()" checked>
     				<label for="grid_checkbox">Draw grid</label></span>
-    				<span class="small"><input id="axes_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<span class="small"><input id="axes_checkbox" type="checkbox" onclick="toggleShowAxes()" checked>
     				<label for="axes_checkbox">Draw axes</label></span>
-    				<span class="small"><input id="numbers_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<span class="small"><input id="numbers_checkbox" type="checkbox" onclick="toggleShowLabels()" checked>
     				<label for="numbers_checkbox">Draw numbers</label></span>
     			</div>
     			<div class="dropdown_wrapper">
