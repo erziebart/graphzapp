@@ -17,6 +17,15 @@
 		}
 	?>
 
+	// used to evaluate powers
+	function power(base,exp) {
+		if(base == 0 && exp == 0) {
+			return NaN;
+		} else {
+			return Math.pow(base, exp);
+		}
+	}
+
 	// used to evaluate the functions
 	function eval(t,k,fn) {
 	    for(var i = 0; i < fn.length; i++) {
@@ -40,8 +49,8 @@
 	eqn.reason_y = "<?php echo (is_null($report_y)?"":$report_y->get_reason());?>";
 
 	// the functions
-	eqn.x = <?php echo($x); ?>;
-	eqn.y = <?php echo($y); ?>;
+	eqn.x = function(t,k){return <?php echo($x); ?>;};
+	eqn.y = function(t,k){return <?php echo($y); ?>;};
 
 	// range
 	eqn.tstart = -10;
