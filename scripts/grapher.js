@@ -3,6 +3,7 @@ const res = 1.5; // how close adjacent points on curve should be (pixels)
 const tickRatio = 0.006; // fraction of screen for tick mark length
 const gridRatio = 0.04; // fraction of screen of smallest possible grid length
 const scaleRate = 0.03125; // rate at which the scale will change to zoom in and out
+const scaleRange = {min: -2, max: 2};
 
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
@@ -457,6 +458,12 @@ class GraphzappGrapher {
             x: this.scale.x + zoomX,
             y: this.scale.y + zoomY
         };
+
+        // limits
+        if (this.scale.x > scaleRange.max) {this.scale.x = scaleRange.max;}
+        if (this.scale.x < scaleRange.min) {this.scale.x = scaleRange.min;}
+        if (this.scale.y > scaleRange.max) {this.scale.y = scaleRange.max;}
+        if (this.scale.y < scaleRange.min) {this.scale.y = scaleRange.min;}
 
         var originX = this.origin.x;
         var originY = this.origin.y;
