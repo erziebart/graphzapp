@@ -311,7 +311,7 @@
 				error: "e_<handler>"
 			*/
 
-			"START" => ['$end'=>'e_empty', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_rparen', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'END_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //0
+			"START" => ['$end'=>'e_empty', '$binop0'=>'e_operand', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_rparen', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'END_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //0
 
 			"END_Sa1" => ['$end'=>'a_', '$binop0'=>'s_Sa2', '$rparen'=>'e_rparen', '$comma'=>'e_nolist'], //1
 
@@ -371,13 +371,13 @@
 
 			"Ca1" => ['$end'=>'r_Ca', '$binop0'=>'r_Ca', '$plus'=>'r_Ca', '$minus'=>'r_Ca', '$binop2'=>'r_Ca', '$not'=>'r_Ca', '$power'=>'r_Ca', '$lit'=>'r_Ca', '$var'=>'r_Ca', '$const'=>'r_Ca', '$lparen'=>'r_Ca', '$rparen'=>'r_Ca', '$fid'=>'r_Ca', '$comma'=>'r_Ca'], //12
 
-			"Vd1" => ['$end'=>'e_ended', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_operand', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Vd2_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //11
+			"Vd1" => ['$end'=>'e_ended', '$binop0'=>'e_operand', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_operand', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Vd2_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //11
 
 			"Vd2_Sa1" => ['$end'=>'e_lparen', '$binop0'=>'s_Sa2', '$rparen'=>'s_Vd3', '$comma'=>'e_nolist'], //24
 
-			"Vd3" => ['$end'=>'r_Vd', '$binop0'=>'r_Vd', '$plus'=>'r_Vd', '$minus'=>'r_Vd', '$binop2'=>'r_Vd', '$not'=>'r_Vd', '$power'=>'r_Vd', '$lit'=>'r_Vd', '$var'=>'r_Vd', '$const'=>'r_Vd', '$lparen'=>'r_Vd', '$fid'=>'r_Vd', '$comma'=>'r_Vd'], //35
+			"Vd3" => ['$end'=>'r_Vd', '$binop0'=>'r_Vd', '$plus'=>'r_Vd', '$minus'=>'r_Vd', '$binop2'=>'r_Vd', '$not'=>'r_Vd', '$power'=>'r_Vd', '$lit'=>'r_Vd', '$var'=>'r_Vd', '$const'=>'r_Vd', '$lparen'=>'r_Vd', '$rparen'=>'r_Vd', '$fid'=>'r_Vd', '$comma'=>'r_Vd'], //35
 
-			"Cb1_Cc1" => ['$end'=>'e_unclosed_0', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'s_Cb2', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Aa1_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1', 'A'=>'Cc2_Ab1'], //13
+			"Cb1_Cc1" => ['$end'=>'e_unclosed_0', '$binop0'=>'e_operand', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'s_Cb2', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Aa1_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1', 'A'=>'Cc2_Ab1'], //13
 
 			"Cb2" => ['$end'=>'r_Cb', '$binop0'=>'r_Cb', '$plus'=>'r_Cb', '$minus'=>'r_Cb', '$binop2'=>'r_Cb', '$not'=>'r_Cb', '$power'=>'r_Cb', '$lit'=>'r_Cb', '$var'=>'r_Cb', '$const'=>'r_Cb', '$lparen'=>'r_Cb', '$rparen'=>'r_Cb', '$fid'=>'r_Cb', '$comma'=>'r_Cb'], //25
 
@@ -387,7 +387,7 @@
 
 			"Cc3" => ['$end'=>'r_Cc', '$binop0'=>'r_Cc', '$plus'=>'r_Cc', '$minus'=>'r_Cc', '$binop2'=>'r_Cc', '$not'=>'r_Cc', '$power'=>'r_Cc', '$lit'=>'r_Cc', '$var'=>'r_Cc', '$const'=>'r_Cc', '$lparen'=>'r_Cc', '$rparen'=>'r_Cc', '$fid'=>'r_Cc', '$comma'=>'r_Cc'], //36
 
-			"Ab2" => ['$end'=>'e_ended', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_operand', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Ab3_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //37
+			"Ab2" => ['$end'=>'e_ended', '$binop0'=>'e_operand', '$plus'=>'e_operand', '$minus'=>'s_Fb1', '$binop2'=>'e_operand', '$not'=>'s_Fc1', '$power'=>'e_operand', '$lit'=>'s_Va1', '$var'=>'s_Vb1', '$const'=>'s_Ca1', '$lparen'=>'s_Vd1', '$rparen'=>'e_operand', '$fid'=>'s_Cb1_Cc1', '$comma'=>'e_operand', 'S'=>'Ab3_Sa1', 'E'=>'Sb1_Ea1_Eb1', 'T'=>'Ec1_Ta1_Tb1', 'F'=>'Tc1', 'V'=>'Fa1_Fd1', 'C'=>'Vc1'], //37
 
 			"Ab3_Sa1" => ['$end'=>'r_Ab', '$binop0'=>'s_Sa2', '$rparen'=>'r_Ab', '$comma'=>'r_Ab'] //39
 		);
