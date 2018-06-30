@@ -404,14 +404,14 @@ class GraphzappGrapher {
                 isCurDef = isNextDef;
                 isCurVisible = isNextVisible;
             } else {
-                cur_x = eval(tt,kk,eqn.x);
-                cur_y = eval(tt,kk,eqn.y);
+                cur_x = eqn.x(tt,kk);
+                cur_y = eqn.y(tt,kk);
                 isCurDef = !isNaN(cur_x) && !isNaN(cur_y);
                 isCurVisible = isInWindow(cur_x, cur_y);
             }
 
-            next_x = eval(tt+tstep,kk,eqn.x);
-            next_y = eval(tt+tstep,kk,eqn.y);
+            next_x = eqn.x(tt+tstep,kk);
+            next_y = eqn.y(tt+tstep,kk);
             isNextDef = !isNaN(next_x) && !isNaN(next_y);
             isNextVisible = isInWindow(next_x, next_y);
 

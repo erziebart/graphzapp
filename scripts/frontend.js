@@ -128,7 +128,7 @@ function doDrag(event) {
         var changeX = event.offsetX - dragStart.x;
         var changeY = event.offsetY - dragStart.y;
         grapher.scroll(changeX, changeY);
-        grapher.paint();
+        grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
         dragStart = {x:event.offsetX , y:event.offsetY };
     }
     
@@ -142,17 +142,17 @@ function stopDrag(event) {
 function zoomIn() {
     var rate = -scaleRate;
     grapher.zoom(rate, rate);
-    grapher.paint();
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
 
 function zoomOut() {
     var rate = scaleRate;
     grapher.zoom(rate, rate);
-    grapher.paint();
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
 
 // center at origin
 function toOrigin() {
     grapher.toOrigin();
-    grapher.paint();
+    grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
 }
