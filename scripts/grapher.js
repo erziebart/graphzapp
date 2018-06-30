@@ -51,23 +51,22 @@ class GraphzappGrapher {
     }
 
     // paint everything on the canvas
-    paint() {
+    paint(grid, axes, numbers, gridColor, axesColor, backgroundColor) {
         var ctx = this.canvas.getContext("2d");
-        ctx.fillStyle = "#FFFFFF";
+        ctx.fillStyle = backgroundColor;
         ctx.fillRect(0,0,this.canvas_width,this.canvas_height);
-        this.draw(ctx);
+        this.draw(ctx, grid, axes, numbers, gridColor, axesColor, backgroundColor);
     }
 
     // this is called to draw all the graph elements
-    draw(ctx) {
+    draw(ctx, grid, axes, numbers, gridColor, axesColor, backgroundColor) {
         ctx.moveTo(0,0);
-
-        this.grids(ctx,"#000000","#e9e9e9",1,"9px Arial");
+        this.grids(ctx, axesColor, gridColor, 1, "9px Arial", grid, axes, numbers);
         this.plot(ctx, this.eqn, "#4D6F96", 2);
     }
 
     // draws the gridlines and axes ticks and labels
-    grids(ctx,axis_color,grid_color,thick,font) {
+    grids(ctx,axis_color,grid_color,thick,font, grid, axes, numbers) {
         var canvas_width = this.canvas_width;
         var canvas_height = this.canvas_height;
         var grid_size = this.grid_size;
@@ -90,10 +89,12 @@ class GraphzappGrapher {
             ctx.beginPath();
 
             // If line represents X-axis draw in different color
-            if(i == x_axis_distance_grid_lines)
+            if(axes && i == x_axis_distance_grid_lines)
                 ctx.strokeStyle = axis_color;
-            else
+            else if (grid)
                 ctx.strokeStyle = grid_color;
+            else 
+                ctx.strokeStyle = backgroundColor;
 
             if(i == num_lines_x) {
                 ctx.moveTo(0, grid_size*i);
@@ -104,17 +105,19 @@ class GraphzappGrapher {
                 ctx.lineTo(canvas_width, grid_size*i+0.5);
             }
             ctx.stroke();
-        }
+         }
 
         // Draw grid lines along Y-axis
         for(i=0; i<=num_lines_y; i++) {
             ctx.beginPath();
 
             // If line represents Y-axis draw in different color
-            if(i == y_axis_distance_grid_lines)
+            if(axes && i == y_axis_distance_grid_lines)
                 ctx.strokeStyle = axis_color;
-            else
+            else if (grid)
                 ctx.strokeStyle = grid_color;
+            else
+                ctx.strokeStyle = backgroundColor;
 
             if(i == num_lines_y) {
                 ctx.moveTo(grid_size*i, 0);
@@ -126,72 +129,73 @@ class GraphzappGrapher {
             }
             ctx.stroke();
         }
-
+    
         ctx.translate(y_axis_distance_grid_lines*grid_size, x_axis_distance_grid_lines*grid_size);
 
+        if (numbers) {
         // tick mark formatting
         ctx.lineWidth = thick;
         ctx.strokeStyle = axis_color;
-        ctx.fillStyle = axis_color;
+        ctx.fillStyle = axis_color;       
         ctx.font = font;
         ctx.textAlign = 'start';
 
-        // Ticks marks along the positive X-axis
-        for(i=1; i<(num_lines_y - y_axis_distance_grid_lines); i++) {
-            ctx.beginPath();
+            // Ticks marks along the positive X-axis
+            for(i=1; i<(num_lines_y - y_axis_distance_grid_lines); i++) {
+                ctx.beginPath();
 
-            // Draw a tick mark 6px long (-3 to 3)
-            ctx.moveTo(grid_size*i+0.5, -3);
-            ctx.lineTo(grid_size*i+0.5, 3);
-            ctx.stroke();
+                // Draw a tick mark 6px long (-3 to 3)
+                ctx.moveTo(grid_size*i+0.5, -3);
+                ctx.lineTo(grid_size*i+0.5, 3);
+                ctx.stroke();
 
-            // Text value at that point
-            ctx.fillText(x_axis_starting_point*i, grid_size*i-2, 15);
+                // Text value at that point
+                ctx.fillText(x_axis_starting_point*i, grid_size*i-2, 15);
+            }
+
+            // Ticks marks along the negative X-axis
+            for(i=1; i<y_axis_distance_grid_lines; i++) {
+                ctx.beginPath();
+
+                // Draw a tick mark 6px long (-3 to 3)
+                ctx.moveTo(-grid_size*i+0.5, -3);
+                ctx.lineTo(-grid_size*i+0.5, 3);
+                ctx.stroke();
+
+                // Text value at that point
+                ctx.fillText(-x_axis_starting_point*i, -grid_size*i+3, 15);
+            }
+
+            // Ticks marks along the positive Y-axis
+            // Positive Y-axis of graph is negative Y-axis of the canvas
+            for(i=1; i<(num_lines_x - x_axis_distance_grid_lines); i++) {
+                ctx.beginPath();
+
+                // Draw a tick mark 6px long (-3 to 3)
+                ctx.moveTo(-3, grid_size*i+0.5);
+                ctx.lineTo(3, grid_size*i+0.5);
+                ctx.stroke();
+
+                // Text value at that point
+                ctx.font = font;
+                ctx.fillText(-y_axis_starting_point*i, 8, grid_size*i+3);
+            }
+
+            // Ticks marks along the negative Y-axis
+            // Negative Y-axis of graph is positive Y-axis of the canvas
+            for(i=1; i<x_axis_distance_grid_lines; i++) {
+                ctx.beginPath();
+
+                // Draw a tick mark 6px long (-3 to 3)
+                ctx.moveTo(-3, -grid_size*i+0.5);
+                ctx.lineTo(3, -grid_size*i+0.5);
+                ctx.stroke();
+
+                // Text value at that point
+                ctx.fillText(y_axis_starting_point*i, 8, -grid_size*i+3);
+            }
         }
-
-        // Ticks marks along the negative X-axis
-        for(i=1; i<y_axis_distance_grid_lines; i++) {
-            ctx.beginPath();
-
-            // Draw a tick mark 6px long (-3 to 3)
-            ctx.moveTo(-grid_size*i+0.5, -3);
-            ctx.lineTo(-grid_size*i+0.5, 3);
-            ctx.stroke();
-
-            // Text value at that point
-            ctx.fillText(-x_axis_starting_point*i, -grid_size*i+3, 15);
-        }
-
-        // Ticks marks along the positive Y-axis
-        // Positive Y-axis of graph is negative Y-axis of the canvas
-        for(i=1; i<(num_lines_x - x_axis_distance_grid_lines); i++) {
-            ctx.beginPath();
-
-            // Draw a tick mark 6px long (-3 to 3)
-            ctx.moveTo(-3, grid_size*i+0.5);
-            ctx.lineTo(3, grid_size*i+0.5);
-            ctx.stroke();
-
-            // Text value at that point
-            ctx.font = font;
-            ctx.fillText(-y_axis_starting_point*i, 8, grid_size*i+3);
-        }
-
-        // Ticks marks along the negative Y-axis
-        // Negative Y-axis of graph is positive Y-axis of the canvas
-        for(i=1; i<x_axis_distance_grid_lines; i++) {
-            ctx.beginPath();
-
-            // Draw a tick mark 6px long (-3 to 3)
-            ctx.moveTo(-3, -grid_size*i+0.5);
-            ctx.lineTo(3, -grid_size*i+0.5);
-            ctx.stroke();
-
-            // Text value at that point
-            ctx.fillText(y_axis_starting_point*i, 8, -grid_size*i+3);
-        }
-
-        ctx.translate(-y_axis_distance_grid_lines*grid_size, -x_axis_distance_grid_lines*grid_size);
+        ctx.translate(-y_axis_distance_grid_lines*grid_size, -x_axis_distance_grid_lines*grid_size);   
     }
 
     // draws the function plot

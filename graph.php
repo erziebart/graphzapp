@@ -80,6 +80,46 @@
     				</ul>
     			</div>
     		</div>
+    		<div class="graph_options">
+    			<div class="checkbox_wrapper">
+    				<span class="small"><input id="grid_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<label for="grid_checkbox">Draw grid</label></span>
+    				<span class="small"><input id="axes_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<label for="axes_checkbox">Draw axes</label></span>
+    				<span class="small"><input id="numbers_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<label for="numbers_checkbox">Draw numbers</label></span>
+    			</div>
+    			<div class="dropdown_wrapper">
+    				<p class="small">Background color:</p>
+    				<div class="colors_dropdown" id="dropdown1">
+    					<div class="selected" onclick="toggleDropdown(1)"><div class = "option white" style="background-color: #FFFFFF"></div><span>▼</span></div>
+    					<div class="options" style="display: none">
+    						<div onclick="changeBackground('black')"><div class = "option black" style="background-color: #000000"></div></div>
+    						<div onclick="changeBackground('white')"><div class = "option white hidden" style="background-color: #FFFFFF"></div></div>
+    						<div onclick="changeBackground('blue')"><div class = "option blue" style="background-color: #4D6F96"></div></div>
+    						<div onclick="changeBackground('red')"><div class = "option red" style="background-color: #CC0000"></div></div>
+    						<div onclick="changeBackground('green')"><div class = "option green" style="background-color: #1AFF1A"></div></div>
+    						<div onclick="changeBackground('purple')"><div class = "option purple" style="background-color: #660066"></div></div>
+    						<div onclick="changeBackground('gray')"><div class = "option gray" style="background-color: #999999"></div></div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="dropdown_wrapper">
+    				<p class="small">Axes color:</p>
+    				<div class="colors_dropdown" id="dropdown2">
+    					<div class="selected" onclick="toggleDropdown(2)"><div class = "option black" style="background-color: #000000"></div><span>▼</span></div>
+    					<div class="options" style="display: none">
+    						<div onclick="changeAxesColor('black')"><div class = "option black hidden" style="background-color: #000000"></div></div>
+    						<div onclick="changeAxesColor('white')"><div class = "option white" style="background-color: #FFFFFF"></div></div>
+    						<div onclick="changeAxesColor('blue')"><div class = "option blue" style="background-color: #4D6F96"></div></div>
+    						<div onclick="changeAxesColor('red')"><div class = "option red" style="background-color: #CC0000"></div></div>
+    						<div onclick="changeAxesColor('green')"><div class = "option green" style="background-color: #1AFF1A"></div></div>
+    						<div onclick="changeAxesColor('purple')"><div class = "option purple" style="background-color: #660066"></div></div>
+    						<div onclick="changeAxesColor('gray')"><div class = "option gray" style="background-color: #999999"></div></div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
 		</div>
 		<div class="credit"><span>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></span></div>
 	</div>

@@ -38,3 +38,32 @@ function hideTooltip(tooltip) {
 	}
 }
 
+function toggleDropdown(id) {
+	var dropdown = document.getElementById('dropdown' + id).getElementsByClassName('options')[0];
+	if (dropdown.style.display == 'block') {
+		dropdown.style.display = 'none';
+	}
+	else {
+		dropdown.style.display = 'block';
+	}
+}
+
+function select(id, color) {
+	clearSelection(id, color, newSelection);
+}
+
+function clearSelection(id, color, callback) {
+	var dropdown = document.getElementById('dropdown' + id);
+	dropdown.getElementsByClassName('options')[0].style.display = 'none';
+	dropdown.getElementsByClassName('hidden')[0].classList.remove('hidden');
+	callback(id, color);
+}
+
+function newSelection(id, color) {
+	var dropdown = document.getElementById('dropdown' + id);
+	var colorElement = dropdown.getElementsByClassName(color)[0];
+	dropdown.getElementsByClassName('selected')[0].innerHTML = colorElement.outerHTML + "<span>▼</span>";
+	colorElement.classList.add('hidden');
+}
+
+
