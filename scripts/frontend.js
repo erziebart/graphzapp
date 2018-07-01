@@ -41,6 +41,7 @@ function init() {
 
     // draw the content
     grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    changeMode(document.getElementById('mode_dropdown').value);
 }
 
 // called to submit the forms
@@ -185,4 +186,13 @@ function stopZoom() {
 function toOrigin() {
     grapher.toOrigin();
     grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+}
+
+function changeMode(newMode) {
+    var allForms = document.getElementById('eqn_input');
+    console.log(allForms);
+    var oldForm = allForms.getElementsByClassName('active_form')[0];
+    var newForm = document.getElementById(newMode);
+    oldForm.classList.toggle('active_form');
+    newForm.classList.toggle('active_form');
 }

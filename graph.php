@@ -12,33 +12,75 @@
 	<div class="left_col">
 		<div class="well">
 		<form id="eqn_input" action="graph.php" method="get">
-			<div class="line <?php if ($err_x != 0) {echo "tooltip";} ?>">
-				<span>x(t) = </span>
-				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>" onfocus="showTooltip('tooltip1')" onfocusout="hideTooltip('tooltip1')">
-				<div class="tooltip_wrapper">
-					<div class="tooltip_text" id="tooltip1"> 
-						<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
-					</div> 
-				</div>
+			<div class="mode_dropdown_wrapper">
+				<span class="small">Mode:</span>
+				<select id="mode_dropdown" name="mode" onchange="changeMode(this.value)">
+  					<option value="functional" <?php if ($mode == "functional"){echo "selected";} ?>>Functional</option>
+  					<option value="parametric" <?php if ($mode == "parametric"){echo "selected";}; ?>>Parametric</option>
+  					<option value="polar" <?php if ($mode == "polar"){echo "selected";}; ?>>Polar</option>
+				</select>
 			</div>
-			<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">
-				<span>y(t) =</span>
-				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>" onfocus="showTooltip('tooltip2')" onfocusout="hideTooltip('tooltip2')">
-				<div class="tooltip_wrapper">
-					<div class="tooltip_text" id="tooltip2"> 
-						<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+			<div id="functional" class="active_form mode_form">
+				<div class="line <?php if ($err_y_functional != 0) {echo "tooltip";} ?>">
+					<span>y =</span>
+					<input type="text" name="y-functional-value" class="equation_input large" value="<?php echo($input_y_functional);?>" onfocus="showTooltip('tooltip3')" onfocusout="hideTooltip('tooltip2')">
+					<div class="tooltip_wrapper">
+						<div class="tooltip_text" id="tooltip3"> 
+							<?php echo(is_null($report_y_functional)?"":$report_y_functional->get_reason()) ?> 
+						</div>
 					</div>
 				</div>
 			</div>
-			<div id="t_range">
-				<span id="t_min_container">
-					<span class="small">t from </span>
-					<input id="tmin" class="small_input" type="text" name="t-min" value="<?php echo($input_tmin);?>">
-				</span>
-				<span id="t_max_container">
-					<span class="small"> to </span>
-					<input id="tmax" class="small_input" type="text" name="t-max" value="<?php echo($input_tmax);?>">
-				</span>
+			<div id="parametric" class="mode_form">
+				<div class="line <?php if ($err_x != 0) {echo "tooltip";} ?>">
+					<span>x(t) = </span>
+					<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>" onfocus="showTooltip('tooltip1')" onfocusout="hideTooltip('tooltip1')">
+					<div class="tooltip_wrapper">
+						<div class="tooltip_text" id="tooltip1"> 
+							<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
+						</div> 
+					</div>
+				</div>
+				<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">
+					<span>y(t) =</span>
+					<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>" onfocus="showTooltip('tooltip2')" onfocusout="hideTooltip('tooltip2')">
+					<div class="tooltip_wrapper">
+						<div class="tooltip_text" id="tooltip2"> 
+							<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+						</div>
+					</div>
+				</div>
+				<div class="t_range">
+					<span class="t_min_container">
+						<span class="small">t from </span>
+						<input id = "tmin"class="tmin small_input" type="text" name="t-min" value="<?php echo($input_tmin);?>">
+					</span>
+					<span id="t_max_container">
+						<span class="small"> to </span>
+						<input id = "tmax" class="tmax small_input" type="text" name="t-max" value="<?php echo($input_tmax);?>">
+					</span>
+				</div>
+			</div>
+			<div id="polar" class="mode_form">
+				<div class="line <?php if ($err_r != 0) {echo "tooltip";} ?>">
+					<span>r(t) =</span>
+					<input type="text" name="r-value" class="equation_input large" value="<?php echo($input_r);?>" onfocus="showTooltip('tooltip2')" onfocusout="hideTooltip('tooltip2')">
+					<div class="tooltip_wrapper">
+						<div class="tooltip_text" id="tooltip2"> 
+							<?php echo(is_null($report_r)?"":$report_r->get_reason()) ?> 
+						</div>
+					</div>
+				</div>
+				<div class="t_range">
+					<span class="t_min_container">
+						<span class="small">t from </span>
+						<input id="tmin_polar" class="tmin small_input" type="text" name="t-min-polar" value="<?php echo($input_tmin_polar);?>">
+					</span>
+					<span class="t_max_container">
+						<span class="small"> to </span>
+						<input id="tmax_polar" class="tmax small_input" type="text" name="t-max-polar" value="<?php echo($input_tmax_polar);?>">
+					</span>
+				</div>
 			</div>
 		</div>
 		<div class="well" id="sliders">
