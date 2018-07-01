@@ -458,13 +458,7 @@ class GraphzappGrapher {
             x: this.scale.x + zoomX,
             y: this.scale.y + zoomY
         };
-
-        // limits
-        if (this.scale.x > scaleRange.max) {this.scale.x = scaleRange.max;}
-        if (this.scale.x < scaleRange.min) {this.scale.x = scaleRange.min;}
-        if (this.scale.y > scaleRange.max) {this.scale.y = scaleRange.max;}
-        if (this.scale.y < scaleRange.min) {this.scale.y = scaleRange.min;}
-
+        
         var originX = this.origin.x;
         var originY = this.origin.y;
         var dstX = originX - centerX;
@@ -474,6 +468,24 @@ class GraphzappGrapher {
             x: originX - dstX*(Math.pow(10,zoomX)-1),
             y: originY - dstY*(Math.pow(10,zoomY)-1)
         };
+
+        // limits
+        if (this.scale.x > scaleRange.max) {
+            this.scale.x = scaleRange.max;
+            this.origin.x = originX;
+        }
+        if (this.scale.x < scaleRange.min) {
+            this.scale.x = scaleRange.min;
+            this.origin.x = originX;
+        }
+        if (this.scale.y > scaleRange.max) {
+            this.scale.y = scaleRange.max;
+            this.origin.y = originY;
+        }
+        if (this.scale.y < scaleRange.min) {
+            this.scale.y = scaleRange.min;
+            this.origin.y = originY;
+        }
 
         this.computeSF(this.calibration, this.scale);
         this.computeUnit(this.scale);
