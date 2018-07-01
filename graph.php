@@ -4,7 +4,7 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="init()" onresize="adjustForResize()">
+<body onload="init()" onresize="adjustForResize()" onmouseup="stopDrag(event);stopZoom();">
 	<?php include "compiler/translate.php";?>
 	<?php include "header.php"; ?>
 	<div class="body_container">
@@ -70,23 +70,23 @@
 	<div class="right_col">
 		<div class="well">
 			<div class="graph_wrapper">
-    			<canvas id="canvas" width="500" height="500"></canvas>
+    			<canvas id="canvas" width="500" height="500" onmousedown="startDrag(event)" onmousemove="doDrag(event)" onmouseenter="enterCanvas(event)" onmouseleave="leaveCanvas(event)"></canvas>
 				<div class="toolbar_overlay">
     				<ul>
-    					<li><img src="Images/zoom-in.png"></li>
-    					<li><img src="Images/delete-searching.png"></li>
-    					<li><img src="Images/gun-pointer.png"></li>
-    					<li><img src="Images/icon.png"></li>
+    					<li><img src="Images/zoom-in.png" onmousedown="onPressPlus(event);" onmouseleave="stopZoom();"></li>
+    					<li><img src="Images/delete-searching.png" onmousedown="onPressMinus(event);" onmouseleave="stopZoom();"></li>
+    					<li><img src="Images/gun-pointer.png" onmousedown="toOrigin()"></li>
+    					<!-- <li><img src="Images/icon.png"></li> -->
     				</ul>
     			</div>
     		</div>
     		<div class="graph_options">
     			<div class="checkbox_wrapper">
-    				<span class="small"><input id="grid_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<span class="small"><input id="grid_checkbox" type="checkbox" onclick="toggleShowGrids()" checked>
     				<label for="grid_checkbox">Draw grid</label></span>
-    				<span class="small"><input id="axes_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<span class="small"><input id="axes_checkbox" type="checkbox" onclick="toggleShowAxes()" checked>
     				<label for="axes_checkbox">Draw axes</label></span>
-    				<span class="small"><input id="numbers_checkbox" type="checkbox" onclick="handleCheckboxes()" checked>
+    				<span class="small"><input id="numbers_checkbox" type="checkbox" onclick="toggleShowLabels()" checked>
     				<label for="numbers_checkbox">Draw numbers</label></span>
     			</div>
     			<div class="dropdown_wrapper">

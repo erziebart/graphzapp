@@ -53,8 +53,8 @@
 	eqn.y = function(t,k){return <?php echo($y); ?>;};
 
 	// range
-	eqn.tstart = -10;
-	eqn.tstop = 10;
+	eqn.tstart = <?php echo ($input_tmin) ?>;
+	eqn.tstop = <?php echo ($input_tmax) ?>;
 </script>
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>
