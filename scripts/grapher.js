@@ -28,6 +28,7 @@ class GraphzappGrapher {
         this.showAxes = true
         this.showGrids = true
         this.showLables = true
+        this.curveColor = "#4D6F96"
         this.backgroundColor = "#FFFFFF"
         this.axesColor = "#E9E9E9"
         this.gridColor = "#000000"
@@ -151,10 +152,11 @@ class GraphzappGrapher {
     }
 
     // paint everything on the canvas
-    paint(grid, axes, numbers, gridColor, axesColor, backgroundColor) {
+    paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor) {
         this.showAxes = axes
         this.showGrids = grid
         this.showLables = numbers
+        this.curveColor = curveColor
         this.backgroundColor = backgroundColor
         this.axesColor = axesColor
         this.gridColor = gridColor
@@ -372,7 +374,7 @@ class GraphzappGrapher {
 
         ctx.beginPath();
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "#4D6F96";
+        ctx.strokeStyle = this.curveColor;
 
         var cur_x, cur_y, next_x, next_y;
         var isCurDef, isNextDef, isCurVisible, isNextVisible;

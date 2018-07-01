@@ -90,6 +90,24 @@
     				<span class="small"><input id="numbers_checkbox" type="checkbox" name="labels" onclick="toggleShowLabels()" checked>
     				<label for="numbers_checkbox">Draw numbers</label></span>
     			</div>
+    			<div class="dropdowns_flex">
+    			<div class="dropdown_wrapper">
+    				<p class="small">Curve color:</p>
+    				<?php generate_dropdown(3,$curvecolor,"changeCurveColor"); ?>
+    				<input id="input3" type="hidden" name="curvecolor" value="<?php echo($curvecolor); ?>">
+    				<!-- <div class="colors_dropdown" id="dropdown3">
+    					<div class="selected" onclick="toggleDropdown(3)"><div class = "option blue" style="background-color: #4D6F96"></div><span>▼</span></div>
+    					<div class="options" style="display: none">
+    						<div onclick="changeCurveColor('black')"><div class = "option black hidden" style="background-color: #000000"></div></div>
+    						<div onclick="changeCurveColor('white')"><div class = "option white" style="background-color: #FFFFFF"></div></div>
+    						<div onclick="changeCurveColor('blue')"><div class = "option blue" style="background-color: #4D6F96"></div></div>
+    						<div onclick="changeCurveColor('red')"><div class = "option red" style="background-color: #CC0000"></div></div>
+    						<div onclick="changeCurveColor('green')"><div class = "option green" style="background-color: #1AFF1A"></div></div>
+    						<div onclick="changeCurveColor('purple')"><div class = "option purple" style="background-color: #660066"></div></div>
+    						<div onclick="changeCurveColor('gray')"><div class = "option gray" style="background-color: #999999"></div></div>
+    					</div>
+    				</div> -->
+    			</div>
     			<div class="dropdown_wrapper">
     				<p class="small">Background color:</p>
     				<?php generate_dropdown(1,$bgcolor,"changeBackground"); ?>

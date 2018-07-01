@@ -11,6 +11,7 @@
 
 	$bgcolor = isset($_POST['bgcolor']) ? $_POST['bgcolor'] : 'white';
 	$axescolor = isset($_POST['axescolor']) ? $_POST['axescolor'] : 'black';
+	$curvecolor = isset($_POST['curvecolor']) ? $_POST['curvecolor'] : 'blue';
 
 	function generate_dropdown($id, $selected, $onclick) {
 		global $colors;
