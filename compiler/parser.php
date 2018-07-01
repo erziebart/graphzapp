@@ -64,7 +64,7 @@
 			return array("type"=>"Unop", "op"=>$op, "operand"=>$operand);
 		}
 
-		protected static function Var() {
+		protected static function VarType() {
 			$toks = static::pop_n(1);
 			$value = $toks[0]['match'];
 			return array("type"=>"Var", "value"=>$value);
@@ -76,7 +76,7 @@
 			return array("type"=>"Lit", "value"=>$value);
 		}
 
-		protected static function Const() {
+		protected static function ConstType() {
 			$toks = static::pop_n(1);
 			$id = $toks[0]['match'];
 			return array("type"=>"Const", "id"=>$id);
@@ -185,7 +185,7 @@
 		}
 
 		protected static function r_Vb() { //17
-			$match = static::Var();
+			$match = static::VarType();
 			return array("name"=>"V", "match"=>$match);
 		}
 
@@ -202,7 +202,7 @@
 		}
 
 		protected static function r_Ca() { //20
-			$match = static::Const();
+			$match = static::ConstType();
 			return array("name"=>"C", "match"=>$match);
 		}
 
