@@ -141,7 +141,26 @@ function stopDrag(event) {
     dragging = false;
 }
 
+var zooming = false;
+var onButton = 0;
+const interval = 20;
+var intvalId;
+
 // zooming
+function onPressPlus(event) {
+    if (event.which === 1) { // left press
+        zoomIn();
+        intvalId = setInterval(zoomIn, interval);
+    }
+}
+
+function onPressMinus(event) {
+    if (event.which === 1) { // left press
+        zoomOut();
+        intvalId = setInterval(zoomOut, interval);
+    }
+}
+
 function zoomIn() {
     var rate = -scaleRate;
     grapher.zoom(rate, rate);
@@ -152,6 +171,10 @@ function zoomOut() {
     var rate = scaleRate;
     grapher.zoom(rate, rate);
     grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+}
+
+function stopZoom() {
+    clearInterval(intvalId);
 }
 
 // center at origin

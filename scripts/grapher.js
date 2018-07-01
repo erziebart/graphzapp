@@ -2,7 +2,7 @@
 const res = 1.5; // how close adjacent points on curve should be (pixels)
 const tickRatio = 0.006; // fraction of screen for tick mark length
 const gridRatio = 0.04; // fraction of screen of smallest possible grid length
-const scaleRate = 0.03125; // rate at which the scale will change to zoom in and out
+const scaleRate = 0.015625; // rate at which the scale will change to zoom in and out
 const scaleRange = {min: -2, max: 2};
 
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
