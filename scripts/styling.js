@@ -64,6 +64,8 @@ function newSelection(id, color) {
 	var colorElement = dropdown.getElementsByClassName(color)[0];
 	dropdown.getElementsByClassName('selected')[0].innerHTML = colorElement.outerHTML + "<span>▼</span>";
 	colorElement.classList.add('hidden');
+	var input = document.getElementById('input' + id);
+	input.value = color;
 }
 
 

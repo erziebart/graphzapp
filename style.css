@@ -201,8 +201,8 @@ img {
 .left_col{
 	width: 50%;
 	text-align: center;
-	display: flex;
-	flex-direction: column;
+	/*display: flex;*/
+	/*flex-direction: column;*/
 	justify-content: center;
 }
 
@@ -280,7 +280,7 @@ img {
 }
 
 #kmin, #kmax{
-	width: 30px;
+	width: 35px;
 }
 
 #k_min_container{

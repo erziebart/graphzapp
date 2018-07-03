@@ -55,6 +55,26 @@
 	// range
 	eqn.tstart = <?php echo ($input_tmin) ?>;
 	eqn.tstop = <?php echo ($input_tmax) ?>;
+
+	// graph options -- still needs review and work!
+	if (<?php echo (isset($_GET['options']) ? 'true': 'false'); ?>) {
+		// should be something else here
+		var grid = <?php echo(!isset($_POST['grids']) ? 'false' : 'true'); ?>;
+		var axes = <?php echo(!isset($_POST['axes']) ? 'false' : 'true'); ?>;
+		var numbers = <?php echo(!isset($_POST['labels']) ? 'false' : 'true'); ?>;
+		var gridColor = "<?php echo($colors[$axescolor][1]); ?>";
+		var axesColor = "<?php echo($colors[$axescolor][0]); ?>";
+		var backgroundColor = "<?php echo($colors[$bgcolor][0]); ?>";
+	} else {
+		var grid = true;
+		var axes = true;
+		var numbers = true;
+		var gridColor = "<?php echo($colors[$axescolor][1]); ?>";
+		var axesColor = "<?php echo($colors[$axescolor][0]); ?>";
+		var backgroundColor = "<?php echo($colors[$bgcolor][0]); ?>";
+	}
+	
+
 </script>
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>
