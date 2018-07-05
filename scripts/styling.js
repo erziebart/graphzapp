@@ -38,6 +38,7 @@ function hideTooltip(tooltip) {
 	}
 }
 
+//Hides or shows dropdown menu
 function toggleDropdown(id) {
 	var dropdown = document.getElementById('dropdown' + id).getElementsByClassName('options')[0];
 	if (dropdown.style.display == 'block') {
@@ -48,6 +49,8 @@ function toggleDropdown(id) {
 	}
 }
 
+
+//Selects a new value in the dropdown menu
 function select(id, color) {
 	clearSelection(id, color, newSelection);
 }

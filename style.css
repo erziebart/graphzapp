@@ -487,8 +487,13 @@ img {
 	color: rgb(220, 220, 220);
 }
 
+.dropdowns_flex {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
 .dropdown_wrapper {
-	width: 49%;
 	display: inline-block;
 	margin-top: 10px;
 }
@@ -496,7 +501,7 @@ img {
 .colors_dropdown {
 	display : inline-block;
 	position: relative;
-	width: 140px;
+	width: 110px;
 	font-size: 12px;
 	text-align: left;
 }
@@ -539,12 +544,12 @@ img {
 }
 
 .colors_dropdown .option {
-	border-left: 10px solid #f7f7f7;
-	border-right: 10px solid #f7f7f7;
+	border-left: 5px solid #f7f7f7;
+	border-right: 5px solid #f7f7f7;
 	border-top: 5px solid #f7f7f7;
 	border-bottom: 5px solid #f7f7f7;
 	height: 15px;
-	width: 100px;
+	width: 80px;
 }
 
 .colors_dropdown .hidden {
@@ -552,8 +557,8 @@ img {
 }
 
 .colors_dropdown .option:hover {
-	border-left: 10px solid #e6e6e6;
-	border-right: 10px solid #e6e6e6;
+	border-left: 5px solid #e6e6e6;
+	border-right: 5px solid #e6e6e6;
 	border-top: 5px solid #e6e6e6;
 	border-bottom: 5px solid #e6e6e6;
 	cursor: pointer;
