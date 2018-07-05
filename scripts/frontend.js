@@ -1,19 +1,4 @@
 var grapher;
-var grid = true;
-var axes = true;
-var numbers = true;
-var gridColor = '#E9E9E9';
-var axesColor = '#000000';
-var backgroundColor = '#FFFFFF';
-var colors = {
-    'black': ['#000000', '#E9E9E9'], 
-    'white' : ['#FFFFFF', '#8C8C8C'],
-    'blue' : ['#4D6F96', '#DDE5EE'],
-    'red' : ['#CC0000', '#FFCCCC'],
-    'green' : ['#1AFF1A', '#CCFFCC'],
-    'purple' : ['#660066', '#FF80FF'],
-    'gray' : ['#999999', '#F7F7F7']
-};
 
 function addListener(elt, type, handler) {
     if (elt.addEventListener) { // For all major browsers, except IE 8 and earlier
@@ -47,8 +32,21 @@ function init() {
     var eqnRange = new GraphzappEquationRange(tmin, tmax);
     grapher.addEqnRange(eqnRange);
 
+    // set the graph options
+    document.getElementById('grid_checkbox').checked = grid;
+    document.getElementById('axes_checkbox').checked = axes;
+    numbers_checkbox = document.getElementById('numbers_checkbox');
+    if (!axes) {numbers_checkbox.disabled = true; numbers_checkbox.checked = false;}
+    else {numbers_checkbox.checked = numbers;}
+
     // draw the content
     grapher.paint(grid, axes, numbers, gridColor, axesColor, backgroundColor);
+}
+
+// called to submit the forms
+submitForms = function() {
+    document.getElementById("eqn_input").submit();
+    //document.getElementById("graph_options").submit();
 }
 
 //Updates kmin and kmax when user hits 'update range'
@@ -72,6 +70,7 @@ function toggleShowGrids() {
 
 function toggleShowAxes() {
     axes = document.getElementById('axes_checkbox').checked;
+    numbers_checkbox = document.getElementById('numbers_checkbox');
     if (axes) {
         numbers_checkbox.disabled = false;
         numbers_checkbox.checked = numbers;
@@ -141,8 +140,6 @@ function stopDrag(event) {
     dragging = false;
 }
 
-var zooming = false;
-var onButton = 0;
 const interval = 20;
 var intvalId;
 

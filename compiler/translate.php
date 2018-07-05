@@ -95,4 +95,23 @@
 		$input_tmin = "-10.0";
 		$input_tmax = "10.0";
 	}
+
+	if(isset($_GET["k-min"],$_GET["k-max"])) {
+		// get t values
+		$input_kmin = $_GET["k-min"];
+		$input_kmax = $_GET["k-max"];
+
+		// make sure both are numbers
+		if (is_numeric($input_kmin) || is_numeric($input_kmax)) {
+			if(!is_numeric($input_kmin)) { $input_kmin = ((float) $input_kmax) - 20; }
+			if(!is_numeric($input_kmax)) { $input_kmax = ((float) $input_kmin) + 20; }
+		} else {
+			$input_kmin = "-10.0";
+			$input_kmax = "10.0";
+		}
+
+	} else {
+		$input_kmin = "-10.0";
+		$input_kmax = "10.0";
+	}
 ?>
