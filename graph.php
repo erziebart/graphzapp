@@ -3,6 +3,7 @@
 <head>
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="http://graphzapp.com/favicon.png">
 </head>
 <body onload="init()" onresize="adjustForResize()" onmouseup="stopDrag(event);stopZoom();">
 	<?php include "compiler/translate.php";?>
@@ -16,17 +17,17 @@
 				<span>x(t) = </span>
 				<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>" onfocus="showTooltip('tooltip1')" onfocusout="hideTooltip('tooltip1')">
 				<div class="tooltip_wrapper">
-					<div class="tooltip_text" id="tooltip1"> 
-						<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?> 
-					</div> 
+					<div class="tooltip_text" id="tooltip1">
+						<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?>
+					</div>
 				</div>
 			</div>
 			<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">
 				<span>y(t) =</span>
 				<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>" onfocus="showTooltip('tooltip2')" onfocusout="hideTooltip('tooltip2')">
 				<div class="tooltip_wrapper">
-					<div class="tooltip_text" id="tooltip2"> 
-						<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?> 
+					<div class="tooltip_text" id="tooltip2">
+						<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?>
 					</div>
 				</div>
 			</div>

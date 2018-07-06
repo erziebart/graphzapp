@@ -3,6 +3,7 @@
 <head>
 	<title>Graphzapp Home</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="http://graphzapp.com/favicon.png">
 </head>
 <body>
 	<?php include "header.php"; ?>
