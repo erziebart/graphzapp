@@ -4,7 +4,7 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="init()" onresize="adjustForResize()" onmouseup="stopDrag(event);stopZoom();">
+<body onload="init()" onresize="adjustForResize()" onmouseup="stopDrag(event);stopZoom();" >
 	<?php include "compiler/translate.php";?>
 	<?php include "colors.php";?>
 	<?php include "header.php"; ?>
@@ -62,7 +62,12 @@
     				</ul>
     			</div>
     		</div>
-    		<form id="graph_options" class="graph_options" action="graph.php" method="post">
+    		<div class="graph_options">
+    		<div class="graph_options_header">
+    			<span>Graph Options</span>
+    			<span class="small">▼</span>
+    		</div>
+    		<form id="graph_options" class="graph_options_body" action="graph.php" method="post">
     			<div class="checkbox_wrapper">
     				<span class="small"><input id="grid_checkbox" type="checkbox" name="grids" onclick="toggleShowGrids()" checked>
     				<label for="grid_checkbox">Draw grid</label></span>
@@ -88,6 +93,7 @@
     				<input id="input2" type="hidden" name="axescolor" value="<?php echo($axescolor); ?>">
     			</div>
     		</form>
+    		</div>
 		</div>
 		<div class="credit"><span>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></span></div>
 	</div>
