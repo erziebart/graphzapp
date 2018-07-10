@@ -43,7 +43,12 @@
 	$x = $y = UNDEF;
 	$err_x = $err_y = 0;
 	$report_x = $report_y = NULL;
+	$mode = 'functional';
 	$imports = array();
+
+	if(isset($_GET["mode"])) {
+		$mode = $_GET["mode"];
+	}
 
 	if(isset($_GET["x-value"],$_GET["y-value"])) {
 		// get user inputs

@@ -83,3 +83,4 @@
 <script type="text/javascript" src="scripts/grapher.js"></script>
 <script type="text/javascript" src="scripts/frontend.js"></script>
 <script type="text/javascript" src="scripts/equationrange.js"></script>
+<?php include "scripts/forms.php" ?>
