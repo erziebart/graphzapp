@@ -90,5 +90,14 @@ function hideAllDropdowns() {
 		}
 }
 
+//Prevents graph toolbar from appearing when graph is being dragged
+function disableToolbar() {
+	document.getElementsByClassName('toolbar_overlay')[0].style.display = 'none';
+}
+
+function enableToolbar() {
+	document.getElementsByClassName('toolbar_overlay')[0].style.display = '';
+}
+
 
 
