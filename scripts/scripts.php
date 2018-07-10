@@ -44,23 +44,9 @@
 	var y_eqn = function(t,k){return <?php echo($y); ?>;};
 	var t_start = <?php echo ($input_tmin) ?>;
 	var t_stop = <?php echo ($input_tmax) ?>;
-	var eqn = new Parametric(x_eqn, y_eqn, t_start, t_stop);
-
-	//var eqn = new Equation(Mode.parametric);
-
-	// error handling
-	// eqn.err_x = <?php echo($err_x); ?>;
-	// eqn.reason_x = "<?php echo (is_null($report_x)?"":$report_x->get_reason());?>";
-	// eqn.err_y = <?php echo($err_y); ?>;
-	// eqn.reason_y = "<?php echo (is_null($report_y)?"":$report_y->get_reason());?>";
-
-	// the functions
-	// eqn.x = function(t,k){return <?php echo($x); ?>;};
-	// eqn.y = function(t,k){return <?php echo($y); ?>;};
-
-	// // range
-	// eqn.tstart = <?php echo ($input_tmin) ?>;
-	// eqn.tstop = <?php echo ($input_tmax) ?>;
+	//var eqn = new Functional(y_eqn);
+	//var eqn = new Parametric(x_eqn, y_eqn, t_start, t_stop);
+	var eqn = new Polar(y_eqn, t_start, t_stop);
 
 	// graph options -- still needs review and work!
 	if (<?php echo (isset($_GET['options']) ? 'true': 'false'); ?>) {

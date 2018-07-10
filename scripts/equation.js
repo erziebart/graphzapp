@@ -12,7 +12,7 @@ Equation.prototype.getXY = function(tt, kk) {
 
 // functional equations
 function Functional(y_eqn) {
-	Equation.call(Mode.functional);
+	Equation.call(this, Mode.functional);
 	this.y = y_eqn;
 }
 
@@ -24,7 +24,7 @@ Functional.prototype.getXY = function(tt, kk) {
 
 // parametric equations
 function Parametric(x_eqn, y_eqn, t_start, t_stop) {
-	Equation.call(Mode.parametric);
+	Equation.call(this, Mode.parametric);
 	this.x = x_eqn;
 	this.y = y_eqn;
 	this.tstart = t_start;
@@ -39,7 +39,7 @@ Parametric.prototype.getXY = function(tt, kk) {
 
 // polar equations
 function Polar(r_eqn, t_start, t_stop) {
-	Equation.call(Mode.polar);
+	Equation.call(this, Mode.polar);
 	this.r = r_eqn;
 	this.tstart = t_start;
 	this.tstop = t_stop;
@@ -48,8 +48,5 @@ function Polar(r_eqn, t_start, t_stop) {
 Polar.prototype = Object.create(Equation.prototype);
 
 Polar.prototype.getXY = function(tt, kk) {
-	function toRadians(angle) {
-		return angle * (Math.PI / 180);
-	}
-	return {x:this.r(tt, kk)*Math.cos(toRadians(tt)), y:this.r(tt, kk)*Math.sin(toRadians(tt))};
+	return {x:this.r(tt, kk)*Math.cos(tt), y:this.r(tt, kk)*Math.sin(tt)};
 }

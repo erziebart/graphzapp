@@ -17,7 +17,7 @@ class GraphzappGrapher {
         this.computeUnit(this.scale);
         this.computeGrid(this.sf, this.unit);
         this.computeGridLocations(this.canvas, this.grid, this.origin);
-        this.computeDeltas(this.sf);
+        this.computeDeltas(this.sf, this.canvas);
 
         // equation and slider
         this.eq = null;
@@ -109,7 +109,7 @@ class GraphzappGrapher {
         };
     }
 
-    computeDeltas(sf) {
+    computeDeltas(sf, canvas) {
         var getDelta = function(sf) {
             return ( res * sf );
         };
@@ -117,10 +117,12 @@ class GraphzappGrapher {
         var dx = getDelta(sf.x);
         var dy = getDelta(sf.y);
         var dt = Math.min(dx, dy);
+        var dtheta = getDelta(2*Math.sqrt(2)/(canvas.width + canvas.height));
         this.delta = {
             x: dx,
             y: dy,
-            t: dt
+            t: dt,
+            theta: dtheta
         };
     }
     
@@ -373,9 +375,26 @@ class GraphzappGrapher {
         //     return ret;
         // }
 
-        var tstart = this.eqn.tstart;
-        var tstop = this.eqn.tstop;
-        var tstep = this.delta.t;
+        var tstart, tstop, tstep;
+
+        switch (eqn.mode) {
+            case Mode.functional:
+                tstart = -originX * sfX;
+                tstop = (width-originX) * sfX;
+                tstep = this.delta.x;
+                break;
+            case Mode.parametric:
+                tstart = this.eqn.tstart;
+                tstop = this.eqn.tstop;
+                tstep = this.delta.t;
+                break;
+            case Mode.polar:
+                tstart = this.eqn.tstart;
+                tstop = this.eqn.tstop;
+                tstep = this.delta.theta;
+                break;
+        }
+        //console.log(tstart, tstop, tstep);
 
         // get the current slider value
         var kk = this.slider.val;
@@ -470,7 +489,7 @@ class GraphzappGrapher {
         this.computeUnit(this.scale);
         this.computeGrid(this.sf, this.unit);
         this.computeGridLocations(this.canvas, this.grid, this.origin);
-        this.computeDeltas(this.sf);
+        this.computeDeltas(this.sf, this.canvas);
     }
 }
 
