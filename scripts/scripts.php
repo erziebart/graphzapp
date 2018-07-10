@@ -59,22 +59,25 @@
 	// graph options -- still needs review and work!
 	if (<?php echo (isset($_GET['options']) ? 'true': 'false'); ?>) {
 		// should be something else here
-		var grid = <?php echo(!isset($_POST['grids']) ? 'false' : 'true'); ?>;
-		var axes = <?php echo(!isset($_POST['axes']) ? 'false' : 'true'); ?>;
-		var numbers = <?php echo(!isset($_POST['labels']) ? 'false' : 'true'); ?>;
-		var curveColor = "<?php echo($colors[$curvecolor][0]); ?>";
-		var gridColor = "<?php echo($colors[$axescolor][1]); ?>";
-		var axesColor = "<?php echo($colors[$axescolor][0]); ?>";
-		var backgroundColor = "<?php echo($colors[$bgcolor][0]); ?>";
-		
+		var options = {
+			grid: true,
+			axes: true,
+			numbers: true,
+			curveColor: "#4D6F96",
+			gridColor: "#FFFFFF",
+			axesColor: "#E9E9E9",
+			backgroundColor: "#000000"
+		};
 	} else {
-		var grid = true;
-		var axes = true;
-		var numbers = true;
-		var curveColor = "<?php echo($colors[$curvecolor][0]); ?>";
-		var gridColor = "<?php echo($colors[$axescolor][1]); ?>";
-		var axesColor = "<?php echo($colors[$axescolor][0]); ?>";
-		var backgroundColor = "<?php echo($colors[$bgcolor][0]); ?>";
+		var options = {
+			grid: true,
+			axes: true,
+			numbers: true,
+			curveColor: "<?php echo($colors[$curvecolor][0]); ?>",
+			gridColor: "<?php echo($colors[$axescolor][1]); ?>",
+			axesColor: "<?php echo($colors[$axescolor][0]); ?>",
+			backgroundColor: "<?php echo($colors[$bgcolor][0]); ?>"
+		};
 	}
 	
 
@@ -82,5 +85,4 @@
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>
 <script type="text/javascript" src="scripts/frontend.js"></script>
-<script type="text/javascript" src="scripts/equationrange.js"></script>
 <?php include "scripts/forms.php" ?>

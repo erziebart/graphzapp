@@ -62,7 +62,7 @@
 			if (!$input_y) {$input_y = "t";}
 
 			// initialize the static classes
-			GraphzappLexer::init();
+			GraphzappLexer::init(["t","k"]);
 			GraphzappImports::init();
 
 			// translate both

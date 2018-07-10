@@ -9,84 +9,7 @@
 		const ID = "[A-Za-z][\w]*";
 		const JSLIT = "((\d+(\.\d*)?)|(\.\d+))((E|e)(\+|\-)?\d+)?";
 
-		protected static $terminals = array(
-			/* format is
-				"<TOKEN_TYPE>"
-				"<REGEX>"
-				"<GENERATOR>" 
-			*/
-
-			array(
-				'$white', 
-				"\s+",
-				"g_ignore"
-			),
-			array(
-				'$var',
-				"(t|k)(?!\w)",
-				"g_generic"
-			),
-			array(
-				'$fid',
-				"(".self::ID.")\(",
-				"g_call"
-			),
-			array(
-				'$const', 
-				self::ID,
-				"g_generic"
-			),
-			array(
-				'$binop0', 
-				";|&|\||==|!=|<=|>=|<|>",
-				"g_generic"
-			),
-			array(
-				'$plus', 
-				"\+",
-				"g_generic"
-			),
-			array(
-				'$minus', 
-				"\-",
-				"g_generic"
-			),
-			array(
-				'$binop2', 
-				"\*|\/",
-				"g_generic"
-			),
-			array(
-				'$not', 
-				"!",
-				"g_generic"
-			),
-			array(
-				'$power', 
-				"\^",
-				"g_generic"
-			),
-			array(
-				'$lit', 
-				"(?>".self::JSLIT.")(?![\.])",
-				"g_generic"
-			),
-			array(
-				'$lparen', 
-				"\(",
-				"g_generic"
-			),
-			array(
-				'$rparen', 
-				"\)",
-				"g_generic"
-			),
-			array(
-				'$comma',
-				",",
-				"g_generic"
-			),
-		);
+		protected static $terminals;
 
 		////////////////token generation actions/////////////////
 		protected static function g_ignore($name, $matches, $offset) {
@@ -114,7 +37,88 @@
 		static $report;
 
 		// prepare regexes
-		public static function init() {
+		public static function init($vars) {
+			$regex = "(".implode("|",$vars).")(?!\w)";
+
+			static::$terminals = array(
+				/* format is
+					"<TOKEN_TYPE>"
+					"<REGEX>"
+					"<GENERATOR>" 
+				*/
+
+				array(
+					'$white', 
+					"\s+",
+					"g_ignore"
+				),
+				array(
+					'$var',
+					$regex,
+					"g_generic"
+				),
+				array(
+					'$fid',
+					"(".self::ID.")\(",
+					"g_call"
+				),
+				array(
+					'$const', 
+					self::ID,
+					"g_generic"
+				),
+				array(
+					'$binop0', 
+					";|&|\||==|!=|<=|>=|<|>",
+					"g_generic"
+				),
+				array(
+					'$plus', 
+					"\+",
+					"g_generic"
+				),
+				array(
+					'$minus', 
+					"\-",
+					"g_generic"
+				),
+				array(
+					'$binop2', 
+					"\*|\/",
+					"g_generic"
+				),
+				array(
+					'$not', 
+					"!",
+					"g_generic"
+				),
+				array(
+					'$power', 
+					"\^",
+					"g_generic"
+				),
+				array(
+					'$lit', 
+					"(?>".self::JSLIT.")(?![\.])",
+					"g_generic"
+				),
+				array(
+					'$lparen', 
+					"\(",
+					"g_generic"
+				),
+				array(
+					'$rparen', 
+					"\)",
+					"g_generic"
+				),
+				array(
+					'$comma',
+					",",
+					"g_generic"
+				),
+			);
+
 			for ($i = 0; $i < count(static::$terminals); $i++) {
 				$regex = static::$terminals[$i][1];
 				static::$terminals[$i][1] = "/(".$regex.")/xA";

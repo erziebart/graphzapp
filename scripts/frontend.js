@@ -14,7 +14,7 @@ function init() {
     var canvas = document.getElementById('canvas');
     var origin = {x: 0.5*canvas.width, y: 0.5*canvas.height};
     var scale = {x: 0, y: 0};
-    grapher = new GraphzappGrapher(canvas, origin, scale);
+    grapher = new GraphzappGrapher(canvas, origin, scale, options);
 
     // add the equations
     grapher.addEquation(eqn);
@@ -26,22 +26,15 @@ function init() {
     var kslider = new GraphzappSlider(document.getElementById("k_slider"), kmin, kmax, kval);
     grapher.addSlider(kslider);
 
-    // get t values
-    var tmin = document.getElementById('tmin');
-    var tmax = document.getElementById('tmax');
-    var eqnRange = new GraphzappEquationRange(tmin, tmax);
-    grapher.addEqnRange(eqnRange);
-
     // set the graph options
-    document.getElementById('grid_checkbox').checked = grid;
-    document.getElementById('axes_checkbox').checked = axes;
+    document.getElementById('grid_checkbox').checked = grapher.showGrids;
+    document.getElementById('axes_checkbox').checked = grapher.showAxes;
     numbers_checkbox = document.getElementById('numbers_checkbox');
-    if (!axes) {numbers_checkbox.disabled = true; numbers_checkbox.checked = false;}
-    else {numbers_checkbox.checked = numbers;}
+    if (!grapher.showAxes) {numbers_checkbox.disabled = true; numbers_checkbox.checked = false;}
+    else {numbers_checkbox.checked = grapher.showLabels;}
 
     // draw the content
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
-    //changeMode(document.getElementById('mode_dropdown').value);
+    grapher.paint();
 }
 
 // called to submit the forms
@@ -54,62 +47,62 @@ submitForms = function() {
 function adjustRange() {
     var kslider = grapher.getSlider();
     kslider.adjustRange();
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 //Called whenever slider is moved
 function adjustValue() {
     var kslider = grapher.getSlider();
     kslider.adjustValue();
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 function toggleShowGrids() {
-    grid = document.getElementById('grid_checkbox').checked;
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.showGrids = document.getElementById('grid_checkbox').checked;
+    grapher.paint();
 }
 
 function toggleShowAxes() {
-    axes = document.getElementById('axes_checkbox').checked;
+    grapher.showAxes = document.getElementById('axes_checkbox').checked;
     numbers_checkbox = document.getElementById('numbers_checkbox');
-    if (axes) {
+    if (grapher.showAxes) {
         numbers_checkbox.disabled = false;
-        numbers_checkbox.checked = numbers;
+        numbers_checkbox.checked = grapher.showLabels;
     } else {
         numbers_checkbox.disabled = true;
         numbers_checkbox.checked = false;
     }
 
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 function toggleShowLabels() {
-    numbers = document.getElementById('numbers_checkbox').checked;
+    grapher.showLabels = document.getElementById('numbers_checkbox').checked;
 
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 function changeBackground(color) {
     var colorCode = colors[color][0];
     select(1, color);
-    backgroundColor = colorCode;
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    backgroundColor = grapher.backgroundColor = colorCode;
+    grapher.paint();
 }
 
 function changeAxesColor(color) {
     var mainColorCode = colors[color][0];
     var lightColorCode = colors[color][1];
     select(2, color);
-    gridColor = lightColorCode;
-    axesColor = mainColorCode;
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    gridColor = grapher.gridColor = lightColorCode;
+    axesColor = grapher.axesColor = mainColorCode;
+    grapher.paint();
 }
 
 function changeCurveColor(color) {
     var colorCode = colors[color][0];
     select(3, color);
-    curveColor = colorCode;
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    curveColor = grapher.curveColor = colorCode;
+    grapher.paint();
 }
 
 // for dragging the canvas screen
@@ -138,7 +131,7 @@ function doDrag(event) {
         var changeX = event.offsetX - dragStart.x;
         var changeY = event.offsetY - dragStart.y;
         grapher.scroll(changeX, changeY);
-        grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+        grapher.paint();
         dragStart = {x:event.offsetX , y:event.offsetY };
     }
     
@@ -169,13 +162,13 @@ function onPressMinus(event) {
 function zoomIn() {
     var rate = -scaleRate;
     grapher.zoom(rate, rate);
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 function zoomOut() {
     var rate = scaleRate;
     grapher.zoom(rate, rate);
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 function stopZoom() {
@@ -185,7 +178,7 @@ function stopZoom() {
 // center at origin
 function toOrigin() {
     grapher.toOrigin();
-    grapher.paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor);
+    grapher.paint();
 }
 
 /*function changeMode(newMode) {

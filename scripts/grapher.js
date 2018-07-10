@@ -7,7 +7,7 @@ const scaleRange = {min: -2, max: 2};
 
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
-    constructor(canvasObj, origin, scale) {
+    constructor(canvasObj, origin, scale, options) {
         this.canvas = canvasObj;
         this.origin = origin;
         this.scale = scale;
@@ -22,16 +22,15 @@ class GraphzappGrapher {
         // equation and slider
         this.eq = null;
         this.slider = null;
-        this.eqnRange = null;
 
         // colors and options
-        this.showAxes = true
-        this.showGrids = true
-        this.showLables = true
-        this.curveColor = "#4D6F96"
-        this.backgroundColor = "#FFFFFF"
-        this.axesColor = "#E9E9E9"
-        this.gridColor = "#000000"
+        this.showAxes = options.axes;
+        this.showGrids = options.grid;
+        this.showLabels = options.numbers;
+        this.curveColor = options.curveColor;
+        this.backgroundColor = options.backgroundColor;
+        this.axesColor = options.axesColor;
+        this.gridColor = options.gridColor;
     }
 
     computeCalibration(canvas) {
@@ -124,17 +123,6 @@ class GraphzappGrapher {
             t: dt
         };
     }
-
-    // Add the desired t range
-    addEqnRange(eqnRange) {
-        this.eqnRange = eqnRange;
-    }
-
-    // returns the t range to ultimately be modified
-    getEqnRange() {
-        return this.eqnRange;
-    }
-
     
     // should add the equation to a list -- for now just sets a variable
     addEquation(eqn) {
@@ -152,14 +140,14 @@ class GraphzappGrapher {
     }
 
     // paint everything on the canvas
-    paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor) {
-        this.showAxes = axes
-        this.showGrids = grid
-        this.showLables = numbers
-        this.curveColor = curveColor
-        this.backgroundColor = backgroundColor
-        this.axesColor = axesColor
-        this.gridColor = gridColor
+    paint() {
+        // this.showAxes = axes
+        // this.showGrids = grid
+        // this.showLabels = numbers
+        // this.curveColor = curveColor
+        // this.backgroundColor = backgroundColor
+        // this.axesColor = axesColor
+        // this.gridColor = gridColor
 
         var ctx = this.canvas.getContext("2d");
         ctx.fillStyle = this.backgroundColor;
@@ -174,14 +162,14 @@ class GraphzappGrapher {
             if (this.showAxes) {
                 this.drawAxes(ctx);
                 this.drawTickMarks(ctx);
-                if (this.showLables) {
+                if (this.showLabels) {
                     this.drawLabels(ctx);
                 }
             }
         }
         else if (this.showAxes) {
             this.drawAxes(ctx);
-            if (this.showLables) {
+            if (this.showLabels) {
                 this.drawTickMarks(ctx);
                 this.drawLabels(ctx);
             }

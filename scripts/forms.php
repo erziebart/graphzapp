@@ -50,7 +50,7 @@ var parametricForm =
 
 var polarForm = 			
 	'<div id="polar">' +
-		'<div class="line <?php if ($err_r != 0) {echo "tooltip";} ?>">' +
+		'<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">' +
 			'<span>r(t) = </span>' +
 			yInput +
 		'</div>' +
