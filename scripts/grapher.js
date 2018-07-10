@@ -141,14 +141,6 @@ class GraphzappGrapher {
 
     // paint everything on the canvas
     paint() {
-        // this.showAxes = axes
-        // this.showGrids = grid
-        // this.showLabels = numbers
-        // this.curveColor = curveColor
-        // this.backgroundColor = backgroundColor
-        // this.axesColor = axesColor
-        // this.gridColor = gridColor
-
         var ctx = this.canvas.getContext("2d");
         ctx.fillStyle = this.backgroundColor;
         ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
@@ -364,22 +356,22 @@ class GraphzappGrapher {
         ctx.lineWidth = 2;
         ctx.strokeStyle = this.curveColor;
 
-        var cur_x, cur_y, next_x, next_y;
-        var isCurDef, isNextDef, isCurVisible, isNextVisible;
+        var cur, next;
+        var isCurDef, isNextDef/*, isCurVisible, isNextVisible*/;
 
-        var lower = (-originY)*sfY;
-        var upper = (height-originY)*sfY;
-        var left = (-originX)*sfX;
-        var right = (width-originX)*sfX;
-        var isInWindow = function(x, y) {
-            var ret = 
-                left <= x &&
-                x <= right &&
-                lower <= y &&
-                y <= upper;
+        // var lower = (-originY)*sfY;
+        // var upper = (height-originY)*sfY;
+        // var left = (-originX)*sfX;
+        // var right = (width-originX)*sfX;
+        // var isInWindow = function(x, y) {
+        //     var ret = 
+        //         left <= x &&
+        //         x <= right &&
+        //         lower <= y &&
+        //         y <= upper;
 
-            return ret;
-        }
+        //     return ret;
+        // }
 
         var tstart = this.eqn.tstart;
         var tstop = this.eqn.tstop;
@@ -390,28 +382,25 @@ class GraphzappGrapher {
 
         for(var tt = tstart; tt < tstop; tt += tstep) {
             if(tt > tstart) {
-                cur_x = next_x;
-                cur_y = next_y;
+                cur = next;
                 isCurDef = isNextDef;
-                isCurVisible = isNextVisible;
+                //isCurVisible = isNextVisible;
             } else {
-                cur_x = eqn.x(tt,kk);
-                cur_y = eqn.y(tt,kk);
-                isCurDef = !isNaN(cur_x) && !isNaN(cur_y);
-                isCurVisible = isInWindow(cur_x, cur_y);
+                cur = eqn.getXY(tt,kk);
+                isCurDef = !isNaN(cur.x) && !isNaN(cur.y);
+                //isCurVisible = isInWindow(cur_x, cur_y);
             }
 
-            next_x = eqn.x(tt+tstep,kk);
-            next_y = eqn.y(tt+tstep,kk);
-            isNextDef = !isNaN(next_x) && !isNaN(next_y);
-            isNextVisible = isInWindow(next_x, next_y);
+            next = eqn.getXY(tt,kk);
+            isNextDef = !isNaN(next.x) && !isNaN(next.y);
+            //isNextVisible = isInWindow(next_x, next_y);
 
             // if so, follow the curve
             if(isNextDef) {
                 if(isCurDef /*&& (isCurVisible || isNextVisible)*/) {
-                    ctx.lineTo(next_x/sfX, -next_y/sfY);
+                    ctx.lineTo(next.x/sfX, -next.y/sfY);
                 } else {
-                    ctx.moveTo(next_x/sfX, -next_y/sfY);
+                    ctx.moveTo(next.x/sfX, -next.y/sfY);
                 }
             }
         }
