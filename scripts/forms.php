@@ -1,17 +1,17 @@
 <script>
 var xInput = 
-	'<input type="text" name="x-value" class="equation_input large" value="<?php echo($input_x);?>" onfocus="showTooltip(\'tooltip1\')" onfocusout="hideTooltip(\'tooltip1\')">' +
+	'<input type="text" name="x-value" class="equation_input large" value="<?php echo($eqn['input_x']);?>" onfocus="showTooltip(\'tooltip1\')" onfocusout="hideTooltip(\'tooltip1\')">' +
 	'<div class="tooltip_wrapper">' +
 		'<div class="tooltip_text" id="tooltip1">' +
-			'"<?php echo(is_null($report_x)?"":$report_x->get_reason()) ?>"' +
+			'"<?php echo(is_null($eqn['report_x'])?"":$eqn['report_x']->get_reason()) ?>"' +
 		'</div>' +
 	'</div>';
 
 var yInput = 
-	'<input type="text" name="y-value" class="equation_input large" value="<?php echo($input_y);?>" onfocus="showTooltip(\'tooltip2\')" onfocusout="hideTooltip(\'tooltip2\')">' +
+	'<input type="text" name="y-value" class="equation_input large" value="<?php echo($eqn['input_y']);?>" onfocus="showTooltip(\'tooltip2\')" onfocusout="hideTooltip(\'tooltip2\')">' +
 	'<div class="tooltip_wrapper">' +
 		'<div class="tooltip_text" id="tooltip2">' +
-			'"<?php echo(is_null($report_y)?"":$report_y->get_reason()) ?>"' +
+			'"<?php echo(is_null($eqn['report_y'])?"":$eqn['report_y']->get_reason()) ?>"' +
 		'</div>' +
 	'</div>';
 
@@ -19,17 +19,17 @@ var tRange =
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
 			'<span class="small">t from </span>' +
-			'<input id = "tmin"class="tmin small_input" type="text" name="t-min" value="<?php echo($input_tmin);?>">' +
+			'<input id = "tmin"class="tmin small_input" type="text" name="t-min" value="<?php echo($eqn['t_range']['min']);?>">' +
 		'</span>' +
 		'<span id="t_max_container">' +
 			'<span class="small"> to </span>' +
-			'<input id = "tmax" class="tmax small_input" type="text" name="t-max" value="<?php echo($input_tmax);?>">' +
+			'<input id = "tmax" class="tmax small_input" type="text" name="t-max" value="<?php echo($eqn['t_range']['max']);?>">' +
 		'</span>' +
 	'</div>';
 
 var functionalForm = 
 	'<div id="functional">' +
-		'<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">' +
+		'<div class="line <?php if ($eqn['err_y'] != 0) {echo "tooltip";} ?>">' +
 			'<span>y = </span>' + 
 			yInput + 
 		'</div>' + 
@@ -37,11 +37,11 @@ var functionalForm =
 
 var parametricForm = 
 	'<div id="parametric">' +
-		'<div class="line <?php if ($err_x != 0) {echo "tooltip";} ?>">' +
+		'<div class="line <?php if ($eqn['err_x'] != 0) {echo "tooltip";} ?>">' +
 			'<span>x(t) = </span>' +
 			xInput + 
 		'</div>' + 
-		'<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">' + 
+		'<div class="line <?php if ($eqn['err_y'] != 0) {echo "tooltip";} ?>">' + 
 			'<span>y(t) = </span>' + 
 			yInput +
 		'</div>' + 
@@ -50,7 +50,7 @@ var parametricForm =
 
 var polarForm = 			
 	'<div id="polar">' +
-		'<div class="line <?php if ($err_y != 0) {echo "tooltip";} ?>">' +
+		'<div class="line <?php if ($eqn['err_y'] != 0) {echo "tooltip";} ?>">' +
 			'<span>r(t) = </span>' +
 			yInput +
 		'</div>' +

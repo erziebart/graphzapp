@@ -1,6 +1,31 @@
 <!-- This file contains imports of js files and php generated js code -->
 <script type="text/javascript" src="scripts/equation.js"></script>
 <script type="text/javascript">
+	// equation object
+	<?php  
+		switch ($eqn['mode']) {
+			case 'functional':
+				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
+				printf("var eqn = new Functional(y_eqn);\n\t");
+				break;
+
+			case 'parametric':
+				printf("var x_eqn = function(t,k){return %s;};\n\t", $eqn['x']);
+				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
+				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
+				printf("var t_stop = %s;\n\t", $eqn['t_range']['max']);
+				printf("var eqn = new Parametric(x_eqn, y_eqn, t_start, t_stop);\n\t");
+				break;
+
+			case 'polar':
+				printf("var r_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
+				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
+				printf("var t_stop = %s;\n\t", $eqn['t_range']['max']);
+				printf("var eqn = new Polar(r_eqn, t_start, t_stop);\n\t");
+				break;
+		}
+	?>
+
 	// imported functions
 	<?php
 		foreach ($imports as $fname => $val) {
@@ -38,15 +63,6 @@
 	    }
 	    return NaN;
 	}
-
-	// equation object
-	var x_eqn = function(t,k){return <?php echo($x); ?>;};
-	var y_eqn = function(t,k){return <?php echo($y); ?>;};
-	var t_start = <?php echo ($input_tmin) ?>;
-	var t_stop = <?php echo ($input_tmax) ?>;
-	//var eqn = new Functional(y_eqn);
-	//var eqn = new Parametric(x_eqn, y_eqn, t_start, t_stop);
-	var eqn = new Polar(y_eqn, t_start, t_stop);
 
 	// graph options -- still needs review and work!
 	if (<?php echo (isset($_GET['options']) ? 'true': 'false'); ?>) {

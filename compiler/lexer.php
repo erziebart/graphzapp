@@ -31,13 +31,19 @@
 				"name" => $name,
 				"match" => $id);
 		}
+
+		protected static function g_t($name, $matches, $offset) {
+			return array(
+				"name" => $name,
+				"match" => 't');
+		}
 		/////////////////////////////////////////////////////////
 
 		// error reporting
 		static $report;
 
 		// prepare regexes
-		public static function init($vars) {
+		public static function init($indp, $vars) {
 			$regex = "(".implode("|",$vars).")(?!\w)";
 
 			static::$terminals = array(
@@ -51,6 +57,11 @@
 					'$white', 
 					"\s+",
 					"g_ignore"
+				),
+				array(
+					'$var',
+					$indp,
+					"g_t"
 				),
 				array(
 					'$var',
