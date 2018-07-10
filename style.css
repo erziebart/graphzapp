@@ -229,14 +229,6 @@ img {
 	justify-content: center;
 }
 
-.mode_form {
-	display: none;
-}
-
-.active_form {
-	display: block !important;
-}
-
 #t_value{
 	display: inline-block;
 }
