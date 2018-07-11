@@ -10,14 +10,14 @@
 	printf("var y_para = '%s';\n", $eqn['mode'] == 'parametric' ? $eqn['input_y'] : '""');
 	// printf("var y_para_err = %s;", $eqn['mode'] == 'parametric' ? $eqn['err_y'] : '0');
 	// printf("var y_para_report = %s;", $eqn['mode'] == 'parametric' ? $eqn['report_y'] : '""');
-	printf("var para_t_min = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_range']['min'] : '-10.0');
-	printf("var para_t_max = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_range']['max'] : '10.0');
+	printf("var para_t_min = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_min'] : '-10.0');
+	printf("var para_t_max = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_max'] : '10.0');
 
 	printf("var y_pol = '%s';\n", $eqn['mode'] == 'polar' ? $eqn['input_y'] : '""');
 	// printf("var y_pol_err = %s;", $eqn['mode'] == 'polar' ? $eqn['err_y'] : '0');
 	// printf("var y_pol_report = %s;", $eqn['mode'] == 'polar' ? $eqn['report_y'] : '""');
-	printf("var pol_t_min = %s;\n", $eqn['mode'] == 'polar' ? $eqn['t_range']['min'] : '0.00');
-	printf("var pol_t_max = %s;\n", $eqn['mode'] == 'polar' ? $eqn['t_range']['max'] : '6.28');
+	printf("var pol_t_min = %s;\n", $eqn['mode'] == 'polar' ? $eqn['t_min'] : '0.0');
+	printf("var pol_t_max = %s;\n", $eqn['mode'] == 'polar' ? $eqn['t_max'] : '360.0');
 ?>
 
 function xInput(input, report) { return (
@@ -48,6 +48,20 @@ function tRange(min, max) { return (
 		'</span>' +
 	'</div>');}
 
+function thetaRange(min, max) { return (
+	'<div class="t_range">' +
+		'<span class="t_min_container">' +
+			'<span class="small">t from </span>' +
+			'<input id = "tmin"class="tmin small_input" type="text" name="t-min" value="' + min + '">' + 
+		'</span>' +
+		'<span id="t_max_container">' +
+			'<span class="small"> to </span>' +
+			'<input id = "tmax" class="tmax small_input" type="text" name="t-max" value="' + max + '">' +
+			'<span class="small"> deg </span>' +
+		'</span>' +
+		
+	'</div>');}
+
 function functionalForm() { return (
 	'<div id="functional">' +
 		'<div class="line <?php if ($eqn['mode'] == 'functional' && $eqn['err_y'] != 0) {echo "tooltip";} ?>">' +
@@ -75,7 +89,7 @@ function polarForm() { return (
 			'<span>r(t) = </span>' +
 			yInput(y_pol, "<?php echo(($eqn['mode'] == 'polar' && !is_null($eqn['report_y'])) ? $eqn['report_y']->get_reason() : '') ?>") + 
 		'</div>' +
-		tRange(pol_t_min, pol_t_max) + 
+		thetaRange(pol_t_min, pol_t_max) +
 	'</div>');}
 
 changeMode(document.getElementById('mode_dropdown').value);
