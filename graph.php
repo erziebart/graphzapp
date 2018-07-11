@@ -4,7 +4,8 @@
 	<title>Graphzapp</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="init()" onresize="adjustForResize()" onmousedown="disableToolbar()" onmouseup="stopDrag(event);stopZoom();enableToolbar()" >
+<!-- <body onload="init()" onresize="adjustForResize()" onmousedown="disableToolbar()" onmouseup="stopDrag(event);stopZoom();enableToolbar()" > -->
+<body onload="init()" onresize="adjustForResize()" onmouseup="stopDrag(event);stopZoom();" >	
 	<?php include "compiler/translate.php";?>
 	<?php include "colors.php";?>
 	<?php include "header.php"; ?>
