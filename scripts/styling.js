@@ -1,6 +1,11 @@
 //This file contains scripts for manipulating the appearance of elements in the front end UI
 
 adjustForResize();
+document.addEventListener('click', function(event){
+	if (!event.target.closest('.colors_dropdown')) {
+		hideAllDropdowns(event);
+	}
+});
 
 //Taken from https://www.mattcromwell.com/detecting-mobile-devices-javascript/
 var isMobile = { 
@@ -41,12 +46,15 @@ function hideTooltip(tooltip) {
 
 //Hides or shows dropdown menu
 function toggleDropdown(id) {
+	hideAllDropdowns();
 	var dropdown = document.getElementById('dropdown' + id).getElementsByClassName('options')[0];
 	if (dropdown.style.display == 'block') {
 		dropdown.style.display = 'none';
+		document.getElementsByClassName('graph_options')[0].classList.remove('show');
 	}
 	else {
 		dropdown.style.display = 'block';
+		document.getElementsByClassName('graph_options')[0].classList.add('show');
 	}
 }
 
@@ -70,6 +78,26 @@ function newSelection(id, color) {
 	colorElement.classList.add('hidden');
 	var input = document.getElementById('input' + id);
 	input.value = color;
+	document.getElementsByClassName('graph_options')[0].classList.remove('show');
 }
+
+function hideAllDropdowns() {
+		var dropdowns = document.getElementsByClassName('colors_dropdown');
+		for (var i = 0; i < dropdowns.length; i++) {
+			var dropdown = dropdowns[i].getElementsByClassName('options')[0];
+			dropdown.style.display = 'none';
+			document.getElementsByClassName('graph_options')[0].classList.remove('show');
+		}
+}
+
+//Prevents graph toolbar from appearing when graph is being dragged
+function disableToolbar() {
+	document.getElementsByClassName('toolbar_overlay')[0].style.display = 'none';
+}
+
+function enableToolbar() {
+	document.getElementsByClassName('toolbar_overlay')[0].style.display = '';
+}
+
 
 

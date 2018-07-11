@@ -208,6 +208,7 @@ img {
 
 .center_col {
 	width: 150px;
+	height: 585px;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -216,9 +217,6 @@ img {
 .right_col{
     width: 50%;
 	text-align: center;
-    display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
 .guide_col {
@@ -418,6 +416,7 @@ img {
 .graph_wrapper {
 	position: relative;
 	display: inline-block;
+	width: 100%;
 	margin: auto;
 }
 
@@ -480,16 +479,41 @@ img {
 }
 
 .credit a{
-	color: rgb(0, 0, 0, .2);
+	color: rgba(0, 0, 0, .2);
 	font-weight: bold;
 }
 
 .graph_options {
-	margin: 10px auto;
-	padding: 10px 10px;
+	margin: 15px auto;
+	height: 40px;
+	padding: 0px 10px;
 	background-color: #f7f7f7;
 	border: 1px solid rgb(220, 220, 220);
-	max-width: 600px;
+	transition: height .7s;
+	overflow: hidden;
+}
+
+.graph_options:hover {
+	height: 140px;
+}
+
+.graph_options.show {
+	height: 140px;
+	overflow: visible;
+}
+
+.graph_options_header {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px
+}
+
+.graph_options_header .small {
+	padding-top: 3px;
+}
+
+.graph_options_body {
+	margin: 0 0 20px 0;
 }
 
 .checkbox_wrapper {
@@ -716,5 +740,15 @@ img {
 	}
 	.slider_container {
 		width: 90%;
+	}
+	.graph_options:hover {
+	height: 250px;
+	}
+
+	.graph_options.show {
+		height: 250px;
+	}
+	.dropdown_wrapper {
+		width: 100%;
 	}
 }
