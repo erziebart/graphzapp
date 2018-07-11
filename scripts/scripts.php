@@ -1,6 +1,31 @@
 <!-- This file contains imports of js files and php generated js code -->
 <script type="text/javascript" src="scripts/equation.js"></script>
 <script type="text/javascript">
+	// equation object
+	<?php  
+		switch ($eqn['mode']) {
+			case 'functional':
+				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
+				printf("var eqn = new Functional(y_eqn);\n\t");
+				break;
+
+			case 'parametric':
+				printf("var x_eqn = function(t,k){return %s;};\n\t", $eqn['x']);
+				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
+				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
+				printf("var t_stop = %s;\n\t", $eqn['t_range']['max']);
+				printf("var eqn = new Parametric(x_eqn, y_eqn, t_start, t_stop);\n\t");
+				break;
+
+			case 'polar':
+				printf("var r_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
+				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
+				printf("var t_stop = %s;\n\t", $eqn['t_range']['max']);
+				printf("var eqn = new Polar(r_eqn, t_start, t_stop);\n\t");
+				break;
+		}
+	?>
+
 	// imported functions
 	<?php
 		foreach ($imports as $fname => $val) {
@@ -39,42 +64,28 @@
 	    return NaN;
 	}
 
-	// equation object
-	var eqn = new GraphzappEquation();
-
-	// error handling
-	eqn.err_x = <?php echo($err_x); ?>;
-	eqn.reason_x = "<?php echo (is_null($report_x)?"":$report_x->get_reason());?>";
-	eqn.err_y = <?php echo($err_y); ?>;
-	eqn.reason_y = "<?php echo (is_null($report_y)?"":$report_y->get_reason());?>";
-
-	// the functions
-	eqn.x = function(t,k){return <?php echo($x); ?>;};
-	eqn.y = function(t,k){return <?php echo($y); ?>;};
-
-	// range
-	eqn.tstart = <?php echo ($input_tmin) ?>;
-	eqn.tstop = <?php echo ($input_tmax) ?>;
-
 	// graph options -- still needs review and work!
 	if (<?php echo (isset($_GET['options']) ? 'true': 'false'); ?>) {
 		// should be something else here
-		var grid = <?php echo(!isset($_POST['grids']) ? 'false' : 'true'); ?>;
-		var axes = <?php echo(!isset($_POST['axes']) ? 'false' : 'true'); ?>;
-		var numbers = <?php echo(!isset($_POST['labels']) ? 'false' : 'true'); ?>;
-		var curveColor = "<?php echo($colors[$curvecolor][0]); ?>";
-		var gridColor = "<?php echo($colors[$axescolor][1]); ?>";
-		var axesColor = "<?php echo($colors[$axescolor][0]); ?>";
-		var backgroundColor = "<?php echo($colors[$bgcolor][0]); ?>";
-		
+		var options = {
+			grid: true,
+			axes: true,
+			numbers: true,
+			curveColor: "#4D6F96",
+			gridColor: "#FFFFFF",
+			axesColor: "#E9E9E9",
+			backgroundColor: "#000000"
+		};
 	} else {
-		var grid = true;
-		var axes = true;
-		var numbers = true;
-		var curveColor = "<?php echo($colors[$curvecolor][0]); ?>";
-		var gridColor = "<?php echo($colors[$axescolor][1]); ?>";
-		var axesColor = "<?php echo($colors[$axescolor][0]); ?>";
-		var backgroundColor = "<?php echo($colors[$bgcolor][0]); ?>";
+		var options = {
+			grid: true,
+			axes: true,
+			numbers: true,
+			curveColor: "<?php echo($colors[$curvecolor][0]); ?>",
+			gridColor: "<?php echo($colors[$axescolor][1]); ?>",
+			axesColor: "<?php echo($colors[$axescolor][0]); ?>",
+			backgroundColor: "<?php echo($colors[$bgcolor][0]); ?>"
+		};
 	}
 	
 
@@ -82,5 +93,4 @@
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>
 <script type="text/javascript" src="scripts/frontend.js"></script>
-<script type="text/javascript" src="scripts/equationrange.js"></script>
 <?php include "scripts/forms.php" ?>

@@ -7,7 +7,7 @@ const scaleRange = {min: -2, max: 2};
 
 // class acts as a wrapper around html canvas and provides methods to draw and update the graph
 class GraphzappGrapher {
-    constructor(canvasObj, origin, scale) {
+    constructor(canvasObj, origin, scale, options) {
         this.canvas = canvasObj;
         this.origin = origin;
         this.scale = scale;
@@ -17,21 +17,20 @@ class GraphzappGrapher {
         this.computeUnit(this.scale);
         this.computeGrid(this.sf, this.unit);
         this.computeGridLocations(this.canvas, this.grid, this.origin);
-        this.computeDeltas(this.sf);
+        this.computeDeltas(this.sf, this.canvas);
 
         // equation and slider
         this.eq = null;
         this.slider = null;
-        this.eqnRange = null;
 
         // colors and options
-        this.showAxes = true
-        this.showGrids = true
-        this.showLables = true
-        this.curveColor = "#4D6F96"
-        this.backgroundColor = "#FFFFFF"
-        this.axesColor = "#E9E9E9"
-        this.gridColor = "#000000"
+        this.showAxes = options.axes;
+        this.showGrids = options.grid;
+        this.showLabels = options.numbers;
+        this.curveColor = options.curveColor;
+        this.backgroundColor = options.backgroundColor;
+        this.axesColor = options.axesColor;
+        this.gridColor = options.gridColor;
     }
 
     computeCalibration(canvas) {
@@ -110,7 +109,7 @@ class GraphzappGrapher {
         };
     }
 
-    computeDeltas(sf) {
+    computeDeltas(sf, canvas) {
         var getDelta = function(sf) {
             return ( res * sf );
         };
@@ -118,23 +117,14 @@ class GraphzappGrapher {
         var dx = getDelta(sf.x);
         var dy = getDelta(sf.y);
         var dt = Math.min(dx, dy);
+        var dtheta = getDelta(2*Math.sqrt(2)/(canvas.width + canvas.height));
         this.delta = {
             x: dx,
             y: dy,
-            t: dt
+            t: dt,
+            theta: dtheta
         };
     }
-
-    // Add the desired t range
-    addEqnRange(eqnRange) {
-        this.eqnRange = eqnRange;
-    }
-
-    // returns the t range to ultimately be modified
-    getEqnRange() {
-        return this.eqnRange;
-    }
-
     
     // should add the equation to a list -- for now just sets a variable
     addEquation(eqn) {
@@ -152,15 +142,7 @@ class GraphzappGrapher {
     }
 
     // paint everything on the canvas
-    paint(grid, axes, numbers, curveColor, gridColor, axesColor, backgroundColor) {
-        this.showAxes = axes
-        this.showGrids = grid
-        this.showLables = numbers
-        this.curveColor = curveColor
-        this.backgroundColor = backgroundColor
-        this.axesColor = axesColor
-        this.gridColor = gridColor
-
+    paint() {
         var ctx = this.canvas.getContext("2d");
         ctx.fillStyle = this.backgroundColor;
         ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
@@ -174,14 +156,14 @@ class GraphzappGrapher {
             if (this.showAxes) {
                 this.drawAxes(ctx);
                 this.drawTickMarks(ctx);
-                if (this.showLables) {
+                if (this.showLabels) {
                     this.drawLabels(ctx);
                 }
             }
         }
         else if (this.showAxes) {
             this.drawAxes(ctx);
-            if (this.showLables) {
+            if (this.showLabels) {
                 this.drawTickMarks(ctx);
                 this.drawLabels(ctx);
             }
@@ -376,54 +358,68 @@ class GraphzappGrapher {
         ctx.lineWidth = 2;
         ctx.strokeStyle = this.curveColor;
 
-        var cur_x, cur_y, next_x, next_y;
-        var isCurDef, isNextDef, isCurVisible, isNextVisible;
+        var cur, next;
+        var isCurDef, isNextDef/*, isCurVisible, isNextVisible*/;
 
-        var lower = (-originY)*sfY;
-        var upper = (height-originY)*sfY;
-        var left = (-originX)*sfX;
-        var right = (width-originX)*sfX;
-        var isInWindow = function(x, y) {
-            var ret = 
-                left <= x &&
-                x <= right &&
-                lower <= y &&
-                y <= upper;
+        // var lower = (-originY)*sfY;
+        // var upper = (height-originY)*sfY;
+        // var left = (-originX)*sfX;
+        // var right = (width-originX)*sfX;
+        // var isInWindow = function(x, y) {
+        //     var ret = 
+        //         left <= x &&
+        //         x <= right &&
+        //         lower <= y &&
+        //         y <= upper;
 
-            return ret;
+        //     return ret;
+        // }
+
+        var tstart, tstop, tstep;
+
+        switch (eqn.mode) {
+            case Mode.functional:
+                tstart = -originX * sfX;
+                tstop = (width-originX) * sfX;
+                tstep = this.delta.x;
+                break;
+            case Mode.parametric:
+                tstart = this.eqn.tstart;
+                tstop = this.eqn.tstop;
+                tstep = this.delta.t;
+                break;
+            case Mode.polar:
+                tstart = this.eqn.tstart;
+                tstop = this.eqn.tstop;
+                tstep = this.delta.theta;
+                break;
         }
-
-        var tstart = this.eqn.tstart;
-        var tstop = this.eqn.tstop;
-        var tstep = this.delta.t;
+        //console.log(tstart, tstop, tstep);
 
         // get the current slider value
         var kk = this.slider.val;
 
         for(var tt = tstart; tt < tstop; tt += tstep) {
             if(tt > tstart) {
-                cur_x = next_x;
-                cur_y = next_y;
+                cur = next;
                 isCurDef = isNextDef;
-                isCurVisible = isNextVisible;
+                //isCurVisible = isNextVisible;
             } else {
-                cur_x = eqn.x(tt,kk);
-                cur_y = eqn.y(tt,kk);
-                isCurDef = !isNaN(cur_x) && !isNaN(cur_y);
-                isCurVisible = isInWindow(cur_x, cur_y);
+                cur = eqn.getXY(tt,kk);
+                isCurDef = !isNaN(cur.x) && !isNaN(cur.y);
+                //isCurVisible = isInWindow(cur_x, cur_y);
             }
 
-            next_x = eqn.x(tt+tstep,kk);
-            next_y = eqn.y(tt+tstep,kk);
-            isNextDef = !isNaN(next_x) && !isNaN(next_y);
-            isNextVisible = isInWindow(next_x, next_y);
+            next = eqn.getXY(tt,kk);
+            isNextDef = !isNaN(next.x) && !isNaN(next.y);
+            //isNextVisible = isInWindow(next_x, next_y);
 
             // if so, follow the curve
             if(isNextDef) {
                 if(isCurDef /*&& (isCurVisible || isNextVisible)*/) {
-                    ctx.lineTo(next_x/sfX, -next_y/sfY);
+                    ctx.lineTo(next.x/sfX, -next.y/sfY);
                 } else {
-                    ctx.moveTo(next_x/sfX, -next_y/sfY);
+                    ctx.moveTo(next.x/sfX, -next.y/sfY);
                 }
             }
         }
@@ -493,7 +489,7 @@ class GraphzappGrapher {
         this.computeUnit(this.scale);
         this.computeGrid(this.sf, this.unit);
         this.computeGridLocations(this.canvas, this.grid, this.origin);
-        this.computeDeltas(this.sf);
+        this.computeDeltas(this.sf, this.canvas);
     }
 }
 

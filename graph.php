@@ -15,9 +15,9 @@
 			<div class="mode_dropdown_wrapper">
 				<span class="small">Mode:</span>
 				<select id="mode_dropdown" name="mode" onchange="changeMode(this.value)">
-  					<option value="functional" <?php if ($mode == "functional"){echo "selected";} ?>>Functional</option>
-  					<option value="parametric" <?php if ($mode == "parametric"){echo "selected";}; ?>>Parametric</option>
-  					<option value="polar" <?php if ($mode == "polar"){echo "selected";}; ?>>Polar</option>
+  					<option value="functional" <?php if ($eqn['mode'] == "functional"){echo "selected";} ?>>Functional</option>
+  					<option value="parametric" <?php if ($eqn['mode'] == "parametric"){echo "selected";}; ?>>Parametric</option>
+  					<option value="polar" <?php if ($eqn['mode'] == "polar"){echo "selected";}; ?>>Polar</option>
 				</select>
 			</div>
 			<div id="changeable_form"></div>
@@ -33,11 +33,11 @@
 				<div id="k_range">
 					<div id="k_min_container">
 						<span class="small">min:</span>
-						<input id="kmin" class="small_input" type="text" name="k-min" value="<?php echo($input_kmin);?>">
+						<input id="kmin" class="small_input" type="text" name="k-min" value="<?php echo($k_range['min']);?>">
 					</div>
 					<div id="k_max_container">
 						<span class="small">max:</span>
-						<input id="kmax" class="small_input" type="text" name="k-max" value="<?php echo($input_kmax);?>">
+						<input id="kmax" class="small_input" type="text" name="k-max" value="<?php echo($k_range['max']);?>">
 					</div>
 					<!-- <input class="gray_gradient hover range" type="submit" value="Adjust Range" onclick="adjustRange()"> -->
 				</div>
@@ -76,18 +76,6 @@
     				<p class="small">Curve color:</p>
     				<?php generate_dropdown(3,$curvecolor,"changeCurveColor"); ?>
     				<input id="input3" type="hidden" name="curvecolor" value="<?php echo($curvecolor); ?>">
-    				<!-- <div class="colors_dropdown" id="dropdown3">
-    					<div class="selected" onclick="toggleDropdown(3)"><div class = "option blue" style="background-color: #4D6F96"></div><span>▼</span></div>
-    					<div class="options" style="display: none">
-    						<div onclick="changeCurveColor('black')"><div class = "option black hidden" style="background-color: #000000"></div></div>
-    						<div onclick="changeCurveColor('white')"><div class = "option white" style="background-color: #FFFFFF"></div></div>
-    						<div onclick="changeCurveColor('blue')"><div class = "option blue" style="background-color: #4D6F96"></div></div>
-    						<div onclick="changeCurveColor('red')"><div class = "option red" style="background-color: #CC0000"></div></div>
-    						<div onclick="changeCurveColor('green')"><div class = "option green" style="background-color: #1AFF1A"></div></div>
-    						<div onclick="changeCurveColor('purple')"><div class = "option purple" style="background-color: #660066"></div></div>
-    						<div onclick="changeCurveColor('gray')"><div class = "option gray" style="background-color: #999999"></div></div>
-    					</div>
-    				</div> -->
     			</div>
     			<div class="dropdown_wrapper">
     				<p class="small">Background color:</p>
