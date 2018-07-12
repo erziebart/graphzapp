@@ -9,7 +9,7 @@
 			"sqrt" => [1, "return Math.sqrt(a0);"],
 			"exp" => [1, "return Math.exp(a0);"],
 			"ln" => [1, "return Math.log(a0);"],
-			"log" => [2, "return Math.log(a1)/Math.log(a0);"],
+			"log" => [2, "Math.log(a1)/Math.log(a0);"],
 			"sin" => [1, "return Math.sin(a0);"],
 			"cos" => [1, "return Math.cos(a0);"],
 			"tan" => [1, "return Math.tan(a0);"],

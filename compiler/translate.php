@@ -147,7 +147,7 @@
 		}
 
 		input_range($eqn, "t_min", "t_max", 0, 360);
-		$eqn['t_range'] = array('min' => $eqn['t_min']*pi()/180, 'max' => $eqn['t_max']*pi()/180);
+		$eqn['t_range'] = array('min' => $eqn['t_min'], 'max' => $eqn['t_max']);
 	}
 
 	// initialize equation outputs

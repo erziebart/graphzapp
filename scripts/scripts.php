@@ -30,6 +30,8 @@
 	?>
 
 	// imported functions
+	var Trig = Object.freeze({'degrees':0, 'radians':1});
+	var trigMode = Trig.radians;
 	<?php
 		foreach ($imports as $fname => $val) {
 			$argc = $val[0];
@@ -39,7 +41,7 @@
 			$evals = "";
 			for ($i=0; $i < $argc; $i++) {
 				$params[] = "p".$i;
-				$evals .= "a".$i."=eval(t,k,p".$i.");";
+				$evals .= "a".$i."=((trigMode == Trig.radians)?1:Math.PI/180)*eval(t,k,p".$i.");";
 			}
 			printf("function %s(t,k,%s){%s%s}\n\t", $fname, implode(",", $params), $evals, $impl);
 		}
