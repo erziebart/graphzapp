@@ -124,6 +124,8 @@
 		}
 
 		$eqn['t_range'] = input_range("t-min", "t-max", -10, 10);
+		$eqn['t_min'] = $_GET['t-min'];
+		$eqn['t_max'] = $_GET['t-max'];
 	}
 
 	// creates a polar equation
@@ -151,9 +153,11 @@
 			}
 		}
 
-		$eqn['t_range'] = input_range("t-min", "t-max", 0, 2*pi());
-		// $eqn['t_range']['min'] *= pi()/180;
-		// $eqn['t_range']['max'] *= pi()/180;
+		$eqn['t_range'] = input_range("t-min", "t-max", 0, 360);
+		$eqn['t_min'] = $eqn['t_range']['min'];
+		$eqn['t_max'] = $eqn['t_range']['max'];
+		$eqn['t_range']['min'] *= pi()/180;
+		$eqn['t_range']['max'] *= pi()/180;
 	}
 
 
@@ -170,7 +174,7 @@
 	$eqn['x'] = $eqn['y'] = UNDEF;
 	$eqn['err_x'] = $eqn['err_y'] = 0;
 	$eqn['report_x'] = $eqn['report_y'] = NULL;
-	$eqn['input_x'] = $eqn['input_y'] = "";
+	$eqn['input_x'] = $eqn['input_y'] = $eqn['t_min'] = $eqn['t_max'] = "";
 	$eqn['t_range'] = ['min' => -10.0, 'max' => 10.0];
 
 	switch ($eqn['mode']) {
