@@ -383,24 +383,24 @@ class GraphzappGrapher {
                 tstart = -originX * sfX;
                 tstop = (width-originX) * sfX;
                 tstep = this.delta.x;
-                kk = this.slider.val;
                 break;
             case Mode.parametric:
                 trigMode = Trig.radians;
                 tstart = this.eqn.tstart;
                 tstop = this.eqn.tstop;
                 tstep = this.delta.t;
-                kk = this.slider.val;
                 break;
             case Mode.polar:
                 trigMode = Trig.degrees;
                 tstart = this.eqn.tstart;
                 tstop = this.eqn.tstop;
                 tstep = this.delta.theta;
-                kk = 180/Math.PI*this.slider.val;
                 break;
         }
         //console.log(tstart, tstop, tstep);
+
+        // values from sliders
+        var kk = this.slider.val;
 
         for(var tt = tstart; tt < tstop; tt += tstep) {
             if(tt > tstart) {

@@ -5,13 +5,13 @@
 	<?php  
 		switch ($eqn['mode']) {
 			case 'functional':
-				input_func($eqn, $imports);
+				input_func($eqn);
 				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
 				printf("var eqn = new Functional(y_eqn);\n\t");
 				break;
 
 			case 'parametric':
-				input_parametric($eqn, $imports);
+				input_parametric($eqn);
 				printf("var x_eqn = function(t,k){return %s;};\n\t", $eqn['x']);
 				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
 				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
@@ -20,10 +20,10 @@
 				break;
 
 			case 'polar':
-				input_polar($eqn, $imports);
-				printf("var r_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
-				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
-				printf("var t_stop = %s;\n\t", $eqn['t_range']['max']);
+				input_polar($eqn);
+				printf("var r_eqn = function(t,k){return %s;};\n\t", $eqn['r']);
+				printf("var t_start = %s;\n\t", $eqn['theta_range']['min']);
+				printf("var t_stop = %s;\n\t", $eqn['theta_range']['max']);
 				printf("var eqn = new Polar(r_eqn, t_start, t_stop);\n\t");
 				break;
 		}
@@ -33,6 +33,7 @@
 	var Trig = Object.freeze({'degrees':0, 'radians':1});
 	var trigMode = Trig.radians;
 	<?php
+		$imports = GraphzappImports::get();
 		foreach ($imports as $fname => $val) {
 			$argc = $val[0];
 			$impl = $val[1];
