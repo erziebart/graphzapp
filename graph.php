@@ -22,23 +22,25 @@
 				</select>
 			</div>
 			<div id="changeable_form"></div>
+		</form>
 		</div>
 		<div class="well" id="sliders">
+		<form id="slider_input" action='graph.php' method='get'>
 			<div class="line">
 			<div class="badge small">
 				k =
 				<div id="k_value"></div>
 			</div>
 			<div class="slider_container">
-				<input id="k_slider" class="slider" oninput="adjustValue()" type="range" min="0" max="1000" value="0">
+				<input id="k_slider" class="slider" oninput="adjustValue()" type="range" name="pos" min="0" max="1000" value="0">
 				<div id="k_range">
 					<div id="k_min_container">
 						<span class="small">min:</span>
-						<input id="kmin" class="small_input" type="text" name="k-min" value="<?php echo($k_range['min']);?>">
+						<input id="kmin" class="small_input" type="text" name="min" value="<?php echo($k_range['min']);?>">
 					</div>
 					<div id="k_max_container">
 						<span class="small">max:</span>
-						<input id="kmax" class="small_input" type="text" name="k-max" value="<?php echo($k_range['max']);?>">
+						<input id="kmax" class="small_input" type="text" name="max" value="<?php echo($k_range['max']);?>">
 					</div>
 					<!-- <input class="gray_gradient hover range" type="submit" value="Adjust Range" onclick="adjustRange()"> -->
 				</div>
@@ -49,6 +51,10 @@
 	</div>
 	<div class="center_col">
 		<input class="gradient center_button hover" id="go_button" type="button" value="▶" onclick="submitForms()">
+		<form id="submit" action="graph.php" method="get">
+			<input id="eqn_submit" type="hidden" name="eqn" value="">
+			<input id="slider_submit" type="hidden" name="slider" value="">
+		</form>
 	</div>
 	<div class="right_col">
 		<div class="well">

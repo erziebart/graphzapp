@@ -5,11 +5,13 @@
 	<?php  
 		switch ($eqn['mode']) {
 			case 'functional':
+				input_func($eqn, $imports);
 				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
 				printf("var eqn = new Functional(y_eqn);\n\t");
 				break;
 
 			case 'parametric':
+				input_parametric($eqn, $imports);
 				printf("var x_eqn = function(t,k){return %s;};\n\t", $eqn['x']);
 				printf("var y_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
 				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
@@ -18,6 +20,7 @@
 				break;
 
 			case 'polar':
+				input_polar($eqn, $imports);
 				printf("var r_eqn = function(t,k){return %s;};\n\t", $eqn['y']);
 				printf("var t_start = %s;\n\t", $eqn['t_range']['min']);
 				printf("var t_stop = %s;\n\t", $eqn['t_range']['max']);

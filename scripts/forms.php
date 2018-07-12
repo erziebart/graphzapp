@@ -21,7 +21,7 @@
 ?>
 
 function xInput(input, report) { return (
-	'<input type="text" name="x-value" class="equation_input large" value="' + input + '" onfocus="showTooltip(\'tooltip1\')" onfocusout="hideTooltip(\'tooltip1\')">' +
+	'<input type="text" name="input_x" class="equation_input large" value="' + input + '" onfocus="showTooltip(\'tooltip1\')" onfocusout="hideTooltip(\'tooltip1\')">' +
 	'<div class="tooltip_wrapper">' +
 		'<div class="tooltip_text" id="tooltip1">' +
 			report +
@@ -29,7 +29,7 @@ function xInput(input, report) { return (
 	'</div>');}
 
 function yInput(input, report) { return (
-	'<input type="text" name="y-value" class="equation_input large" value="' + input + '" onfocus="showTooltip(\'tooltip2\')" onfocusout="hideTooltip(\'tooltip2\')">' +
+	'<input type="text" name="input_y" class="equation_input large" value="' + input + '" onfocus="showTooltip(\'tooltip2\')" onfocusout="hideTooltip(\'tooltip2\')">' +
 	'<div class="tooltip_wrapper">' +
 		'<div class="tooltip_text" id="tooltip2">' +
 			report +
@@ -39,25 +39,38 @@ function yInput(input, report) { return (
 function tRange(min, max) { return (
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
-			'<span class="label">t: </span>' +
-			'<input id = "tmin"class="tmin large" type="text" name="t-min" value="' + min + '">' + 
+		// 	'<span class="label">t: </span>' +
+		// 	'<input id = "tmin"class="tmin large" type="text" name="t-min" value="' + min + '">' + 
+		// '</span>' +
+		// '<span id="t_max_container">' +
+		// 	'<span> to </span>' +
+		// 	'<input id = "tmax" class="tmax large " type="text" name="t-max" value="' + max + '">' +
+			'<span class="small">t from </span>' +
+			'<input id = "tmin"class="tmin small_input" type="text" name="t_min" value="' + min + '">' + 
 		'</span>' +
 		'<span id="t_max_container">' +
-			'<span> to </span>' +
-			'<input id = "tmax" class="tmax large " type="text" name="t-max" value="' + max + '">' +
+			'<span class="small"> to </span>' +
+			'<input id = "tmax" class="tmax small_input" type="text" name="t_max" value="' + max + '">' +
 		'</span>' +
 	'</div>');}
 
 function thetaRange(min, max) { return (
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
-			'<span class="label">t: </span>' +
-			'<input id = "tmin"class="tmin large" type="text" name="t-min" value="' + min + '">' + 
+		// 	'<span class="label">t: </span>' +
+		// 	'<input id = "tmin"class="tmin large" type="text" name="t-min" value="' + min + '">' + 
+		// '</span>' +
+		// '<span id="t_max_container">' +
+		// 	'<span> to </span>' +
+		// 	'<input id = "tmax" class="tmax large" type="text" name="t-max" value="' + max + '">' +
+		// 	'<span> deg </span>' +
+			'<span class="small">t from </span>' +
+			'<input id = "tmin"class="tmin small_input" type="text" name="t_min" value="' + min + '">' + 
 		'</span>' +
 		'<span id="t_max_container">' +
-			'<span> to </span>' +
-			'<input id = "tmax" class="tmax large" type="text" name="t-max" value="' + max + '">' +
-			'<span> deg </span>' +
+			'<span class="small"> to </span>' +
+			'<input id = "tmax" class="tmax small_input" type="text" name="t_max" value="' + max + '">' +
+			'<span class="small"> deg </span>' +
 		'</span>' +
 		
 	'</div>');}

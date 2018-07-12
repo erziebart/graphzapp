@@ -38,8 +38,27 @@ function init() {
 }
 
 // called to submit the forms
-submitForms = function() {
-    document.getElementById("eqn_input").submit();
+function submitForms() {
+    function formToJSON(elts) {
+        function reducer(obj, elt) {
+            obj[elt.name] = elt.value;
+            console.log(obj);
+            return obj;
+        }
+        return [].reduce.call(elts, reducer, {});
+    }
+
+    console.log('submitForms called');
+
+    var eqn = document.getElementById('eqn_input');
+    var eqn_json = JSON.stringify(formToJSON(eqn.elements));
+    document.getElementById('eqn_submit').value = eqn_json;
+
+    var slider = document.getElementById('slider_input');
+    var slider_json = JSON.stringify(formToJSON(slider.elements));
+    document.getElementById('slider_submit').value = slider_json;
+
+    document.getElementById("submit").submit();
     //document.getElementById("graph_options").submit();
 }
 
