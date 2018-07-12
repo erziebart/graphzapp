@@ -37,19 +37,17 @@ function init() {
     grapher.paint();
 }
 
+// convert an html form to json 
+function formToJSON(elts) {
+    function reducer(obj, elt) {
+        obj[elt.name] = elt.value;
+        return obj;
+    }
+    return [].reduce.call(elts, reducer, {});
+}
+
 // called to submit the forms
 function submitForms() {
-    function formToJSON(elts) {
-        function reducer(obj, elt) {
-            obj[elt.name] = elt.value;
-            console.log(obj);
-            return obj;
-        }
-        return [].reduce.call(elts, reducer, {});
-    }
-
-    console.log('submitForms called');
-
     var eqn = document.getElementById('eqn_input');
     var eqn_json = JSON.stringify(formToJSON(eqn.elements));
     document.getElementById('eqn_submit').value = eqn_json;

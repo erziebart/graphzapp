@@ -1,23 +1,15 @@
 <script>
 <?php 
-	printf("var y_func = '%s';\n", $eqn['mode'] == 'functional' ? $eqn['input_y'] : '""');
-	// printf("var y_func_err = %s;", $eqn['mode'] == 'functional' ? $eqn['err_y'] : '0');
-	// printf("var y_func_report = %s;", $eqn['mode'] == 'functional' ? $eqn['report_y'] : '""');
+	printf("var y_func = '%s';\n", $eqn['mode'] == 'functional' ? $eqn['input_y'] : '');
 
-	printf("var x_para = '%s';\n", $eqn['mode'] == 'parametric' ? $eqn['input_x'] : '""');
-	// printf("var x_para_err = %s;", $eqn['mode'] == 'parametric' ? $eqn['err_x'] : '0');
-	// printf("var x_para_report = %s;", $eqn['mode'] == 'parametric' ? $eqn['report_x'] : '""');
-	printf("var y_para = '%s';\n", $eqn['mode'] == 'parametric' ? $eqn['input_y'] : '""');
-	// printf("var y_para_err = %s;", $eqn['mode'] == 'parametric' ? $eqn['err_y'] : '0');
-	// printf("var y_para_report = %s;", $eqn['mode'] == 'parametric' ? $eqn['report_y'] : '""');
-	printf("var para_t_min = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_min'] : '-10.0');
-	printf("var para_t_max = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_max'] : '10.0');
+	printf("var x_para = '%s';\n", $eqn['mode'] == 'parametric' ? $eqn['input_x'] : '');
+	printf("var y_para = '%s';\n", $eqn['mode'] == 'parametric' ? $eqn['input_y'] : '');
+	printf("var para_t_min = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_min'] : -10.0);
+	printf("var para_t_max = %s;\n", $eqn['mode'] == 'parametric' ? $eqn['t_max'] : 10.0);
 
-	printf("var y_pol = '%s';\n", $eqn['mode'] == 'polar' ? $eqn['input_r'] : '""');
-	// printf("var y_pol_err = %s;", $eqn['mode'] == 'polar' ? $eqn['err_y'] : '0');
-	// printf("var y_pol_report = %s;", $eqn['mode'] == 'polar' ? $eqn['report_y'] : '""');
-	printf("var pol_t_min = %s;\n", $eqn['mode'] == 'polar' ? $eqn['theta_min'] : '0.0');
-	printf("var pol_t_max = %s;\n", $eqn['mode'] == 'polar' ? $eqn['theta_max'] : '360.0');
+	printf("var r_pol = '%s';\n", $eqn['mode'] == 'polar' ? $eqn['input_r'] : '');
+	printf("var pol_t_min = %s;\n", $eqn['mode'] == 'polar' ? $eqn['theta_min'] : 0.0);
+	printf("var pol_t_max = %s;\n", $eqn['mode'] == 'polar' ? $eqn['theta_max'] : 360.0);
 ?>
 
 function eqn1Input(name, input, report) { return (
@@ -40,11 +32,11 @@ function tRange(min, max) { return (
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
 			'<span class="small">t from </span>' +
-			'<input id = "tmin"class="tmin small_input" type="text" name="t_min" value="' + min + '">' + 
+			'<input id = "tmin"class="tmin small_input" type="text" name="t_min" value=' + min + '>' + 
 		'</span>' +
 		'<span id="t_max_container">' +
 			'<span class="small"> to </span>' +
-			'<input id = "tmax" class="tmax small_input" type="text" name="t_max" value="' + max + '">' +
+			'<input id = "tmax" class="tmax small_input" type="text" name="t_max" value=' + max + '>' +
 		'</span>' +
 	'</div>');}
 
@@ -52,11 +44,11 @@ function thetaRange(min, max) { return (
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
 			'<span class="small">t from </span>' +
-			'<input id = "tmin"class="tmin small_input" type="text" name="theta_min" value="' + min + '">' + 
+			'<input id = "tmin"class="tmin small_input" type="text" name="theta_min" value=' + min + '>' + 
 		'</span>' +
 		'<span id="t_max_container">' +
 			'<span class="small"> to </span>' +
-			'<input id = "tmax" class="tmax small_input" type="text" name="theta_max" value="' + max + '">' +
+			'<input id = "tmax" class="tmax small_input" type="text" name="theta_max" value=' + max + '>' +
 			'<span class="small"> deg </span>' +
 		'</span>' +
 		
@@ -87,26 +79,49 @@ function polarForm() { return (
 	'<div id="polar">' +
 		'<div class="line <?php if ($eqn['mode'] == 'polar' && $eqn['err'] != 0) {echo "tooltip";} ?>">' +
 			'<span>r(t) = </span>' +
-			eqn1Input("input_r", y_pol, "<?php echo(($eqn['mode'] == 'polar' && !is_null($eqn['report'])) ? $eqn['report']->get_reason() : '') ?>") + 
+			eqn1Input("input_r", r_pol, "<?php echo(($eqn['mode'] == 'polar' && !is_null($eqn['report'])) ? $eqn['report']->get_reason() : '') ?>") + 
 		'</div>' +
 		thetaRange(pol_t_min, pol_t_max) +
 	'</div>');}
 
-changeMode(document.getElementById('mode_dropdown').value);
+var curMode = document.getElementById('mode_dropdown').value;
+var newForm = getNewForm(curMode);
+document.getElementById('changeable_form').innerHTML = newForm;
 
-function changeMode(newMode){
-	var newForm;
+function getNewForm(newMode) {
+	// create the new form
 	if (newMode == 'functional') {
-		newForm = functionalForm();
+		return functionalForm();
 	}
 	else if (newMode == 'parametric') {
-		newForm = parametricForm();
+		return parametricForm();
 	}
 	else if (newMode == 'polar'){
-		newForm = polarForm();
+		return polarForm();
 	}
-	document.getElementById('changeable_form').innerHTML = newForm;
+}
+
+function changeMode(newMode) {
+	// get the equation form
+	var form = document.getElementById('eqn_input');
+	var curForm = formToJSON(form.elements);
+
+	// save changes on old form
+	if (curMode == 'functional') {
+		y_func = curForm['input_y'];
+	} else if (curMode == 'parametric') {
+		x_para = curForm['input_x'];
+		y_para = curForm['input_y'];
+		para_t_min = curForm['t_min'];
+		para_t_max = curForm['t_max'];
+	} else if (curMode == 'polar') {
+		r_pol = curForm['input_r'];
+		pol_t_min = curForm['theta_min'];
+		pol_t_max = curForm['theta_max'];
+	}
+
+	// put the new form in the document
+	document.getElementById('changeable_form').innerHTML = getNewForm(newMode);
+	curMode = newMode;
 }
 </script>
-
-

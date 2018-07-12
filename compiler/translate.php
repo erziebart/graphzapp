@@ -144,7 +144,8 @@
 	} else {
 		$eqn = array('mode' => 'functional');
 	}
-	$imports = array();
+	GraphzappImports::init();
+	//$imports = array();
 
 	// initialize slider outputs
 	if (isset($_GET['slider'])) {
