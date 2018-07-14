@@ -185,8 +185,12 @@ class GraphzappGrapher {
 
         ctx.translate(originX, originY);
 
+        //ctx.strokeStyle = this.axesColor;
+        //ctx.globalAlpha = 0.5;
         ctx.strokeStyle = this.gridColor;
         ctx.lineWidth = 1;
+
+        //ctx.beginPath();
 
         // horizontal grids
         var begin = grids.hor.begin * gridX;
@@ -205,12 +209,22 @@ class GraphzappGrapher {
         var end = grids.ver.end * gridY;
         var left = -originX;
         var right = width-originX;
+        ctx.strokeStyle = this.backgroundColor;
         for (var cur = begin; cur <= end; cur += gridY) {
             ctx.beginPath();
             ctx.moveTo(left, cur);
             ctx.lineTo(right, cur);
             ctx.stroke();
         }
+        ctx.strokeStyle = this.gridColor;
+        for (var cur = begin; cur <= end; cur += gridY) {
+            ctx.beginPath();
+            ctx.moveTo(left, cur);
+            ctx.lineTo(right, cur);
+            ctx.stroke();
+        }
+
+        //ctx.stroke();
 
         ctx.restore();
     }
