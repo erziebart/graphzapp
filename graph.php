@@ -32,7 +32,7 @@
 				<div id="k_value"></div>
 			</div>
 			<div class="slider_container">
-				<input id="k_slider" class="slider" oninput="adjustValue()" type="range" name="pos" min="0" max="1000" value="0">
+				<input id="k_slider" class="slider" oninput="adjustValue()" type="range" name="pos" min="0" max="1000" value="<?php echo($k_range['pos']) ?>">
 				<div id="k_range">
 					<div id="k_min_container">
 						<span class="small">min:</span>
@@ -54,6 +54,7 @@
 		<form id="submit" action="graph.php" method="get">
 			<input id="eqn_submit" type="hidden" name="eqn" value="">
 			<input id="slider_submit" type="hidden" name="slider" value="">
+			<input id="graph_submit" type="hidden" name="graph" value="">
 		</form>
 	</div>
 	<div class="right_col">
@@ -86,18 +87,18 @@
     			<div class="dropdowns_flex">
     			<div class="dropdown_wrapper">
     				<p class="small">Curve color:</p>
-    				<?php generate_dropdown(3,$curvecolor,"changeCurveColor"); ?>
-    				<input id="input3" type="hidden" name="curvecolor" value="<?php echo($curvecolor); ?>">
+    				<?php generate_dropdown(3,$options['curvecolor'],"changeCurveColor"); ?>
+    				<input id="input3" type="hidden" name="curvecolor" value="<?php echo($options['curvecolor']); ?>">
     			</div>
     			<div class="dropdown_wrapper">
     				<p class="small">Background color:</p>
-    				<?php generate_dropdown(1,$bgcolor,"changeBackground"); ?>
-    				<input id="input1" type="hidden" name="bgcolor" value="<?php echo($bgcolor); ?>">
+    				<?php generate_dropdown(1,$options['bgcolor'],"changeBackground"); ?>
+    				<input id="input1" type="hidden" name="bgcolor" value="<?php echo($options['bgcolor']); ?>">
     			</div>
     			<div class="dropdown_wrapper">
     				<p class="small">Axes color:</p>
-    				<?php generate_dropdown(2,$axescolor,"changeAxesColor"); ?>
-    				<input id="input2" type="hidden" name="axescolor" value="<?php echo($axescolor); ?>">
+    				<?php generate_dropdown(2,$options['axescolor'],"changeAxesColor"); ?>
+    				<input id="input2" type="hidden" name="axescolor" value="<?php echo($options['axescolor']); ?>">
     			</div>
     		</form>
     		</div>

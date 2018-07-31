@@ -40,7 +40,8 @@ function init() {
 // convert an html form to json 
 function formToJSON(elts) {
     function reducer(obj, elt) {
-        obj[elt.name] = elt.value;
+        if (elt.type == "checkbox") { obj[elt.name] = elt.checked; }
+        else { obj[elt.name] = elt.value; }
         return obj;
     }
     return [].reduce.call(elts, reducer, {});
@@ -56,8 +57,11 @@ function submitForms() {
     var slider_json = JSON.stringify(formToJSON(slider.elements));
     document.getElementById('slider_submit').value = slider_json;
 
+    var options = document.getElementById('graph_options');
+    var options_json = JSON.stringify(formToJSON(options.elements));
+    document.getElementById('graph_submit').value = options_json;
+
     document.getElementById("submit").submit();
-    //document.getElementById("graph_options").submit();
 }
 
 //Updates kmin and kmax when user hits 'update range'
@@ -197,12 +201,3 @@ function toOrigin() {
     grapher.toOrigin();
     grapher.paint();
 }
-
-/*function changeMode(newMode) {
-    var allForms = document.getElementById('eqn_input');
-    console.log(allForms);
-    var oldForm = allForms.getElementsByClassName('active_form')[0];
-    var newForm = document.getElementById(newMode);
-    oldForm.classList.toggle('active_form');
-    newForm.classList.toggle('active_form');
-}*/

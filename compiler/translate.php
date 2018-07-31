@@ -145,7 +145,6 @@
 		$eqn = array('mode' => 'functional');
 	}
 	GraphzappImports::init();
-	//$imports = array();
 
 	// initialize slider outputs
 	if (isset($_GET['slider'])) {
@@ -153,5 +152,13 @@
 		input_range($k_range, "min", "max", -10, 10);
 	} else {
 		$k_range = array("min" => -10, "max" => 10);
+	}
+
+	// initialize graph options
+	if (isset($_GET['graph'])) {
+		$options = json_decode($_GET['graph'], true, 3);
+	} else {
+		$options = array('grids' => true, 'axes' => true, 'labels' => true,
+						'curvecolor' => blue, 'bgcolor' => white, 'axescolor' => black);
 	}
 ?>
