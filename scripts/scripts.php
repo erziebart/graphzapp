@@ -70,31 +70,16 @@
 	    return NaN;
 	}
 
-	// graph options -- still needs review and work!
-	if (<?php echo (isset($_GET['options']) ? 'true': 'false'); ?>) {
-		// should be something else here
-		var options = {
-			grid: true,
-			axes: true,
-			numbers: true,
-			curveColor: "#4D6F96",
-			gridColor: "#FFFFFF",
-			axesColor: "#E9E9E9",
-			backgroundColor: "#000000"
-		};
-	} else {
-		var options = {
-			grid: true,
-			axes: true,
-			numbers: true,
-			curveColor: "<?php echo($colors[$curvecolor][0]); ?>",
-			gridColor: "<?php echo($colors[$axescolor][1]); ?>",
-			axesColor: "<?php echo($colors[$axescolor][0]); ?>",
-			backgroundColor: "<?php echo($colors[$bgcolor][0]); ?>"
-		};
-	}
+	var options = {
+		grid: <?php echo($options['grids'] ? 'true' : 'false'); ?>,
+		axes: <?php echo($options['axes'] ? 'true' : 'false'); ?>,
+		numbers: <?php echo($options['labels'] ? 'true' : 'false'); ?>,
+		curveColor: "<?php echo($colors[$options['curvecolor']][0]); ?>",
+		gridColor: "<?php echo($colors[$options['axescolor']][1]); ?>",
+		axesColor: "<?php echo($colors[$options['axescolor']][0]); ?>",
+		backgroundColor: "<?php echo($colors[$options['bgcolor']][0]); ?>"
+	};
 	
-
 </script>
 <script type="text/javascript" src="scripts/slider.js"></script>
 <script type="text/javascript" src="scripts/grapher.js"></script>

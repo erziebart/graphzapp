@@ -59,24 +59,19 @@
 	//     'yellow' => ['#ffff00ff', '#ffff88']
 	// );
 
-
-	$bgcolor = isset($_POST['bgcolor']) ? $_POST['bgcolor'] : 'white';
-	$axescolor = isset($_POST['axescolor']) ? $_POST['axescolor'] : 'black';
-	$curvecolor = isset($_POST['curvecolor']) ? $_POST['curvecolor'] : 'blue';
-
 	function generate_dropdown($id, $selected, $onclick) {
 		global $colors;
-		$options = "";
+		$drop_options = "";
 		foreach ($colors as $name => $codes) {
 			$classes = $selected === $name ? "option $name hidden" : "option $name";
 			$display = $codes[0];
-			$options .= "<div onclick=\"$onclick('$name')\"><div class = \"$classes\" style=\"background-color: $display\"></div></div>";
+			$drop_options .= "<div onclick=\"$onclick('$name')\"><div class = \"$classes\" style=\"background-color: $display\"></div></div>";
 		}
 
 		$s_code = $colors[$selected][0];
 		$current = "<div class=\"selected\" onclick=\"toggleDropdown($id)\"><div class = \"option $selected\" style=\"background-color: $s_code\"></div><span>▼</span></div>";
 
-		$dropdown = "<div class=\"colors_dropdown\" id=\"dropdown$id\">".$current."<div class=\"options\" style=\"display: none\">".$options."</div></div>";
+		$dropdown = "<div class=\"colors_dropdown\" id=\"dropdown$id\">".$current."<div class=\"options\" style=\"display: none\">".$drop_options."</div></div>";
 
 		echo ($dropdown);
 	}
