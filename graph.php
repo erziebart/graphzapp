@@ -14,8 +14,8 @@
 		<div class="well">
 		<form id="eqn_input" action="graph.php" method="get">
 			<div class="mode_dropdown_wrapper">
-				<span class="small">Mode:</span>
-				<select id="mode_dropdown" name="mode" onchange="changeMode(this.value)">
+				<span class="label"></span>
+				<select id="mode_dropdown" class="large" name="mode" onchange="changeMode(this.value)">
   					<option value="functional" <?php if ($eqn['mode'] == "functional"){echo "selected";} ?>>Functional</option>
   					<option value="parametric" <?php if ($eqn['mode'] == "parametric"){echo "selected";}; ?>>Parametric</option>
   					<option value="polar" <?php if ($eqn['mode'] == "polar"){echo "selected";}; ?>>Polar</option>

@@ -39,25 +39,25 @@ function yInput(input, report) { return (
 function tRange(min, max) { return (
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
-			'<span class="small">t from </span>' +
-			'<input id = "tmin"class="tmin small_input" type="text" name="t-min" value="' + min + '">' + 
+			'<span class="label">t: </span>' +
+			'<input id = "tmin"class="tmin large" type="text" name="t-min" value="' + min + '">' + 
 		'</span>' +
 		'<span id="t_max_container">' +
-			'<span class="small"> to </span>' +
-			'<input id = "tmax" class="tmax small_input" type="text" name="t-max" value="' + max + '">' +
+			'<span> to </span>' +
+			'<input id = "tmax" class="tmax large " type="text" name="t-max" value="' + max + '">' +
 		'</span>' +
 	'</div>');}
 
 function thetaRange(min, max) { return (
 	'<div class="t_range">' +
 		'<span class="t_min_container">' +
-			'<span class="small">t from </span>' +
-			'<input id = "tmin"class="tmin small_input" type="text" name="t-min" value="' + min + '">' + 
+			'<span class="label">t: </span>' +
+			'<input id = "tmin"class="tmin large" type="text" name="t-min" value="' + min + '">' + 
 		'</span>' +
 		'<span id="t_max_container">' +
-			'<span class="small"> to </span>' +
-			'<input id = "tmax" class="tmax small_input" type="text" name="t-max" value="' + max + '">' +
-			'<span class="small"> deg </span>' +
+			'<span> to </span>' +
+			'<input id = "tmax" class="tmax large" type="text" name="t-max" value="' + max + '">' +
+			'<span> deg </span>' +
 		'</span>' +
 		
 	'</div>');}
@@ -65,7 +65,7 @@ function thetaRange(min, max) { return (
 function functionalForm() { return (
 	'<div id="functional">' +
 		'<div class="line <?php if ($eqn['mode'] == 'functional' && $eqn['err_y'] != 0) {echo "tooltip";} ?>">' +
-			'<span>y = </span>' + 
+			'<span class="label">y = </span>' + 
 			yInput(y_func, "<?php echo(($eqn['mode'] == 'functional' && !is_null($eqn['report_y'])) ? $eqn['report_y']->get_reason() : '') ?>") + 
 		'</div>' + 
 	'</div>');}
@@ -73,11 +73,11 @@ function functionalForm() { return (
 function parametricForm() { return (
 	'<div id="parametric">' +
 		'<div class="line <?php if ($eqn['mode'] == 'parametric' && $eqn['err_x'] != 0) {echo "tooltip";} ?>">' +
-			'<span>x(t) = </span>' +
+			'<span class="label">x(t) = </span>' +
 			xInput(x_para, "<?php echo(($eqn['mode'] == 'parametric' && !is_null($eqn['report_x'])) ? $eqn['report_x']->get_reason() : '') ?>") + 
 		'</div>' + 
 		'<div class="line <?php if ($eqn['mode'] == 'parametric' && $eqn['err_y'] != 0) {echo "tooltip";} ?>">' + 
-			'<span>y(t) = </span>' + 
+			'<span class="label">y(t) = </span>' + 
 			yInput(y_para, "<?php echo(($eqn['mode'] == 'parametric' && !is_null($eqn['report_y'])) ? $eqn['report_y']->get_reason() : '') ?>") + 
 		'</div>' + 
 		tRange(para_t_min, para_t_max) +
@@ -86,7 +86,7 @@ function parametricForm() { return (
 function polarForm() { return (			
 	'<div id="polar">' +
 		'<div class="line <?php if ($eqn['mode'] == 'polar' && $eqn['err_y'] != 0) {echo "tooltip";} ?>">' +
-			'<span>r(t) = </span>' +
+			'<span class="label">r(t) = </span>' +
 			yInput(y_pol, "<?php echo(($eqn['mode'] == 'polar' && !is_null($eqn['report_y'])) ? $eqn['report_y']->get_reason() : '') ?>") + 
 		'</div>' +
 		thetaRange(pol_t_min, pol_t_max) +

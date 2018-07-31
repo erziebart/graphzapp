@@ -14,10 +14,13 @@ form{
 	margin: 18px 0;
 }
 
-
 input {
 	color: #3d3d3d;
 	border: 1px solid rgb(220, 220, 220);
+	border-radius: 3px;
+}
+
+select {
 	border-radius: 3px;
 }
 
@@ -36,8 +39,12 @@ input.equation_input{
 input.large{
 	height: 30px;
 	font-size: 18px;
-	font-size: 18px;
-	padding: 5px;
+	padding: 0px 5px 0px 5px;
+}
+
+select.large {
+	height: 30px;
+	font-size: 14px;
 }
 
 input.small_input{
@@ -90,8 +97,9 @@ img {
 	padding: 0px 25px;
 }
 #header h1{
+	font-size: 32px;
 	display: inline-block;
-	margin: 25px 25px;
+	margin: 17px 25px;
 }
 
 #header .navbar {
@@ -99,7 +107,7 @@ img {
 	float: right;
 	font-size: 20px;
 	margin: 0;
-	height: 91px;
+	height: 71px;
 	padding: 0px 25px;
 }
 
@@ -130,7 +138,7 @@ img {
 	display: flex;
 	justify-content: center;
 	padding: 20px 0px;
-	margin-bottom: 100px;
+	margin-bottom: 200px;
 }
 
 .gradient {
@@ -388,6 +396,9 @@ img {
 
 .tmin, .tmax{
 	width: 35px;
+	margin-left: 3px;
+	margin-right: 3px;
+	height: 25px !important;
 }
 
 .mode_dropdown_wrapper {
@@ -395,10 +406,7 @@ img {
 }
 
 #mode_dropdown {
-	height: 30px;
-	color: #3d3d3d;
 	border: 1px solid rgb(220, 220, 220);
-	border-radius: 3px;
 }
 
 #mode_dropdown:focus{
