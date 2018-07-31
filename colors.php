@@ -23,29 +23,29 @@
 	// );
 
 	// neon
-	$colors = array(
-		'black' => ['#000000FF', '#00000022'], 
-		'white' => ['#FFFFFFFF', '#FFFFFF88'],
-	    'blue' => ['#04d9ffff', '#04d9ff88'],
-	    'green' => ['#0cff0cff', '#0cff0c88'],
-	    'pink' => ['#fe019aff', '#fe019a88'],
-	    'purple' => ['#bc13feff', '#bc13fe88'],
-	    'red' => ['#ff073aff', '#ff073a88'],
-	    'yellow' => ['#cfff04ff', '#cfff0499']
-	);
-
-	// pastel
 	// $colors = array(
 	// 	'black' => ['#000000FF', '#00000022'], 
 	// 	'white' => ['#FFFFFFFF', '#FFFFFF88'],
-	//     'blue' => ['#a2bffeff', '#a2bffe99'],
-	//     'green' => ['#b0ff9dff', '#b0ff9d99'],
-	//     'orange' => ['#ff964fff', '#ff964f99'],
-	//     'pink' => ['#ffbacdff', '#ffbacd99'],
-	//     'purple' => ['#caa0ffff', '#caa0ff99'],
-	//     'red' => ['#db5856ff', '#db585699'],
-	//     'yellow' => ['#fffe71ff', '#fffe7199']
+	//     'blue' => ['#04d9ffff', '#04d9ff88'],
+	//     'green' => ['#0cff0cff', '#0cff0c88'],
+	//     'pink' => ['#fe019aff', '#fe019a88'],
+	//     'purple' => ['#bc13feff', '#bc13fe88'],
+	//     'red' => ['#ff073aff', '#ff073a88'],
+	//     'yellow' => ['#cfff04ff', '#cfff0499']
 	// );
+
+	// pastel
+	$colors = array(
+		'black' => ['#000000FF', '#00000022'], 
+		'white' => ['#FFFFFFFF', '#FFFFFF88'],
+	    'blue' => ['#a2bffeff', '#a2bffe99'],
+	    'green' => ['#b0ff9dff', '#b0ff9d99'],
+	    'orange' => ['#ff964fff', '#ff964f99'],
+	    'pink' => ['#ffbacdff', '#ffbacd99'],
+	    'purple' => ['#caa0ffff', '#caa0ff99'],
+	    'red' => ['#db5856ff', '#db585699'],
+	    'yellow' => ['#fffe71ff', '#fffe7199']
+	);
 
 	// digital
 	// $colors = array(
