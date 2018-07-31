@@ -117,7 +117,7 @@ class GraphzappGrapher {
         var dx = getDelta(sf.x);
         var dy = getDelta(sf.y);
         var dt = Math.min(dx, dy);
-        var dtheta = getDelta(2*Math.sqrt(2)/(canvas.width + canvas.height));
+        var dtheta = 180/Math.PI*getDelta(2*Math.sqrt(2)/(canvas.width + canvas.height));
         this.delta = {
             x: dx,
             y: dy,
@@ -375,20 +375,23 @@ class GraphzappGrapher {
         //     return ret;
         // }
 
-        var tstart, tstop, tstep;
+        var tstart, tstop, tstep, kk;
 
         switch (eqn.mode) {
             case Mode.functional:
+                trigMode = Trig.radians;
                 tstart = -originX * sfX;
                 tstop = (width-originX) * sfX;
                 tstep = this.delta.x;
                 break;
             case Mode.parametric:
+                trigMode = Trig.radians;
                 tstart = this.eqn.tstart;
                 tstop = this.eqn.tstop;
                 tstep = this.delta.t;
                 break;
             case Mode.polar:
+                trigMode = Trig.degrees;
                 tstart = this.eqn.tstart;
                 tstop = this.eqn.tstop;
                 tstep = this.delta.theta;
@@ -396,7 +399,7 @@ class GraphzappGrapher {
         }
         //console.log(tstart, tstop, tstep);
 
-        // get the current slider value
+        // values from sliders
         var kk = this.slider.val;
 
         for(var tt = tstart; tt < tstop; tt += tstep) {

@@ -40,156 +40,118 @@
 	}
 
 	// inputs a range using min and max values in the form
-	function input_range($min_name, $max_name, $default_min, $default_max) {
+	function input_range(&$array, $min_name, $max_name, $default_min, $default_max) {
 		$default_range = $default_max - $default_min;
-		if(isset($_GET[$min_name],$_GET[$max_name])) {
-			// get t values
-			$input_min = $_GET[$min_name];
-			$input_max = $_GET[$max_name];
-
+		if(isset($array[$min_name],$array[$max_name])) {
 			// make sure both are numbers
-			if (is_numeric($input_min) || is_numeric($input_max)) {
-				if(!is_numeric($input_min)) { $input_min = ((float) $input_max) - $default_range; }
-				if(!is_numeric($input_max)) { $input_max = ((float) $input_min) + $default_range; }
+			if (is_numeric($array[$min_name]) || is_numeric($array[$max_name])) {
+				if(!is_numeric($array[$min_name])) { $array[$min_name] = ((float) $array[$max_name]) - $default_range; }
+				if(!is_numeric($array[$max_name])) { $array[$max_name] = ((float) $array[$min_name]) + $default_range; }
 			} else {
-				$input_min = $default_min;
-				$input_max = $default_max;
+				$array[$min_name] = $default_min;
+				$array[$max_name] = $default_max;
 			}
 
 		} else {
-			$input_min = $default_min;
-			$input_max = $default_max;
+			$array[$min_name] = $default_min;
+			$array[$max_name] = $default_max;
 		}
-
-		return array('min' => $input_min, 'max' => $input_max);
 	}
 
 	// creates a functional equation 
-	function input_func($y_name, &$imports, &$eqn) {
-		if(isset($_GET[$y_name])) {
-			// get user inputs
-			$eqn['input_y'] = $_GET[$y_name];
+	function input_func(&$eqn) {
+		if(isset($eqn['input_y']) && $eqn['input_y']) {
+			// initialize the lexer
+			GraphzappLexer::init("x",["k"]);
 
-			// check that input was enterred
-			if ($eqn['input_y']) {
+			// translate
+			$eqn['err'] = translate($eqn['input_y'], $eqn['report'], $res);
 
-				// initialize the static classes
-				GraphzappLexer::init("x",["k"]);
-				GraphzappImports::init();
-
-				// translate
-				$eqn['err_y'] = translate($eqn['input_y'], $eqn['report_y'], $res);
-
-				if (!$eqn['err_y']) {
-					// get imports
-					$imports = array_merge($imports, GraphzappImports::get());
-
-					// set equation
-					$eqn['y'] = $res;
-				}
+			if (!$eqn['err']) {
+				// set equation
+				$eqn['y'] = $res;
 			}
+		} else {
+			// default values
+			$eqn['y'] = UNDEF;
+			$eqn['err'] = 0;
+			$eqn['report'] = NULL;
+			$eqn['input_y'] = "";
 		}
 	}
 
 	// creates a parametric equation
-	function input_parametric($x_name, $y_name, &$imports, &$eqn) {
-		if(isset($_GET[$x_name],$_GET[$y_name])) {
-			// get user inputs
-			$eqn['input_x'] = $_GET[$x_name];
-			$eqn['input_y'] = $_GET[$y_name];
-
+	function input_parametric(&$eqn) {
+		if(isset($eqn['input_x'],$eqn['input_y'])) {
 			// check that input was enterred
 			if ($eqn['input_x'] || $eqn['input_y']) {
 				// fill in other empty input as appropriate
 				if (!$eqn['input_x']) {$eqn['input_x'] = "t";}
 				if (!$eqn['input_y']) {$eqn['input_y'] = "t";}
 
-				// initialize the static classes
+				// initialize the lexer
 				GraphzappLexer::init("t",["k"]);
-				GraphzappImports::init();
 
 				// translate both
 				$eqn['err_x'] = translate($eqn['input_x'], $eqn['report_x'], $x_res);
 				$eqn['err_y'] = translate($eqn['input_y'], $eqn['report_y'], $y_res);
 
 				if (!$eqn['err_x'] && !$eqn['err_y']) {
-					// get imports
-					$imports = GraphzappImports::get();
-
 					// set equations
 					$eqn['x'] = $x_res;
 					$eqn['y'] = $y_res;
 				}
+			} else {
+				// default values
+				$eqn['x'] = $eqn['y'] = UNDEF;
+				$eqn['err_x'] = $eqn['err_y'] = 0;
+				$eqn['report_x'] = $eqn['report_y'] = NULL;
 			}
+		} else {
+			// default values
+			$eqn['input_x'] = $eqn['input_y'] = "";
+			$eqn['x'] = $eqn['y'] = UNDEF;
+			$eqn['err_x'] = $eqn['err_y'] = 0;
+			$eqn['report_x'] = $eqn['report_y'] = NULL;
 		}
 
-		$eqn['t_range'] = input_range("t-min", "t-max", -10, 10);
-		$eqn['t_min'] = $_GET['t-min'];
-		$eqn['t_max'] = $_GET['t-max'];
+		input_range($eqn, "t_min", "t_max", -10, 10);
+		$eqn['t_range'] = array('min' => $eqn['t_min'], 'max' => $eqn['t_max']);
 	}
 
 	// creates a polar equation
-	function input_polar($r_name, &$imports, &$eqn) {
-		if(isset($_GET[$r_name])) {
-			// get user input
-			$eqn['input_y'] = $_GET[$r_name];
+	function input_polar(&$eqn) {
+		if(isset($eqn['input_r']) && $eqn['input_r']) {
+			// initialize the lexer
+			GraphzappLexer::init("t",["k"]);
 
-			// check that input was enterred
-			if ($eqn['input_y']) {
-				// initialize the static classes
-				GraphzappLexer::init("t",["k"]);
-				GraphzappImports::init();
+			// translate
+			$eqn['err'] = translate($eqn['input_r'], $eqn['report'], $r_res);
 
-				// translate
-				$eqn['err_y'] = translate($eqn['input_y'], $eqn['report_y'], $y_res);
-
-				if (!$eqn['err_y']) {
-					// get imports
-					$imports = GraphzappImports::get();
-
-					// set equations
-					$eqn['y'] = $y_res;
-				}
+			if (!$eqn['err']) {
+				// set equations
+				$eqn['r'] = $r_res;
 			}
 		}
 
-		$eqn['t_range'] = input_range("t-min", "t-max", 0, 360);
-		$eqn['t_min'] = $eqn['t_range']['min'];
-		$eqn['t_max'] = $eqn['t_range']['max'];
-		$eqn['t_range']['min'] *= pi()/180;
-		$eqn['t_range']['max'] *= pi()/180;
+		input_range($eqn, "theta_min", "theta_max", 0, 360);
+		$eqn['theta_range'] = array('min' => $eqn['theta_min'], 'max' => $eqn['theta_max']);
 	}
 
-
-	// initialize equation
-	$eqn = array();
-	if (isset($_GET['mode'])) {
-		$mode = $eqn['mode'] = $_GET['mode'];
+	// initialize equation outputs
+	if (isset($_GET['eqn'])) {
+		$eqn = json_decode($_GET['eqn'], true, 3);
 	} else {
-		$mode = $eqn['mode'] = 'functional';
+		$eqn = array('mode' => 'functional');
 	}
+	GraphzappImports::init();
+	//$imports = array();
 
-	// initialize outputs
-	$imports = array();
-	$eqn['x'] = $eqn['y'] = UNDEF;
-	$eqn['err_x'] = $eqn['err_y'] = 0;
-	$eqn['report_x'] = $eqn['report_y'] = NULL;
-	$eqn['input_x'] = $eqn['input_y'] = $eqn['t_min'] = $eqn['t_max'] = "";
-	$eqn['t_range'] = ['min' => -10.0, 'max' => 10.0];
-
-	switch ($eqn['mode']) {
-		case 'functional':
-			input_func('y-value', $imports, $eqn);
-			break;
-
-		case 'parametric':
-			input_parametric('x-value', 'y-value', $imports, $eqn);
-			break;
-
-		case 'polar':
-			input_polar('y-value', $imports, $eqn);
-			break;
+	// initialize slider outputs
+	if (isset($_GET['slider'])) {
+		$k_range = json_decode($_GET['slider'], true, 3);
+		input_range($k_range, "min", "max", -10, 10);
+	} else {
+		$k_range = array("min" => -10, "max" => 10);
 	}
-
-	$k_range = input_range("k-min", "k-max", -10, 10);
 ?>

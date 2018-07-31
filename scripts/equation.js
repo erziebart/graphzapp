@@ -48,5 +48,5 @@ function Polar(r_eqn, t_start, t_stop) {
 Polar.prototype = Object.create(Equation.prototype);
 
 Polar.prototype.getXY = function(tt, kk) {
-	return {x:this.r(tt, kk)*Math.cos(tt), y:this.r(tt, kk)*Math.sin(tt)};
+	return {x:this.r(tt, kk)*Math.cos(tt*Math.PI/180), y:this.r(tt, kk)*Math.sin(tt*Math.PI/180)};
 }

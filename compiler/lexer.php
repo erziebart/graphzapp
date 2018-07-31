@@ -60,12 +60,12 @@
 				),
 				array(
 					'$var',
-					$indp,
+					$indp."(?!\w)",
 					"g_t"
 				),
 				array(
 					'$var',
-					$regex,
+					$regex."(?!\w)",
 					"g_generic"
 				),
 				array(
