@@ -16,6 +16,12 @@ Opera: function() { return navigator.userAgent.match(/Opera Mini/i); },
 Windows: function() { return navigator.userAgent.match(/IEMobile/i); }, 
 any: function() {  (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
 
+isMobile = true;
+
+if (isMobile) {
+	document.getElementsByClassName('graph_options')[0].classList.add('locked');
+}
+
 
 //Sets the arrow of the go button to point down if window is narrow enough that the mobile layout is used.
 function adjustForResize(){

@@ -501,7 +501,7 @@ img {
 	overflow: hidden;
 }
 
-.graph_options:hover {
+.graph_options:hover, .graph_options.locked{
 	height: 140px;
 }
 
