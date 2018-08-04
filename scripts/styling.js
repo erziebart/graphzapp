@@ -9,16 +9,15 @@ document.addEventListener('click', function(event){
 
 //Taken from https://www.mattcromwell.com/detecting-mobile-devices-javascript/
 var isMobile = { 
-Android: function() { return navigator.userAgent.match(/Android/i); }, 
-BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); }, 
-iOS: function() { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, 
-Opera: function() { return navigator.userAgent.match(/Opera Mini/i); }, 
-Windows: function() { return navigator.userAgent.match(/IEMobile/i); }, 
-any: function() {  (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
+	Android: function() { return navigator.userAgent.match(/Android/i); }, 
+	BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); }, 
+	iOS: function() { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, 
+	Opera: function() { return navigator.userAgent.match(/Opera Mini/i); }, 
+	Windows: function() {return navigator.userAgent.match(/IEMobile/i);},
+	any: function() { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } 
+};
 
-isMobile = true;
-
-if (isMobile) {
+if (isMobile.any()) {
 	document.getElementsByClassName('graph_options')[0].classList.add('locked');
 }
 
